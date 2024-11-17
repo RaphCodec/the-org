@@ -3,6 +3,12 @@ var index = 0;
       var actNdCent = 0;
 
 
+// This toggles the collabsible sections of the sidebar
+      function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.classList.toggle('hidden');
+      }
+
 function filterChart(e) {
     // Get input value
     const value = e.srcElement.value;
@@ -53,5 +59,10 @@ function rotateChart() {
 
 function compactChart() {
     chart.compact(!!(compact++%2)).render().fit()
+  }
+
+function clearHighlights() {
+    chart.clearHighlighting();
+    currentlySelected = [];
   }
 

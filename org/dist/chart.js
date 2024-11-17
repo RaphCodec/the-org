@@ -1,4 +1,5 @@
 let chart;
+let currentlySelected = []; //stores ID's of clicked nodes
 
 d3.csv(
   'https://raw.githubusercontent.com/bumbeishvili/sample-data/main/data-oracle.csv'
@@ -36,6 +37,62 @@ d3.csv(
                   </div>
                           `;
     })
+    .nodeEnter(function (node) {
+      d3.select(this).call(
+        d3
+          .drag()
+          .filter(function (x, node) {
+            return dragEnabled && this.classList.contains('draggable');
+          })
+          .on('start', function (d, node) {
+            onDragStart(this, d, node);
+          })
+          .on('drag', function (dragEvent, node) {
+            onDrag(this, dragEvent);
+          })
+          .on('end', function (d) {
+            onDragEnd(this, d);
+          })
+      );
+    })
+    .nodeUpdate(function (d) {
+      if (d.id === '102' || d.id === '120' || d.id === '124') {
+        d3.select(this).classed('droppable', false);
+      } else {
+        d3.select(this).classed('droppable', true);
+      }
+
+      if (d.id === '101') {
+        d3.select(this).classed('draggable', false);
+      } else {
+        d3.select(this).classed('draggable', true);
+      }
+    })
+    // .linkUpdate(function (d, i, arr) {
+    //   d3.select(this)
+    //     .attr('stroke', (d) =>
+    //       d.data._upToTheRootHighlighted ? '#E27396' : '#000000'
+    //     )
+    //     .attr('stroke-width', (d) =>
+    //       d.data._upToTheRootHighlighted ? 5 : 3
+    //     );
+
+    //   if (d.data._upToTheRootHighlighted) {
+    //     d3.select(this).raise();
+    //   }
+    // })
+    .onNodeClick( function(d) {
+      d.data._highlighted = !d.data._highlighted;
+      chart.updateNodesState();
+      if (d.data._highlighted === true) {
+        currentlySelected.push(d.id)
+        console.log(currentlySelected)
+      }
+      else {
+        currentlySelected.pop(d.id)
+      }
+    })
+    
     .container('.chart-container')
     .data(data)
     .render();
