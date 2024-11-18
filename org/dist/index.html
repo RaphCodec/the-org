@@ -139,10 +139,10 @@
         <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" disabled onclick="redo()">
           <i class="fas fa-solid fa-arrow-right"></i>
         </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" onclick="disableDrag()">
+        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" onclick="toggleSection('Reogranize');disableDrag()">
           <i class="fas fa-check"></i>
         </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" onclick="cancelDrag()">
+        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" onclick="toggleSection('Reogranize');cancelDrag()">
           <i class="fas fa-solid fa-times"></i>
         </button>
           </div>
@@ -181,40 +181,34 @@
 
       <div class="chart-container mt-24 w-full"></div>
 
-      <button id="enableDragButton" onclick="enableDrag()">Organize</button>
-<div id="dragActions" class="hide">
-  <button id="finishDrag" onclick="disableDrag()">Done</button>
-  <button id="undoButton" disabled onclick="undo()">Undo</button>
-  <button id="redoButton" disabled onclick="redo()">Redo</button>
-  <button id="cancelDrag" onclick="cancelDrag()">Cancel</button>
-</div>
+<style type="text/css">
+  .hide {
+    display: none;
+  }
 
-      <style type="text/css">
-        .hide {
-          display: none;
-        }
-      
-        .drag-enabled:not(.dragging-active) .node.draggable {
-          stroke: grey;
-          stroke-width: 3px;
-          stroke-dasharray: 2px;
-        }
-      
-        .drag-enabled.dragging-active .droppable {
-          stroke: green;
-          stroke-width: 3px;
-          stroke-dasharray: 5px;
-        }
-      
-        .node.dragging {
-          stroke-dasharray: 0 !important;
-          stroke-width: 0 !important;
-        }
-      
-        .node.dragging .content-container {
-          background-color: #ffffff;
-        }
-      </style>
+  .drag-enabled:not(.dragging-active) .node.draggable {
+    stroke: grey;
+    stroke-width: 3px;
+    stroke-dasharray: 2px;
+  }
+
+  .drag-enabled.dragging-active .droppable {
+    stroke: green;
+    stroke-width: 3px;
+    stroke-dasharray: 5px;
+  }
+
+  .node.dragging {
+    stroke-dasharray: 0 !important;
+    stroke-width: 0 !important;
+  }
+
+  .node.dragging .content-container {
+    background-color: #ffffff;
+  }
+</style>
+
+
     </div>
   </body>
 </html>
