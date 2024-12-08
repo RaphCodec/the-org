@@ -31,7 +31,7 @@
             <a aria-current="page" class="flex items-center" href="/">
               <img
                 class="h-7 w-auto"
-                src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+                src="./my_logo.png"
                 alt=""
               />
               <span
@@ -41,7 +41,7 @@
             </a>
           </div>
           <div
-            class="hidden md:flex md:items-center md:justify-center md:gap-5 "
+            class="hidden md:flex md:items-center md:justify-center md:gap-5"
           >
             <input
               type="search"
@@ -113,36 +113,147 @@
     >
       <!-- SIDEBAR Component Start -->
       <div
-        class="flex flex-col items-center w-16 h-full overflow-hidden text-gray-700 bg-gray-100 rounded"
+      class="flex flex-col items-center w-16 h-full overflow-hidden text-gray-700 bg-gray-100 rounded"
+      style="order: 2;"
       >
-        <div class="flex flex-col items-center mt-3 border-b border-gray-300 pb-3">
-          <button
+      <div
+        class="flex flex-col items-center mt-3 border-b border-gray-300 pb-3"
+      >
+        <button
         class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
         onclick="clearHighlights()"
         title="Clear Highlighting"
-          >
+        >
         <i class="fas fa-eraser"></i>
-          </button>
-        </div>
-        <div class="flex flex-col items-center mt-3">
-          <button
+        </button>
+      </div>
+      <div class="flex flex-col items-center mt-3">
+        <button
         class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
-        onclick="toggleSection('Reogranize'); enableDrag()"
+        onclick="openSection('Reogranize'); enableDrag()"
         title="Reogranize"
-          >
-          <i class="fas fa-solid fa-people-arrows"></i>
-          </button>
-          <div id="Reogranize" class="hidden flex-col items-center mt-2">
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" disabled onclick="undo()">
+        >
+        <i class="fas fa-solid fa-people-arrows"></i>
+        </button>
+        <div id="Reogranize" class="hidden flex-col items-center mt-2">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+          disabled
+          onclick="undo()"
+        >
           <i class="fas fa-solid fa-arrow-left"></i>
         </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" disabled onclick="redo()">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+          disabled
+          onclick="redo()"
+        >
           <i class="fas fa-solid fa-arrow-right"></i>
         </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" onclick="toggleSection('Reogranize');disableDrag()">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+          onclick="closeSection('Reogranize');disableDrag()"
+          title="Done"
+        >
           <i class="fas fa-check"></i>
         </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300" onclick="toggleSection('Reogranize');cancelDrag()">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+          onclick="closeSection('Reogranize');cancelDrag()"
+          title="Cancel"
+        >
+          <i class="fas fa-solid fa-times"></i>
+        </button>
+        </div>
+      </div>
+      <div class="flex flex-col items-center mt-3">
+        <button
+        class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        onclick="openSection('Edit Nodes Section')"
+        title="Toggle Section 2"
+        ><i class="fas fa-edit"></i>
+        </button>
+        <div id="Edit Nodes Section" class="hidden flex-col items-center mt-2">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
+          <i class="fas fa-user-plus"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
+          <i class="fas fa-user-minus"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
+          <i class="fas fa-cog"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
+          <i class="fas fa-cog"></i>
+        </button>
+        </div>
+      </div>
+      <a
+        class="flex items-center justify-center w-16 h-16 mt-auto bg-gray-200 hover:bg-gray-300"
+        href="#"
+      >
+        <i class="fas fa-question"></i>
+      </a>
+      </div>
+      <!-- Component End  -->
+      <!-- Duplicate Sidebar Component Start -->
+      <div
+      class="flex flex-col items-center w-16 h-full overflow-hidden text-gray-700 bg-gray-100 rounded"
+      >
+      <div
+        class="flex flex-col items-center mt-3 border-b border-gray-300 pb-3"
+      >
+        <button
+        class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        onclick="clearHighlights()"
+        title="Clear Highlighting"
+        >
+        <i class="fas fa-eraser"></i>
+        </button>
+      </div>
+      <div class="flex flex-col items-center mt-3">
+        <button
+        class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        onclick="openSection('Reogranize'); enableDrag()"
+        title="Reogranize"
+        >
+        <i class="fas fa-solid fa-people-arrows"></i>
+        </button>
+        <div id="Reogranize" class="hidden flex-col items-center mt-2">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+          disabled
+          onclick="undo()"
+        >
+          <i class="fas fa-solid fa-arrow-left"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+          disabled
+          onclick="redo()"
+        >
+          <i class="fas fa-solid fa-arrow-right"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+            onclick="closeSection('Reogranize');disableDrag()"
+          title="Done"
+        >
+          <i class="fas fa-check"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+          onclick="closeSection('Reogranize');cancelDrag()"
+          title="Cancel"
+        >
           <i class="fas fa-solid fa-times"></i>
         </button>
           </div>
@@ -150,22 +261,29 @@
         <div class="flex flex-col items-center mt-3">
           <button
         class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
-        onclick="toggleSection('section2')"
+        onclick="openSection('Edit Nodes Section')"
         title="Toggle Section 2"
-          >
-        <i class="fas fa-chevron-down"></i>
+          ><i class="fas fa-edit"></i>
           </button>
-          <div id="section2" class="hidden flex-col items-center mt-2">
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300">
+          <div id="Edit Nodes Section" class="hidden flex-col items-center mt-2">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
+          <i class="fas fa-user-plus"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
+          <i class="fas fa-user-minus"></i>
+        </button>
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
           <i class="fas fa-cog"></i>
         </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300">
-          <i class="fas fa-cog"></i>
-        </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300">
-          <i class="fas fa-cog"></i>
-        </button>
-        <button class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300">
+        <button
+          class="flex items-center justify-center w-12 h-12 mt-2 rounded hover:bg-gray-300"
+        >
           <i class="fas fa-cog"></i>
         </button>
           </div>
@@ -177,38 +295,37 @@
           <i class="fas fa-question"></i>
         </a>
       </div>
-      <!-- Component End  -->
+      <!-- Duplicate Sidebar Component End -->
 
       <div class="chart-container mt-24 w-full"></div>
 
-<style type="text/css">
-  .hide {
-    display: none;
-  }
+      <!-- These style are to help with idtenitifying nodes when the Reorganization is active -->
+      <style type="text/css">
+        .hide {
+          display: none;
+        }
 
-  .drag-enabled:not(.dragging-active) .node.draggable {
-    stroke: grey;
-    stroke-width: 3px;
-    stroke-dasharray: 2px;
-  }
+        .drag-enabled:not(.dragging-active) .node.draggable {
+          stroke: grey;
+          stroke-width: 3px;
+          stroke-dasharray: 2px;
+        }
 
-  .drag-enabled.dragging-active .droppable {
-    stroke: green;
-    stroke-width: 3px;
-    stroke-dasharray: 5px;
-  }
+        .drag-enabled.dragging-active .droppable {
+          stroke: green;
+          stroke-width: 3px;
+          stroke-dasharray: 5px;
+        }
 
-  .node.dragging {
-    stroke-dasharray: 0 !important;
-    stroke-width: 0 !important;
-  }
+        .node.dragging {
+          stroke-dasharray: 0 !important;
+          stroke-width: 0 !important;
+        }
 
-  .node.dragging .content-container {
-    background-color: #ffffff;
-  }
-</style>
-
-
+        .node.dragging .content-container {
+          background-color: #ffffff;
+        }
+      </style>
     </div>
   </body>
 </html>
