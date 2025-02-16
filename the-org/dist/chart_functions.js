@@ -76,7 +76,44 @@ function compactChart() {
     .fit();
 }
 
+function ZoomInChart() {
+  chart.zoomIn();
+}
+
+function ZoomOutChart() {
+  chart.zoomOut();
+}
+
 function clearHighlights() {
   chart.clearHighlighting();
   currentlySelected = [];
+}
+
+function exportSVG() {
+  var reportElements = document.querySelectorAll('.nodeButtons');
+  reportElements.forEach(function (element) {
+      if (element.style.display !== 'none') {
+          element.style.display = 'none';
+      } else {
+          element.style.display = 'block';
+      }
+  });
+  chart.fit();
+
+  setTimeout(function() {
+      chart.exportSvg();
+  }, 2000); // 2000 milliseconds = 2 seconds
+
+}
+
+function exportPNG() {
+  var reportElements = document.querySelectorAll('.nodeButtons');
+  reportElements.forEach(function (element) {
+      if (element.style.display !== 'none') {
+          element.style.display = 'none';
+      } else {
+          element.style.display = 'block';
+      }
+  });
+  chart.exportImg({full:true})
 }
