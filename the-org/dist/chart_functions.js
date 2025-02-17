@@ -1,6 +1,6 @@
-var index = 0;
-var compact = 0;
-var actNdCent = 0;
+let index = 0;
+let compact = 0;
+let actNdCent = 0;
 let dragNode;
 let dropNode;
 let dragEnabled = false;
@@ -8,26 +8,11 @@ let dragStartX;
 let dragStartY;
 let isDragStarting = false;
 let reorganizeEnabled = false;
+let new_node_counter = 0;
 
 let undoActions = [];
 let redoActions = [];
 
-
-// This toggles the collabsible sections of the sidebar
-function openSection(sectionId) {
-  const sections = document.querySelectorAll('.flex-col.items-center.mt-2');
-  sections.forEach(section => {
-    if (section.id !== sectionId && !section.classList.contains('hidden')) {
-      alert(`The current section "${section.id}" has to be closed first.`);
-      return;
-    }
-  });
-  document.getElementById(sectionId).classList.toggle('hidden');
-}
-
-function closeSection(sectionId) {
-  document.getElementById(sectionId).classList.add('hidden');
-}
 
 function filterChart(e) {
   // Get input value
@@ -105,32 +90,32 @@ function clearHighlights() {
 }
 
 function exportSVG() {
-  var reportElements = document.querySelectorAll('.nodeButtons');
+  let reportElements = document.querySelectorAll('.nodeButtons');
   reportElements.forEach(function (element) {
-      if (element.style.display !== 'none') {
-          element.style.display = 'none';
-      } else {
-          element.style.display = 'block';
-      }
+    if (element.style.display !== 'none') {
+      element.style.display = 'none';
+    } else {
+      element.style.display = 'block';
+    }
   });
   chart.fit();
 
-  setTimeout(function() {
-      chart.exportSvg();
+  setTimeout(function () {
+    chart.exportSvg();
   }, 2000); // 2000 milliseconds = 2 seconds
 
 }
 
 function exportPNG() {
-  var reportElements = document.querySelectorAll('.nodeButtons');
+  let reportElements = document.querySelectorAll('.nodeButtons');
   reportElements.forEach(function (element) {
-      if (element.style.display !== 'none') {
-          element.style.display = 'none';
-      } else {
-          element.style.display = 'block';
-      }
+    if (element.style.display !== 'none') {
+      element.style.display = 'none';
+    } else {
+      element.style.display = 'block';
+    }
   });
-  chart.exportImg({full:true})
+  chart.exportImg({ full: true })
 }
 
 function checkSelection() {
@@ -141,18 +126,18 @@ function checkSelection() {
 }
 
 function removeSelected() {
-    for ( id in currentlySelected) {
-      chart.removeNode(currentlySelected[id])
-    }
+  for (id in currentlySelected) {
+    chart.removeNode(currentlySelected[id])
+  }
 
-    currentlySelected = []
+  currentlySelected = []
 }
 
 
-function UpdateInfo (closeBtn) {
-  var fname = document.getElementById('edit_first_name').value;
-  var lname = document.getElementById('edit_last_name').value;
-  var new_position = document.getElementById('edit_position').value;
+function UpdateInfo() {
+  let fname = document.getElementById('edit_first_name').value;
+  let lname = document.getElementById('edit_last_name').value;
+  let new_position = document.getElementById('edit_position').value;
 
   let currentData = chart.data();
 
@@ -170,5 +155,41 @@ function UpdateInfo (closeBtn) {
 
   chart.updateNodesState();
 
-  document.getElementById('editForm').reset();
+}
+
+function addPerson(relation = 'child') {
+  let fname = document.getElementById('add_first_name').value;
+  let lname = document.getElementById('add_last_name').value;
+  let new_position = document.getElementById('add_position').value;
+
+  // Define a new person object
+  const newPerson = {
+    id: 'temp' + new_node_counter++,
+    name: fname,
+    lastName: lname,
+    position: new_position
+  };
+
+  let currentData = chart.data();
+
+  if (relation === 'parent') {
+    // Find the existing node
+    const existingNodeIndex = currentData.findIndex(node => node.id === currentlySelected[0]);
+    if (existingNodeIndex !== -1) {
+      newPerson.parentId = currentData[existingNodeIndex].parentId; // Set the new person's parentId to the parent of the existing node
+      currentData[existingNodeIndex].parentId = newPerson.id; // Update the existing node's parentId to the new person's id
+    }
+  } else {
+    // Default to adding a subordinate
+    newPerson.parentId = currentlySelected[0];
+  }
+
+  currentData.push(newPerson);
+
+  // Set the updated data back to the chart
+  chart.data(currentData);
+
+  // Update the nodes state to reflect changes
+  chart.updateNodesState();
+
 }
