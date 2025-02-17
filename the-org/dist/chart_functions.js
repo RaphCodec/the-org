@@ -133,6 +133,13 @@ function exportPNG() {
   chart.exportImg({full:true})
 }
 
+function checkSelection() {
+  if (currentlySelected.length === 0) {
+    alert("Please select a node first");
+    return false;
+  }
+}
+
 function removeSelected() {
     for ( id in currentlySelected) {
       chart.removeNode(currentlySelected[id])
@@ -146,9 +153,6 @@ function UpdateInfo (closeBtn) {
   var fname = document.getElementById('edit_first_name').value;
   var lname = document.getElementById('edit_last_name').value;
   var new_position = document.getElementById('edit_position').value;
-  console.log(fname, lname, new_position)
-  console.log(currentlySelected)
-  console.log(chart.data())
 
   let currentData = chart.data();
 
@@ -157,13 +161,14 @@ function UpdateInfo (closeBtn) {
 
   // Update the node properties
   if (nodeIndex !== -1) {
-    currentData[nodeIndex].name = fname; // update properties as needed
+    currentData[nodeIndex].name = fname;
+    currentData[nodeIndex].lastName = lname;
     currentData[nodeIndex].position = new_position;
   }
 
-  // Set the updated data back to the chart
   chart.data(currentData);
 
-  // Update the nodes state to reflect changes
   chart.updateNodesState();
+
+  document.getElementById('editForm').reset();
 }
