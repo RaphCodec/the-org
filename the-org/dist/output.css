@@ -1735,6 +1735,10 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
+.h-48 {
+  height: 12rem;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -1952,6 +1956,10 @@ input:checked + .toggle-bg {
   border-width: 0px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1962,6 +1970,10 @@ input:checked + .toggle-bg {
 
 .border-t {
   border-top-width: 1px;
+}
+
+.border-dashed {
+  border-style: dashed;
 }
 
 .\!border-primary-700 {
@@ -2580,6 +2592,10 @@ input:checked + .toggle-bg {
 
   .md\:hidden {
     display: none;
+  }
+
+  .md\:h-72 {
+    height: 18rem;
   }
 
   .md\:w-64 {

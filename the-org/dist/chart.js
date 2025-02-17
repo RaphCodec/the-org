@@ -1,16 +1,19 @@
 let chart;
+
 let currentlySelected = []; //stores ID's of clicked nodes
 
 d3.csv(
   'https://raw.githubusercontent.com/bumbeishvili/sample-data/main/data-oracle.csv'
 ).then((data) => {
   chart = new d3.OrgChart()
+    .svgHeight(window.innerHeight - 10)
     .nodeHeight((d) => 85 + 25)
     .nodeWidth((d) => 220 + 2)
     .childrenMargin((d) => 50)
     .compactMarginBetween((d) => 35)
     .compactMarginPair((d) => 30)
     .neighbourMargin((a, b) => 20)
+    .siblingsMargin((d) => 100)
     .nodeContent(function (d, i, arr, state) {
       const color = '#FFFFFF';
       const imageDiffVert = 25 + 2;
@@ -18,7 +21,7 @@ d3.csv(
               <div style='width:${
                 d.width
               }px;height:${d.height}px;padding-top:${imageDiffVert - 2}px;padding-left:1px;padding-right:1px'>
-                      <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: 1px solid #E4E2E9">
+                      <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: ${d.data._highlighted || d.data._upToTheRootHighlighted ? '5px solid #E27396"' : '1px solid #E4E2E9"'} >
                           <div style="display:flex;justify-content:flex-end;margin-top:5px;margin-right:8px">#${
                             d.data.id
                           }</div>
@@ -68,7 +71,7 @@ d3.csv(
         d3.select(this).classed('draggable', true);
       }
     })
-    // .linkUpdate(function (d, i, arr) {
+    //  .linkUpdate(function (d, i, arr) {
     //   d3.select(this)
     //     .attr('stroke', (d) =>
     //       d.data._upToTheRootHighlighted ? '#E27396' : '#000000'
@@ -81,18 +84,22 @@ d3.csv(
     //     d3.select(this).raise();
     //   }
     // })
-    .onNodeClick( function(d) {
+    .onNodeClick(function (d) {
       d.data._highlighted = !d.data._highlighted;
       chart.updateNodesState();
       if (d.data._highlighted === true) {
-        currentlySelected.push(d.id)
-        console.log(currentlySelected)
+        if (!currentlySelected.includes(d.id)) {
+          currentlySelected.push(d.id);
+          chart.setHighlighted(d.id).render()
+        }
+      } else {
+        const index = currentlySelected.indexOf(d.id);
+        if (index > -1) {
+          currentlySelected.splice(index, 1);
+        }
       }
-      else {
-        currentlySelected.pop(d.id)
-      }
+      console.log(currentlySelected);
     })
-    
     .container('.chart-container')
     .data(data)
     .render();

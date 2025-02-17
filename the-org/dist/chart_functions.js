@@ -1,6 +1,17 @@
 var index = 0;
 var compact = 0;
 var actNdCent = 0;
+let dragNode;
+let dropNode;
+let dragEnabled = false;
+let dragStartX;
+let dragStartY;
+let isDragStarting = false;
+let reorganizeEnabled = false;
+
+let undoActions = [];
+let redoActions = [];
+
 
 // This toggles the collabsible sections of the sidebar
 function openSection(sectionId) {
@@ -84,6 +95,10 @@ function ZoomOutChart() {
   chart.zoomOut();
 }
 
+function highlightroot() {
+  chart.setUpToTheRootHighlighted(currentlySelected.slice(-1)[0]).render().fit()
+}
+
 function clearHighlights() {
   chart.clearHighlighting();
   currentlySelected = [];
@@ -116,4 +131,12 @@ function exportPNG() {
       }
   });
   chart.exportImg({full:true})
+}
+
+function removeSelected() {
+    for ( id in currentlySelected) {
+      chart.removeNode(currentlySelected[id])
+    }
+
+    currentlySelected = []
 }
