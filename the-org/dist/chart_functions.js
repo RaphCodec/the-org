@@ -165,6 +165,7 @@ function addPerson(relation = 'child') {
   // Define a new person object
   const newPerson = {
     id: 'temp' + new_node_counter++,
+    image: 'https://robohash.org/robot?bgset=bg2',
     name: fname,
     lastName: lname,
     position: new_position

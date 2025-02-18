@@ -190,11 +190,13 @@
             <ul id="dropdown-edit" class="hidden py-2 space-y-2">
               <li>
                 <a id="edit-selected" href="#" data-modal-target="edit-modal" data-modal-show="edit-modal"
+                    onclick="document.getElementById('editForm').reset();"
                   class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Edit
                   Selected</a>
               </li>
               <li>
                 <a href="#" data-modal-target="add-modal" data-modal-toggle="add-modal"
+                    onclick="document.getElementById('addForm').reset();"
                   class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Add</a>
               </li>
               <li>
@@ -574,7 +576,7 @@
               class="max-w-md mx-auto">
               </form>
               <div class="relative z-0 w-full mb-5 group">
-                <input type="text" name="add_position" id="add_position"
+                <input type="text" name="add_position" id="add_position" autocomplete="on"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" " required />
                 <label for="add_position"
@@ -583,7 +585,7 @@
               </div>
               <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
-                  <input type="text" name="add_first_name" id="add_first_name"
+                  <input type="text" name="add_first_name" id="add_first_name" autocomplete="on"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" " required />
                   <label for="add_first_name"
@@ -591,7 +593,7 @@
                     name</label>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                  <input type="text" name="add_last_name" id="add_last_name"
+                  <input type="text" name="add_last_name" id="add_last_name" autocomplete="on"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" " required />
                   <label for="add_last_name"
