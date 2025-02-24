@@ -2,3 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 @import "flowbite/src/themes/default";
+@source "../node_modules/flowbite";
