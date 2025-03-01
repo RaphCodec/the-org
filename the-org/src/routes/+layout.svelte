@@ -1,57 +1,22 @@
-<script lang="ts">
-	import Header from './Header.svelte';
-	import '../app.css';
+<script>
+    import '../app.css';
+    import Header from './Header.svelte';
+    import Sidebar from '../lib/components/Sidebar.svelte';
+	import { onMount } from 'svelte';
+	
+    let drawerHidden = false;
 
-	let { children } = $props();
+	
 </script>
 
-<div class="app">
-	<Header />
-
-	<main>
-		{@render children()}
-	</main>
-
-	<footer>
-		<p>
-			visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
-		</p>
-	</footer>
+<header
+    class="fixed top-0 z-40 mx-auto w-full flex-none border-b border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-800"
+>
+    <Header bind:drawerHidden />
+</header>
+<div class="overflow-hidden lg:flex">
+    <Sidebar bind:drawerHidden />
+    <div class="relative h-full w-full overflow-y-auto lg:ml-64 pt-[70px]">
+        <slot />
+    </div>
 </div>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
