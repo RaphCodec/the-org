@@ -44,30 +44,22 @@
                           <div style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
 														d.data.position
 													} </div>
-                          <div class="node-salaries hidden" style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
-														new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(d.data.salary)
-													} </div>
+                          <div class="node-salaries hidden" style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${new Intl.NumberFormat(
+														'en-US',
+														{ style: 'currency', currency: 'USD' }
+													).format(d.data.salary)} </div>
 						   <div style="display:flex;justify-content:space-between;padding-left:15px;padding-right:15px;">
-								<div style="position: absolute; bottom: 10px; left: 15px;" class="node-direct-reports">Directs: ${d.data._directSubordinates} 👤</div>  
-								<div style="position: absolute; bottom: 10px; right: 15px;" class="node-total-reports">Total: ${d.data._totalSubordinates} 👤</div>
+								<div style="position: absolute; bottom: 10px; left: 15px;" class="node-direct-reports">Directs: ${d.data._directSubordinates} </div>  
+								<div style="position: absolute; bottom: 10px; right: 15px;" class="node-total-reports">Total: ${d.data._totalSubordinates} </div>
 						    </div>
 
                       </div>
                   </div>
                           `;
 			})
-			.nodeUpdate(function (d) {
-				if (d.id === '102' || d.id === '120' || d.id === '124') {
-					d3.select(this).classed('droppable', false);
-				} else {
-					d3.select(this).classed('droppable', true);
-				}
-
-				if (d.id === '101') {
-					d3.select(this).classed('draggable', false);
-				} else {
-					d3.select(this).classed('draggable', true);
-				}
+			.nodeUpdate(function () {
+				// Needed to disable default highlight behavior
+				d3.select(this).select('.node-rect').attr('stroke', 'none');
 			})
 			//  .linkUpdate(function (d, i, arr) {
 			//   d3.select(this)
@@ -86,12 +78,12 @@
 				d.data._highlighted = !d.data._highlighted;
 				chart.updateNodesState();
 				if (d.data._highlighted === true) {
-					if (!currentlySelected.map(item => item.id).includes(d.id)) {
+					if (!currentlySelected.map((item) => item.id).includes(d.id)) {
 						currentlySelected.push(d);
 						chart.setHighlighted(d.id).render();
 					}
 				} else {
-					const index = currentlySelected.findIndex(item => item.id === d.id);
+					const index = currentlySelected.findIndex((item) => item.id === d.id);
 					if (index > -1) {
 						currentlySelected.splice(index, 1);
 					}
@@ -105,4 +97,7 @@
 	});
 </script>
 
-<div bind:this={chartContainer} class="h-full w-full bg-gray-100 dark:bg-gray-700"></div>
+<div
+	bind:this={chartContainer}
+	class="chart-container h-full w-full bg-gray-100 dark:bg-gray-700"
+></div>

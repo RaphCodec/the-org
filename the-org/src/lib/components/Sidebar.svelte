@@ -13,10 +13,10 @@
 		AngleDownOutline,
 		AngleUpOutline,
 		ClipboardListSolid,
-		CogOutline,
-		FileChartBarSolid,
+		FileImageSolid,
+		ImageSolid,
 		GithubSolid,
-		LayersSolid,
+		EyeSlashSolid,
 		LifeSaverSolid,
 		LockSolid,
 		WandMagicSparklesOutline,
@@ -45,7 +45,14 @@
 		addToSelected,
 		currentlySelected,
 		toggleSalaries,
-		toggleReports
+		toggleReports,
+		// enableDrag,
+		// disableDrag,
+		// cancelDrag,
+		undo,
+		redo,
+		undoActions,
+		redoActions
 	} from './org-chart-functions';
 
 	import SelectionAlert from './FunctionAlerts.svelte';
@@ -61,7 +68,7 @@
 		drawerHidden = true;
 	};
 
-	const showAlertMessage = (message: string, type: string = 'success') => {
+	export const showAlertMessage = (message: string, type: string = 'success') => {
 		alertMessage = message;
 		alertType = type;
 		showAlert = true;
@@ -137,36 +144,34 @@
 						removeSelected();
 						showAlertMessage('Nodes Removed.', 'warning');
 					}
-				}}
-			}
-		},
-		{
-			name: 'Organize',
-			icon: UsersGroupSolid,
-			children: {
-				'Redo': { onclick: () => {
-					showAlertMessage('Redo not implemented yet.', 'error');
 				}},
 				'Undo': { onclick: () => {
-					showAlertMessage('Undo not implemented yet.', 'error');
+					if (undoActions.length === 0) {
+						showAlertMessage('Nothing to Undo.', 'warning');
+					} else {
+						undo();
+						showAlertMessage('Last Action Undone.');
+					}
 				}},
-				'Done': { onclick: () => {
-					showAlertMessage('Done not implemented yet.', 'error');
-				}},
-				'Cancel': { onclick: () => {
-					showAlertMessage('Cancel not implemented yet.', 'error');
+				'Redo': { onclick: () => {
+					if (redoActions.length === 0) {
+						showAlertMessage('Nothing to Redo.', 'warning');
+					} else {
+						redo();
+						showAlertMessage('Last Action Redone.');
+					}
 				}}
 			}
 		},
-		{ name: 'Clear Highlights', icon: ClipboardListSolid, onclick: () => {
+		{ name: 'Clear Highlights', icon: EyeSlashSolid, onclick: () => {
 			clearHighlights();
 			showAlertMessage('Chart Selections cleared.', 'warning');
 		}},
-		{ name: 'Export SVG', icon: LayersSolid, onclick: () => {
+		{ name: 'Export SVG', icon: FileImageSolid, onclick: () => {
 			exportSVG();
 			showAlertMessage('Chart exported as SVG');
 		}},
-		{ name: 'Export PNG', icon: LifeSaverSolid, onclick: () => {
+		{ name: 'Export PNG', icon: ImageSolid, onclick: () => {
 			exportPNG();
 			showAlertMessage('Chart exported as PNG');
 		}}
