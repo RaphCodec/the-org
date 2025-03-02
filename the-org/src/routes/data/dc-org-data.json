@@ -16,7 +16,7 @@
     },
     {
         "id": "3",
-        "name": "Harley Quinn",
+        "name": "Harleen Quinzel",
         "parentId": "2",
         "position": "Crazy Sanity Keeper",
         "salary": 180000,
@@ -24,7 +24,7 @@
     },
     {
         "id": "4",
-        "name": "Barry West",
+        "name": "Wally West",
         "parentId": "1",
         "position": "Quick Fixer",
         "salary": 195000,
@@ -56,7 +56,7 @@
     },
     {
         "id": "8",
-        "name": "Cyborg",
+        "name": "Victor Stone",
         "parentId": "10",
         "position": "Charismatic Machine",
         "salary": 175000,
@@ -65,7 +65,7 @@
     {
         "id": "9",
         "name": "Damian Wayne",
-        "parentId": "1",
+        "parentId": "10",
         "position": "Heir to the Throne",
         "salary": 165000,
         "image":"https://robohash.org/robot?bgset=bg2"
@@ -83,6 +83,46 @@
         "name": "Barbara Gordon",
         "parentId": "1",
         "position": "The Answer",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "12",
+        "name": "J'onn J'onzz",
+        "parentId": "1",
+        "position": "Shape Shifter",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "13",
+        "name": "Garfield Logan",
+        "parentId": "10",
+        "position": "Personal Zoo Keeper",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "14",
+        "name": "Rachel Roth",
+        "parentId": "10",
+        "position": "Spell Binder",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "15",
+        "name": "Koriand'r (Kory) Anders",
+        "parentId": "10",
+        "position": "Fire Flyer",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "16",
+        "name": "Megan Morse",
+        "parentId": "12",
+        "position": "Junior Shape Shifter",
         "salary": 205000,
         "image":"https://robohash.org/robot?bgset=bg2"
     }

@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
-	import data from '../../routes/data/org-data.json';
+	import data from '../../routes/data/dc-org-data.json';
 	import { setChartInstance, currentlySelected } from './org-chart-functions';
 
 	let OrgChart;
