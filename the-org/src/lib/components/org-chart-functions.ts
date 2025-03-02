@@ -1,8 +1,10 @@
 let chart;
-let currentlySelected = [];
+let currentlySelected:Array<string> = [];
 let index = 0;
 let compact = 0;
 let new_node_counter = 0;
+
+export { currentlySelected };
 
 export function setChartInstance(chartInstance) {
   chart = chartInstance;
@@ -86,27 +88,18 @@ export function exportPNG() {
   chart.exportImg({ full: true });
 }
 
-function highlightroot() {
-  chart.setUpToTheRootHighlighted(currentlySelected.slice(-1)[0]).render().fit()
-}
-
-function checkSelection() {
-  if (currentlySelected.length === 0) {
-    alert("Please select a node first");
-    return false;
+export function removeSelected() {
+  if (!chart) {
+    console.error('Chart instance is not set');
+    return;
   }
-}
-
-function removeSelected() {
-  for (id in currentlySelected) {
-    chart.removeNode(currentlySelected[id])
+  for (let id of currentlySelected) {
+    chart.removeNode(id);
   }
-
-  currentlySelected = []
+  currentlySelected = [];
 }
 
-
-function UpdateInfo() {
+export function updateInfo() {
   let fname = document.getElementById('edit_first_name').value;
   let lname = document.getElementById('edit_last_name').value;
   let new_position = document.getElementById('edit_position').value;
@@ -124,45 +117,61 @@ function UpdateInfo() {
   }
 
   chart.data(currentData);
-
   chart.updateNodesState();
-
 }
 
-function addPerson(relation = 'child') {
-  let fname = document.getElementById('add_first_name').value;
-  let lname = document.getElementById('add_last_name').value;
-  let new_position = document.getElementById('add_position').value;
+export function addToSelected(relation = 'child') {
+  if (!chart) {
+    console.error('Chart instance is not set');
+    return;
+  }
 
-  // Define a new person object
+
+
+  // new person values
   const newPerson = {
     id: 'temp' + new_node_counter++,
+    name: 'John Doe',
+    position: 'Job Title',
     image: 'https://robohash.org/robot?bgset=bg2',
-    name: fname,
-    lastName: lname,
-    position: new_position
+    parentId: undefined as string | undefined,
   };
+
+  console.log('newPerson', newPerson);
+
+  console.log('currentlySelected', currentlySelected);
+
+  console.log('relation', relation);
+
+  console.log('chart', chart.data());
 
   let currentData = chart.data();
 
+  console.log('currentData', currentData);
+
   if (relation === 'parent') {
-    // Find the existing node
-    const existingNodeIndex = currentData.findIndex(node => node.id === currentlySelected[0]);
-    if (existingNodeIndex !== -1) {
-      newPerson.parentId = currentData[existingNodeIndex].parentId; // Set the new person's parentId to the parent of the existing node
-      currentData[existingNodeIndex].parentId = newPerson.id; // Update the existing node's parentId to the new person's id
+    const selectedNode = currentData.find(node => node.id === currentlySelected[0]);
+    if (selectedNode) {
+        let oldParentId = selectedNode.parentId;
+        selectedNode.parentId = newPerson.id;
+        newPerson.parentId = oldParentId;
     }
+
   } else {
-    // Default to adding a subordinate
+    // set parentId to who is currently selected
     newPerson.parentId = currentlySelected[0];
   }
 
   currentData.push(newPerson);
 
-  // Set the updated data back to the chart
+   // update the chart data
   chart.data(currentData);
 
-  // Update the nodes state to reflect changes
-  chart.updateNodesState();
 
+  console.log('currentData', currentData);
+
+  console.log(newPerson.parentId)
+
+  // show the changes in the chart
+  chart.updateNodesState();
 }

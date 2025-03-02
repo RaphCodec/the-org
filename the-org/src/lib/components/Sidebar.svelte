@@ -23,7 +23,8 @@
 		ChartPieOutline,
 		RectangleListSolid,
 		TableColumnSolid,
-		DrawSquareSolid
+		DrawSquareSolid,
+		UsersSolid
 	} from 'flowbite-svelte-icons';
 
 	import {
@@ -36,7 +37,9 @@
 		zoomOutChart,
 		clearHighlights,
 		exportSVG,
-		exportPNG
+		exportPNG,
+		removeSelected,
+		addToSelected
 	} from './org-chart-functions';
 
 	export let drawerHidden: boolean = false;
@@ -74,6 +77,15 @@
 				'Zoom Out': { onclick: zoomOutChart },
 				'Expand All': { onclick: expandAll },
 				'Collapse All': { onclick: collapseAll }
+			}
+		},
+		{
+			name: 'Add/Remove Nodes',
+			icon: UsersSolid,
+			children: {
+				'Add Node Above': { onclick: () => addToSelected('parent') },
+				'Add Node Below': { onclick: () => addToSelected() },
+				'Delete Node(s)': { onclick: removeSelected }
 			}
 		},
 		{ name: 'Clear Highlights', icon: ClipboardListSolid, onclick: clearHighlights },
