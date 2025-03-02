@@ -8,7 +8,6 @@
 		SidebarGroup,
 		SidebarItem,
 		SidebarWrapper,
-		Alert
 	} from 'flowbite-svelte';
 	import {
 		AngleDownOutline,
@@ -210,7 +209,7 @@
 
 {#if showAlert && alertType === 'error'}
 	<div class="fixed inset-0 flex items-center justify-center z-50">
-		<SelectionAlert message={alertMessage} type="error" />
+		<SelectionAlert message={alertMessage}/>
 	</div>
 {:else if showAlert && alertType === 'success'}
 	<div class="fixed bottom-4 right-4 z-50">

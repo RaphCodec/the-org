@@ -18,6 +18,8 @@
 	import logo from '$lib/images/svelte-logo.svg';
 	import Profiles from './data/profile.json';
 
+	import { filterChart } from '$lib/components/org-chart-functions';
+
 	export let fluid = true;
 	export let drawerHidden = false;
 	export let list = false;
@@ -59,7 +61,7 @@
 			</NavUl>
 		{:else}
 			<form>
-				<Search size="md" class="mt-1 w-96 border focus:outline-none" />
+				<Search size="md" class="mt-1 w-96 border focus:outline-none" on:input={filterChart}/>
 			</form>
 		{/if}
 	</div>

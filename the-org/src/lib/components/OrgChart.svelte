@@ -22,6 +22,7 @@
 			.compactMarginPair((d) => 30)
 			.neighbourMargin((a, b) => 20)
 			.siblingsMargin((d) => 100)
+			.initialZoom(0.7)
 			.nodeContent(function (d, i, arr, state) {
 				const color = '#FFFFFF';
 				const imageDiffVert = 25 + 2;
