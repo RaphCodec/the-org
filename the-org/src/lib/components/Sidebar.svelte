@@ -24,7 +24,8 @@
 		RectangleListSolid,
 		TableColumnSolid,
 		DrawSquareSolid,
-		UsersSolid
+		UsersSolid,
+		UserEditSolid
 	} from 'flowbite-svelte-icons';
 
 	import {

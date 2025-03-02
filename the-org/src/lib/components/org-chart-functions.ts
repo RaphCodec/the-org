@@ -126,24 +126,15 @@ export function addToSelected(relation = 'child') {
     return;
   }
 
-
-
   // new person values
   const newPerson = {
     id: 'temp' + new_node_counter++,
     name: 'John Doe',
     position: 'Job Title',
+    salary: 0,
     image: 'https://robohash.org/robot?bgset=bg2',
     parentId: undefined as string | undefined,
   };
-
-  console.log('newPerson', newPerson);
-
-  console.log('currentlySelected', currentlySelected);
-
-  console.log('relation', relation);
-
-  console.log('chart', chart.data());
 
   let currentData = chart.data();
 
@@ -166,11 +157,6 @@ export function addToSelected(relation = 'child') {
 
    // update the chart data
   chart.data(currentData);
-
-
-  console.log('currentData', currentData);
-
-  console.log(newPerson.parentId)
 
   // show the changes in the chart
   chart.updateNodesState();

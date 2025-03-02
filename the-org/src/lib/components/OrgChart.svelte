@@ -15,7 +15,7 @@
 			.container(chartContainer)
 			.data(data)
 			.svgHeight(window.innerHeight - 10)
-			.nodeHeight((d) => 85 + 25)
+			.nodeHeight((d) => 100 + 25)
 			.nodeWidth((d) => 220 + 2)
 			.childrenMargin((d) => 50)
 			.compactMarginBetween((d) => 35)
@@ -43,6 +43,13 @@
                           <div style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
 														d.data.position
 													} </div>
+                          <div style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
+														new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(d.data.salary)
+													} </div>
+						   <div style="display:flex;justify-content:space-between;padding-left:15px;padding-right:15px;">
+								<div > Directs:  ${d.data._directSubordinates} 👤</div>  
+								<div > Total: ${d.data._totalSubordinates} 👤</div>    
+						    </div>
 
                       </div>
                   </div>
