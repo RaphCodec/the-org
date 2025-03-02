@@ -7,7 +7,8 @@
 		SidebarDropdownWrapper,
 		SidebarGroup,
 		SidebarItem,
-		SidebarWrapper
+		SidebarWrapper,
+		Alert
 	} from 'flowbite-svelte';
 	import {
 		AngleDownOutline,
@@ -40,13 +41,29 @@
 		exportSVG,
 		exportPNG,
 		removeSelected,
-		addToSelected
+		addToSelected,
+		currentlySelected
 	} from './org-chart-functions';
+
+	import SelectionAlert from './FunctionAlerts.svelte';
 
 	export let drawerHidden: boolean = false;
 
+	let showAlert = false;
+	let alertMessage = '';
+	let alertType = 'success';
+
 	const closeDrawer = () => {
 		drawerHidden = true;
+	};
+
+	const showAlertMessage = (message: string, type: string = 'success') => {
+		alertMessage = message;
+		alertType = type;
+		showAlert = true;
+		setTimeout(() => {
+			showAlert = false;
+		}, 3000);
 	};
 
 	let iconClass =
@@ -84,14 +101,44 @@
 			name: 'Add/Remove Nodes',
 			icon: UsersSolid,
 			children: {
-				'Add Node Above': { onclick: () => addToSelected('parent') },
-				'Add Node Below': { onclick: () => addToSelected() },
-				'Delete Node(s)': { onclick: removeSelected }
+				'Add Node Above': { onclick: () => {
+					if (currentlySelected.length === 1) {
+						addToSelected('parent');
+						showAlertMessage('Node added above successfully', 'success');
+					} else {
+						showAlertMessage('Please select only one node to add a node above', 'error');
+					}
+				}},
+				'Add Node Below': { onclick: () => {
+					if (currentlySelected.length === 1) {
+						addToSelected();
+						showAlertMessage('Node added below successfully', 'success');
+					} else {
+						showAlertMessage('Please select only one node to add a node below', 'error');
+					}
+				}},
+				'Delete Node(s)': { onclick: () => {
+					if (currentlySelected.length === 0) {
+						showAlertMessage('Please select a node to remove.', 'error');
+					} else {
+						removeSelected();
+						showAlertMessage('Nodes Removed.', 'warning');
+					}
+				}}
 			}
 		},
-		{ name: 'Clear Highlights', icon: ClipboardListSolid, onclick: clearHighlights },
-		{ name: 'Export SVG', icon: LayersSolid, onclick: exportSVG },
-		{ name: 'Export PNG', icon: LifeSaverSolid, onclick: exportPNG }
+		{ name: 'Clear Highlights', icon: ClipboardListSolid, onclick: () => {
+			clearHighlights();
+			showAlertMessage('Chart Selections cleared.', 'warning');
+		}},
+		{ name: 'Export SVG', icon: LayersSolid, onclick: () => {
+			exportSVG();
+			showAlertMessage('Chart exported as SVG');
+		}},
+		{ name: 'Export PNG', icon: LifeSaverSolid, onclick: () => {
+			exportPNG();
+			showAlertMessage('Chart exported as PNG');
+		}}
 	];
 
 	let links = [
@@ -160,6 +207,20 @@
 		</nav>
 	</SidebarWrapper>
 </Sidebar>
+
+{#if showAlert && alertType === 'error'}
+	<div class="fixed inset-0 flex items-center justify-center z-50">
+		<SelectionAlert message={alertMessage} type="error" />
+	</div>
+{:else if showAlert && alertType === 'success'}
+	<div class="fixed bottom-4 right-4 z-50">
+		<SelectionAlert message={alertMessage} color="green" />
+	</div>
+{:else if showAlert && alertType === 'warning'}
+	<div class="fixed bottom-4 right-4 z-50">
+		<SelectionAlert message={alertMessage} color="yellow" />
+	</div>
+{/if}
 
 <div
 	hidden={drawerHidden}
