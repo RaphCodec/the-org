@@ -1,10 +1,10 @@
 let chart;
-let currentlySelected: Array<string> = [];
+let currentlySelected = [];
 let index = 0;
 let compact = 0;
 let new_node_counter = 0;
 
-export { currentlySelected };
+export { currentlySelected, chart };
 
 export function setChartInstance(chartInstance) {
   chart = chartInstance;
@@ -93,31 +93,10 @@ export function removeSelected() {
     console.error('Chart instance is not set');
     return;
   }
-  for (let id of currentlySelected) {
-    chart.removeNode(id);
+  for (let item of currentlySelected) {
+    chart.removeNode(item.id);
   }
   currentlySelected = [];
-}
-
-export function updateInfo() {
-  let fname = document.getElementById('edit_first_name').value;
-  let lname = document.getElementById('edit_last_name').value;
-  let new_position = document.getElementById('edit_position').value;
-
-  let currentData = chart.data();
-
-  const nodeIdToUpdate = currentlySelected[0];
-  const nodeIndex = currentData.findIndex(node => node.id === nodeIdToUpdate);
-
-  // Update the node properties
-  if (nodeIndex !== -1) {
-    currentData[nodeIndex].name = fname;
-    currentData[nodeIndex].lastName = lname;
-    currentData[nodeIndex].position = new_position;
-  }
-
-  chart.data(currentData);
-  chart.updateNodesState();
 }
 
 export function addToSelected(relation = 'child') {
@@ -141,7 +120,7 @@ export function addToSelected(relation = 'child') {
   console.log('currentData', currentData);
 
   if (relation === 'parent') {
-    const selectedNode = currentData.find(node => node.id === currentlySelected[0]);
+    const selectedNode = currentData.find(node => node.id === currentlySelected[0].id);
     if (selectedNode) {
         let oldParentId = selectedNode.parentId;
         selectedNode.parentId = newPerson.id;
@@ -150,7 +129,7 @@ export function addToSelected(relation = 'child') {
 
   } else {
     // set parentId to who is currently selected
-    newPerson.parentId = currentlySelected[0];
+    newPerson.parentId = currentlySelected[0].id;
   }
 
   currentData.push(newPerson);
@@ -161,6 +140,34 @@ export function addToSelected(relation = 'child') {
   // show the changes in the chart
   chart.updateNodesState();
 }
+
+export function updateInfo() {
+    let newName = document.getElementById('update-Name').value;
+    let newPosition = document.getElementById('update-title').value;
+    let newSalary = document.getElementById('update-salary').value;
+
+    console.log('newName', newName);
+    console.log('newPosition', newPosition);
+    console.log('newSalary', newSalary);
+
+    let currentData = chart.data();
+
+    console.log('currentData', currentData);
+    console.log();
+    if (currentlySelected.length > 0) {
+        const nodeToUpdate = currentData.find(node => node.id === currentlySelected[0].id);
+        if (nodeToUpdate) {
+            if (newName) nodeToUpdate.name = newName;
+            if (newPosition) nodeToUpdate.position = newPosition;
+            if (newSalary) nodeToUpdate.salary = Number(newSalary);
+        }
+    }
+
+    chart.data(currentData);
+    chart.updateNodesState();
+
+    clearHighlights();
+  }
 
 export function toggleSalaries() {
   const salaries = document.querySelectorAll('.node-salaries');

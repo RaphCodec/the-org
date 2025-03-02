@@ -56,24 +56,6 @@
                   </div>
                           `;
 			})
-			.nodeEnter(function (node) {
-				d3.select(this).call(
-					d3
-						.drag()
-						.filter(function (x, node) {
-							return dragEnabled && this.classList.contains('draggable');
-						})
-						.on('start', function (d, node) {
-							onDragStart(this, d, node);
-						})
-						.on('drag', function (dragEvent, node) {
-							onDrag(this, dragEvent);
-						})
-						.on('end', function (d) {
-							onDragEnd(this, d);
-						})
-				);
-			})
 			.nodeUpdate(function (d) {
 				if (d.id === '102' || d.id === '120' || d.id === '124') {
 					d3.select(this).classed('droppable', false);
@@ -104,12 +86,12 @@
 				d.data._highlighted = !d.data._highlighted;
 				chart.updateNodesState();
 				if (d.data._highlighted === true) {
-					if (!currentlySelected.includes(d.id)) {
-						currentlySelected.push(d.id);
+					if (!currentlySelected.map(item => item.id).includes(d.id)) {
+						currentlySelected.push(d);
 						chart.setHighlighted(d.id).render();
 					}
 				} else {
-					const index = currentlySelected.indexOf(d.id);
+					const index = currentlySelected.findIndex(item => item.id === d.id);
 					if (index > -1) {
 						currentlySelected.splice(index, 1);
 					}

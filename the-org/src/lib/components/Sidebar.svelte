@@ -49,7 +49,8 @@
 	} from './org-chart-functions';
 
 	import SelectionAlert from './FunctionAlerts.svelte';
-
+	
+	export let hideUpdateDrawer: boolean = true;
 	export let drawerHidden: boolean = false;
 
 	let showAlert = false;
@@ -104,7 +105,7 @@
 		},
 		{name: 'Edit Selected', icon: UserEditSolid, onclick: () => {
 			if (currentlySelected.length === 1) {
-				showAlertMessage('Edit Selected not implemented yet.', 'error');
+				hideUpdateDrawer = false;
 			} else {
 				showAlertMessage('Please select only one node to edit.', 'error');
 			}

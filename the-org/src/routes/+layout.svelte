@@ -2,9 +2,11 @@
     import '../app.css';
     import Header from './Header.svelte';
     import Sidebar from '../lib/components/Sidebar.svelte';
+    import UpdateNodesDrawer from '$lib/components/UpdateNodesDrawer.svelte';
 	import { onMount } from 'svelte';
 	
     let drawerHidden = false;
+    let hideUpdateDrawer = true;
 
 	
 </script>
@@ -15,8 +17,9 @@
     <Header bind:drawerHidden />
 </header>
 <div class="overflow-hidden lg:flex">
-    <Sidebar bind:drawerHidden />
+    <Sidebar bind:drawerHidden bind:hideUpdateDrawer />
     <div class="relative h-full w-full overflow-y-auto lg:ml-64 pt-[70px]">
         <slot />
     </div>
+    <UpdateNodesDrawer bind:hideUpdateDrawer/>
 </div>
