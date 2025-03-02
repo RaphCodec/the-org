@@ -1,5 +1,5 @@
 let chart;
-let currentlySelected:Array<string> = [];
+let currentlySelected: Array<string> = [];
 let index = 0;
 let compact = 0;
 let new_node_counter = 0;
@@ -160,4 +160,22 @@ export function addToSelected(relation = 'child') {
 
   // show the changes in the chart
   chart.updateNodesState();
+}
+
+export function toggleSalaries() {
+  const salaries = document.querySelectorAll('.node-salaries');
+  salaries.forEach((salary) => {
+    salary.classList.toggle('hidden');
+  });
+}
+
+export function toggleReports() {
+  const directReports = document.querySelectorAll('.node-direct-reports');
+  const totalReports = document.querySelectorAll('.node-total-reports');
+  directReports.forEach((report) => {
+    report.classList.toggle('hidden');
+  });
+  totalReports.forEach((report) => {
+    report.classList.toggle('hidden');
+  });
 }

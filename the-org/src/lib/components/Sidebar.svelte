@@ -25,7 +25,9 @@
 		TableColumnSolid,
 		DrawSquareSolid,
 		UsersSolid,
-		UserEditSolid
+		UserEditSolid,
+		UserAddSolid,
+		UsersGroupSolid
 	} from 'flowbite-svelte-icons';
 
 	import {
@@ -41,7 +43,9 @@
 		exportPNG,
 		removeSelected,
 		addToSelected,
-		currentlySelected
+		currentlySelected,
+		toggleSalaries,
+		toggleReports
 	} from './org-chart-functions';
 
 	import SelectionAlert from './FunctionAlerts.svelte';
@@ -93,9 +97,18 @@
 				'Zoom In': { onclick: zoomInChart },
 				'Zoom Out': { onclick: zoomOutChart },
 				'Expand All': { onclick: expandAll },
-				'Collapse All': { onclick: collapseAll }
+				'Collapse All': { onclick: collapseAll },
+				'Toggle Salaries': { onclick: toggleSalaries },
+				'Toggle Reports': { onclick: toggleReports },
 			}
 		},
+		{name: 'Edit Selected', icon: UserEditSolid, onclick: () => {
+			if (currentlySelected.length === 1) {
+				showAlertMessage('Edit Selected not implemented yet.', 'error');
+			} else {
+				showAlertMessage('Please select only one node to edit.', 'error');
+			}
+		}},
 		{
 			name: 'Add/Remove Nodes',
 			icon: UsersSolid,
@@ -123,6 +136,24 @@
 						removeSelected();
 						showAlertMessage('Nodes Removed.', 'warning');
 					}
+				}}
+			}
+		},
+		{
+			name: 'Organize',
+			icon: UsersGroupSolid,
+			children: {
+				'Redo': { onclick: () => {
+					showAlertMessage('Redo not implemented yet.', 'error');
+				}},
+				'Undo': { onclick: () => {
+					showAlertMessage('Undo not implemented yet.', 'error');
+				}},
+				'Done': { onclick: () => {
+					showAlertMessage('Done not implemented yet.', 'error');
+				}},
+				'Cancel': { onclick: () => {
+					showAlertMessage('Cancel not implemented yet.', 'error');
 				}}
 			}
 		},
