@@ -138,7 +138,7 @@
 				}},
 				'Undo': { onclick: () => {
 					if (undoActions.length === 0) {
-						showAlertMessage('Nothing to Undo.', 'warning');
+						showAlertMessage('Nothing to Undo.', 'error');
 					} else {
 						undo();
 						showAlertMessage('Last Action Undone.');
@@ -146,7 +146,7 @@
 				}},
 				'Redo': { onclick: () => {
 					if (redoActions.length === 0) {
-						showAlertMessage('Nothing to Redo.', 'warning');
+						showAlertMessage('Nothing to Redo.', 'error');
 					} else {
 						redo();
 						showAlertMessage('Last Action Redone.');
