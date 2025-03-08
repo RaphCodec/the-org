@@ -52,7 +52,8 @@
 		undo,
 		redo,
 		undoActions,
-		redoActions
+		redoActions,
+		displayLineage
 	} from './org-chart-functions';
 
 	import SelectionAlert from './FunctionAlerts.svelte';
@@ -163,6 +164,13 @@
 				}}
 			}
 		},
+		{ name: 'Display Lineage', icon: EyeSlashSolid, onclick: () => {
+			if (currentlySelected.length === 1) {
+				displayLineage();
+			} else {
+				showAlertMessage('Please select only one node to display lineage.', 'error');
+			}
+		}},
 		{ name: 'Clear Highlights', icon: EyeSlashSolid, onclick: () => {
 			clearHighlights();
 			showAlertMessage('Chart Selections cleared.', 'warning');

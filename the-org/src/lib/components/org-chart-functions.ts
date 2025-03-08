@@ -97,11 +97,6 @@ export function exportPNG() {
 	chart.exportImg({ full: true });
 }
 
-function recordAction(actionType, data) {
-	undoActions.push({ actionType, data });
-	redoActions = []; // Clear redo actions on new action
-}
-
 export function removeSelected() {
     if (!chart) {
         console.error('Chart instance is not set');
@@ -114,7 +109,6 @@ export function removeSelected() {
         removedNodeTrees.push(nodeTree);
         chart.removeNode(item.id);
     }
-    recordAction('removeSelected', removedNodeTrees);
     currentlySelected = [];
 }
 
@@ -135,8 +129,6 @@ export function addToSelected(relation = 'child') {
     };
 
     let currentData = chart.data();
-
-    console.log('currentData', currentData);
 
     let oldParentId;
     if (relation === 'parent') {
@@ -163,7 +155,6 @@ export function addToSelected(relation = 'child') {
     // show the changes in the chart
     chart.updateNodesState();
 
-    recordAction('addToSelected', { newPerson, oldParentId });
 }
 
 export function updateInfo() {
@@ -290,3 +281,74 @@ export function redo() {
 }
 
 
+export function displayLineage() {
+	if (!chart) {
+		console.error('Chart instance is not set');
+		return;
+	}
+	const nodeId = currentlySelected[0].id;
+    const attrs = chart.getChartState();
+
+    const targetNode = attrs.allNodes.find(({ data }) => attrs.nodeId(data) === nodeId);
+    if (!targetNode) {
+        console.log(`Node with ID ${nodeId} not found.`);
+        return null;
+    }
+
+    const descendants = chart.getNodeChildren(targetNode, []);
+
+    let parent = targetNode.parent;
+    const parentLineage = [];
+
+    while (parent) {
+        const nodeCopy = { ...parent };
+        nodeCopy.children = [parentLineage.length > 0 ? parentLineage[parentLineage.length - 1] : targetNode];
+        parentLineage.push(nodeCopy);
+        parent = parent.parent;
+    }
+
+
+	const lineage = [...parentLineage, ...descendants];
+
+	// render a flattened hierachy
+	// trying to render the hierachy causes node id errors
+	chart.data(flattenHierarchy(lineage)).render().fit();
+}
+
+
+function flattenHierarchy(nodes) {
+	const flatData = [];
+	const seenIds = new Set();
+
+	function traverse(node, parentId = null) {
+		const nodeId = node.data ? node.data.id : node.id;
+		
+		// skip node ids that have already been processed
+		// this takes care of the duplicate target nodes caused by combining parent lineage with descendants
+		if (seenIds.has(nodeId)) return;
+		
+		seenIds.add(nodeId);
+		const nodeData = {
+			id: nodeId,
+			parentId: parentId || (node.data ? node.data.parentId : node.parentId),
+			name: node.data ? node.data.name : node.name,
+			position: node.data ? node.data.position : node.position,
+			salary: node.data ? node.data.salary : node.salary,
+			image: node.data ? node.data.image : node.image
+		};
+		flatData.push(nodeData);
+
+		const children = node.children || (Array.isArray(node) ? node : []);
+		if (children.length > 0) {
+			children.forEach(child => traverse(child, nodeData.id));
+		}
+	}
+
+	if (Array.isArray(nodes)) {
+		nodes.forEach(node => traverse(node));
+	} else {
+		traverse(nodes);
+	}
+	
+	return flatData;
+}

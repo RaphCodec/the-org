@@ -125,5 +125,29 @@
         "position": "Junior Shape Shifter",
         "salary": 205000,
         "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "17",
+        "name": "Dinah Lance",
+        "parentId": "2",
+        "position": "Kick Butt Singer",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "18",
+        "name": "Conner Kent",
+        "parentId": "7",
+        "position": "Genetic Strong Boy",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
+    },
+    {
+        "id": "19",
+        "name": "Jaime Reyes",
+        "parentId": "8",
+        "position": "Alein Tech Support",
+        "salary": 205000,
+        "image":"https://robohash.org/robot?bgset=bg2"
     }
 ]
