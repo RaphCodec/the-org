@@ -135,10 +135,9 @@ export function removeSelected() {
         return;
     }
 
-    const removedNodeTrees = [];
+	recordAction('Remove Node(s)')
+
     for (let item of currentlySelected) {
-        const nodeTree = chart.getNodeChildren(item, []);
-        removedNodeTrees.push(nodeTree);
         chart.removeNode(item.id);
     }
     currentlySelected = [];
@@ -243,64 +242,27 @@ export function getCurrentChartData() {
   return chart.data();
 }
 
+function recordAction(action, undo= true) {
+	const data = getCurrentChartData();
+	if (undo) {
+		undoActions.push({ action, data });
+	} else {
+		redoActions.push({ action, data });
+	}
+}
+
 export function undo() {
-    const action = undoActions.pop();
-    if (action) {
-        switch (action.actionType) {
-            case 'removeSelected':
-                // Iterate over each node tree and sort nodes by depth to ensure parents are added before children
-                action.data.forEach(nodeTree => {
-                    const sortedNodes = nodeTree.sort((a, b) => (a.depth || 0) - (b.depth || 0));
-                    sortedNodes.forEach(node => {
-                        chart.addNode(node);
-                    });
-                });
-                currentlySelected = action.data.map(nodeTree => nodeTree[0]); // Select the root nodes of restored trees
-                break;
-            case 'addToSelected':
-                chart.removeNode(action.data.newPerson.id);
-                break;
-            case 'updateInfo':
-                const nodeToUpdate = chart.data().find(node => node.id === action.data.id);
-                if (nodeToUpdate) {
-                    nodeToUpdate.name = action.data.oldName;
-                    nodeToUpdate.position = action.data.oldPosition;
-                    nodeToUpdate.salary = action.data.oldSalary;
-                }
-                break;
-            default:
-                break;
-        }
-        redoActions.push(action);
-        chart.render();
-    }
+	const lastAction = undoActions.pop();
+	recordAction(lastAction.action, false);
+	chart.data(lastAction.data).render();
+	clearHighlights(); // this prevents an selection error when the chart data is resotred
 }
 
 export function redo() {
-	const action = redoActions.pop();
-	if (action) {
-		switch (action.actionType) {
-			case 'removeSelected':
-				action.data.forEach(node => chart.removeNode(node.id));
-				currentlySelected = [];
-				break;
-			case 'addToSelected':
-				chart.addNode(action.data.newPerson);
-				break;
-			case 'updateInfo':
-				const nodeToUpdate = chart.data().find(node => node.id === action.data.id);
-				if (nodeToUpdate) {
-					nodeToUpdate.name = action.data.newName;
-					nodeToUpdate.position = action.data.newPosition;
-					nodeToUpdate.salary = action.data.newSalary;
-				}
-				break;
-			default:
-				break;
-		}
-		undoActions.push(action);
-		chart.render();
-	}
+	const lastAction = redoActions.pop();
+	recordAction(lastAction.action);
+	chart.data(lastAction.data).render();
+	clearHighlights(); // this prevents an selection error when the chart data is resotred
 }
 
 
