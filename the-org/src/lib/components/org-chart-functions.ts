@@ -103,11 +103,11 @@ export function exportPDF() {
     chart.exportImg({
         save: false,
         onLoad: (base64) => {
-            var pdf = new jsPDF('portrait', 'pt', 'a4');
+            var pdf = new jsPDF('landscape', 'pt', 'a4');
             var img = new Image();
             img.src = base64;
             img.onload = function () {
-                const margin = 72; // 1 inch margin in points
+                const margin = 18; // .25 inch margin in points
                 const pageWidth = pdf.internal.pageSize.getWidth();
                 const pageHeight = pdf.internal.pageSize.getHeight();
                 const imgWidth = pageWidth - 2 * margin;
