@@ -1,3 +1,5 @@
+import jsPDF from 'jspdf';
+
 let chart;
 let currentlySelected = [];
 let index = 0;
@@ -95,6 +97,36 @@ export function exportPNG() {
 		}
 	});
 	chart.exportImg({ full: true });
+}
+
+export function exportPDF() {
+    chart.exportImg({
+        save: false,
+        onLoad: (base64) => {
+            var pdf = new jsPDF('landscape', 'pt', 'a4');
+            var img = new Image();
+            img.src = base64;
+            img.onload = function () {
+                const margin = 18; // .25 inch margin in points
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = pageWidth - 2 * margin;
+                const imgHeight = (img.height / img.width) * imgWidth;
+                const x = (pageWidth - imgWidth) / 2;
+                const y = (pageHeight - imgHeight) / 2;
+
+                pdf.addImage(
+                    img,
+                    "JPEG",
+                    x,
+                    y,
+                    imgWidth,
+                    imgHeight
+                );
+                pdf.save("chart.pdf");
+            };
+        },
+    });
 }
 
 export function removeSelected() {
