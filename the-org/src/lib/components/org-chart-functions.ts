@@ -149,6 +149,8 @@ export function addToSelected(relation = 'child') {
         return;
     }
 
+	recordAction('Add Node(s)')
+
     // new person values
     const newPerson = {
         id: 'temp' + new_node_counter++,
@@ -159,7 +161,7 @@ export function addToSelected(relation = 'child') {
         parentId: undefined as string | undefined
     };
 
-    let currentData = chart.data();
+    let currentData = getCurrentChartData();
 
     let oldParentId;
     if (relation === 'parent') {
@@ -243,9 +245,14 @@ export function getCurrentChartData() {
 }
 
 function recordAction(action, undo= true) {
-	const data = getCurrentChartData();
-	if (undo) {
+	const data = flattenHierarchy(getCurrentChartData());
+	if (undo && action === 'Add Node(s)') {
+		data.pop(); // TODO: this is a workaround to remove the last added node becuase otherwise it is saved and won't undo
 		undoActions.push({ action, data });
+		console.log('undoActions', undoActions);
+	} else if (undo) {
+		undoActions.push({ action, data });
+		console.log('undoActions', undoActions);
 	} else {
 		redoActions.push({ action, data });
 	}
