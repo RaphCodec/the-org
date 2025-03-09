@@ -208,15 +208,6 @@ export function updateInfo() {
 			if (newPosition) nodeToUpdate.position = newPosition;
 			if (newSalary) nodeToUpdate.salary = Number(newSalary);
 
-			recordAction('updateInfo', {
-				id: nodeToUpdate.id,
-				oldName,
-				oldPosition,
-				oldSalary,
-				newName,
-				newPosition,
-				newSalary: Number(newSalary)
-			});
 		}
 	}
 

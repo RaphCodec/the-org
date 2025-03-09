@@ -19,6 +19,8 @@
 		TableColumnSolid,
 		UsersSolid,
 		UserEditSolid,
+		FilePdfSolid,
+		DatabaseSolid
 	} from 'flowbite-svelte-icons';
 
 	import {
@@ -92,7 +94,7 @@
 			children: {
 				'Fit Chart': { onclick: fitChart },
 				'Rotate Chart': { onclick: rotateChart },
-				'Compact Chart': { onclick: compactChart },
+				'Compact Layout': { onclick: compactChart },
 				'Zoom In': { onclick: zoomInChart },
 				'Zoom Out': { onclick: zoomOutChart },
 				'Expand All': { onclick: expandAll },
@@ -101,17 +103,17 @@
 				'Toggle Reports': { onclick: toggleReports },
 			}
 		},
-		{name: 'Edit Selected', icon: UserEditSolid, onclick: () => {
-			if (currentlySelected.length === 1) {
-				hideUpdateDrawer = false;
-			} else {
-				showAlertMessage('Please select only one node to edit.', 'error');
-			}
-		}},
 		{
-			name: 'Add/Remove Nodes',
+			name: 'Edit Nodes',
 			icon: UsersSolid,
 			children: {
+				'Edit Selected': { onclick: () => {
+							if (currentlySelected.length === 1) {
+						hideUpdateDrawer = false;
+					} else {
+						showAlertMessage('Please select only one node to edit.', 'error');
+					}
+				}},
 				'Add Node Above': { onclick: () => {
 					if (currentlySelected.length === 1) {
 						addToSelected('parent');
@@ -136,6 +138,14 @@
 						showAlertMessage('Nodes Removed.', 'warning');
 					}
 				}},
+				'Display Lineage': { onclick: () => {
+					if (currentlySelected.length === 1) {
+						displayLineage();
+						showAlertMessage(`Displaying Lineage for: ${currentlySelected[0].data.name}.`, 'success');
+					} else {
+						showAlertMessage('Please select only one node to display lineage.', 'error');
+					}
+				}},
 				'Undo': { onclick: () => {
 					if (undoActions.length === 0) {
 						showAlertMessage('Nothing to Undo.', 'warning');
@@ -154,13 +164,6 @@
 				}}
 			}
 		},
-		{ name: 'Display Lineage', icon: EyeSlashSolid, onclick: () => {
-			if (currentlySelected.length === 1) {
-				displayLineage();
-			} else {
-				showAlertMessage('Please select only one node to display lineage.', 'error');
-			}
-		}},
 		{ name: 'Clear Highlights', icon: EyeSlashSolid, onclick: () => {
 			clearHighlights();
 			showAlertMessage('Chart Selections cleared.', 'warning');
@@ -173,10 +176,10 @@
 			exportPNG();
 			showAlertMessage('Chart exported as PNG');
 		}},
-		{ name: 'Export PDF', icon: ImageSolid, onclick: () => {
+		{ name: 'Export PDF', icon: FilePdfSolid, onclick: () => {
 			exportPDF();
 			showAlertMessage('Chart exported as PDF')}},
-		{ name: 'Export Data', icon: ImageSolid, onclick: () => {
+		{ name: 'Export Data', icon: DatabaseSolid, onclick: () => {
 			exportNodeData();
 			showAlertMessage('Chart exported as PNG');
 		}}
