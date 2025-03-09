@@ -240,7 +240,7 @@ export function getCurrentChartData() {
     console.error('Chart instance is not set');
     return [];
   }
-  return chart.data();
+  return chart.getChartState().data;
 }
 
 function recordAction(action, undo= true) {
@@ -277,6 +277,9 @@ export function displayLineage() {
 		console.error('Chart instance is not set');
 		return;
 	}
+
+	recordAction('Display Lineage')
+
 	const nodeId = currentlySelected[0].id;
     const attrs = chart.getChartState();
 
