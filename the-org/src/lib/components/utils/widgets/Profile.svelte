@@ -17,6 +17,6 @@
 		<span class="block text-sm">{name}</span>
         <span class="block truncate text-xs font-medium">{title}</span>
 	</DropdownHeader>
-	<DropdownItem href={github}>GitHub</DropdownItem>
-	<DropdownItem href={linkedin}>LinkedIn</DropdownItem>
+	<DropdownItem on:click={() => window.open(github, '_blank')}>GitHub</DropdownItem>
+	<DropdownItem on:click={() => window.open(linkedin, '_blank')}>LinkedIn</DropdownItem>
 </Dropdown>
