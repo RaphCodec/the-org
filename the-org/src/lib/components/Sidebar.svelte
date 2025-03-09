@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	import {
 		Sidebar,
@@ -76,7 +76,7 @@
 		'flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700';
 	let groupClass = 'pt-2 space-y-2';
 
-	$: mainSidebarUrl = $page.url.pathname;
+	$: mainSidebarUrl = page.url.pathname;
 	let activeMainSidebar: string;
 
 	afterNavigate((navigation) => {
