@@ -41,6 +41,7 @@
 		clearHighlights,
 		exportSVG,
 		exportPNG,
+		exportPDF,
 		removeSelected,
 		addToSelected,
 		currentlySelected,
@@ -182,6 +183,10 @@
 		{ name: 'Export PNG', icon: ImageSolid, onclick: () => {
 			exportPNG();
 			showAlertMessage('Chart exported as PNG');
+		}},
+		{ name: 'Export PDF', icon: ImageSolid, onclick: () => {
+			exportPDF();
+			showAlertMessage('Chart exported as PDF');
 		}}
 	];
 
