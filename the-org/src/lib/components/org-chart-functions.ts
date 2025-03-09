@@ -141,6 +141,7 @@ export function removeSelected() {
         chart.removeNode(item.id);
     }
     currentlySelected = [];
+	redoActions = [];
 }
 
 export function addToSelected(relation = 'child') {
@@ -148,8 +149,7 @@ export function addToSelected(relation = 'child') {
         console.error('Chart instance is not set');
         return;
     }
-
-	recordAction('Add Node(s)')
+s
 
     // new person values
     const newPerson = {
@@ -191,6 +191,8 @@ export function addToSelected(relation = 'child') {
 }
 
 export function updateInfo() {
+	recordAction('Update Node(s)')
+
 	let newName = document.getElementById('update-Name').value;
 	let newPosition = document.getElementById('update-title').value;
 	let newSalary = document.getElementById('update-salary').value;
@@ -216,6 +218,7 @@ export function updateInfo() {
 	chart.updateNodesState();
 
 	clearHighlights();
+	redoActions = [];
 }
 
 export function toggleSalaries() {
@@ -248,8 +251,6 @@ function recordAction(action, undo = true) {
 	const data = flattenHierarchy(getCurrentChartData());
 	if (undo) {
 		undoActions.push({ action, data });
-		// empty redo array when a new action is done
-		redoActions = [];
 		console.log('undoActions', undoActions);
 	} else {
 		redoActions.push({ action, data });
@@ -306,6 +307,8 @@ export function displayLineage() {
 	// render a flattened hierachy
 	// trying to render the hierachy causes node id errors
 	chart.data(flattenHierarchy(lineage)).render().fit();
+
+	redoActions = [];
 }
 
 
