@@ -140,16 +140,18 @@
 					if (undoActions.length === 0) {
 						showAlertMessage('Nothing to Undo.', 'error');
 					} else {
+						const lastAction = undoActions[undoActions.length - 1];
 						undo();
-						showAlertMessage('Last Action Undone.');
+						showAlertMessage(`Last Action (${lastAction.action}) Undone.`);
 					}
 				}},
 				'Redo': { onclick: () => {
 					if (redoActions.length === 0) {
 						showAlertMessage('Nothing to Redo.', 'error');
 					} else {
+						const lastAction = redoActions[redoActions.length - 1];
 						redo();
-						showAlertMessage('Last Action Redone.');
+						showAlertMessage(`Last Action (${lastAction.action}) Redone.`);
 					}
 				}}
 			}

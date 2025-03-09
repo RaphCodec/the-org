@@ -243,14 +243,12 @@ export function getCurrentChartData() {
   return chart.getChartState().data;
 }
 
-function recordAction(action, undo= true) {
+function recordAction(action, undo = true) {
 	const data = flattenHierarchy(getCurrentChartData());
-	if (undo && action === 'Add Node(s)') {
-		data.pop(); // TODO: this is a workaround to remove the last added node becuase otherwise it is saved and won't undo
+	if (undo) {
 		undoActions.push({ action, data });
-		console.log('undoActions', undoActions);
-	} else if (undo) {
-		undoActions.push({ action, data });
+		// empty redo array when a new action is done
+		redoActions = [];
 		console.log('undoActions', undoActions);
 	} else {
 		redoActions.push({ action, data });
