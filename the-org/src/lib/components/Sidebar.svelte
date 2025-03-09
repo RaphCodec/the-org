@@ -12,22 +12,13 @@
 	import {
 		AngleDownOutline,
 		AngleUpOutline,
-		ClipboardListSolid,
 		FileImageSolid,
 		ImageSolid,
 		GithubSolid,
 		EyeSlashSolid,
-		LifeSaverSolid,
-		LockSolid,
-		WandMagicSparklesOutline,
-		ChartPieOutline,
-		RectangleListSolid,
 		TableColumnSolid,
-		DrawSquareSolid,
 		UsersSolid,
 		UserEditSolid,
-		UserAddSolid,
-		UsersGroupSolid
 	} from 'flowbite-svelte-icons';
 
 	import {
@@ -47,14 +38,12 @@
 		currentlySelected,
 		toggleSalaries,
 		toggleReports,
-		// enableDrag,
-		// disableDrag,
-		// cancelDrag,
 		undo,
 		redo,
 		undoActions,
 		redoActions,
-		displayLineage
+		displayLineage,
+		exportNodeData
 	} from './org-chart-functions';
 
 	import SelectionAlert from './FunctionAlerts.svelte';
@@ -186,7 +175,10 @@
 		}},
 		{ name: 'Export PDF', icon: ImageSolid, onclick: () => {
 			exportPDF();
-			showAlertMessage('Chart exported as PDF');
+			showAlertMessage('Chart exported as PDF')}},
+		{ name: 'Export Data', icon: ImageSolid, onclick: () => {
+			exportNodeData();
+			showAlertMessage('Chart exported as PNG');
 		}}
 	];
 
