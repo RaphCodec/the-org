@@ -9,7 +9,10 @@ let new_node_counter = 0;
 let undoActions = [];
 let redoActions = [];
 
-export { currentlySelected, undoActions, redoActions };
+let people = []; 
+let currentSupervisor = 'No supervisor';
+
+export { currentlySelected, undoActions, redoActions, people, currentSupervisor };
 
 export function setChartInstance(chartInstance) {
 	chart = chartInstance;
@@ -188,6 +191,20 @@ s
     // show the changes in the chart
     chart.updateNodesState();
 
+}
+
+export function getSupervisors() {
+    const currentData = getCurrentChartData();
+    if (currentlySelected[0]?.data?.parentId) {
+        const parentNode = currentData.find((node) => node.id === currentlySelected[0].data.parentId);
+        currentSupervisor = parentNode ? parentNode.name : 'No supervisor';
+    } else {
+        currentSupervisor = 'No supervisor';
+    }
+    people = currentData.map(node => ({
+        name: node.name,
+        id: node.id
+    }));
 }
 
 export function updateInfo() {

@@ -45,7 +45,8 @@
 		undoActions,
 		redoActions,
 		displayLineage,
-		exportNodeData
+		exportNodeData,
+		getSupervisors
 	} from './org-chart-functions';
 
 	import SelectionAlert from './FunctionAlerts.svelte';
@@ -108,7 +109,8 @@
 			icon: UsersSolid,
 			children: {
 				'Edit Selected': { onclick: () => {
-							if (currentlySelected.length === 1) {
+					if (currentlySelected.length === 1) {
+						getSupervisors();
 						hideUpdateDrawer = false;
 					} else {
 						showAlertMessage('Please select only one node to edit.', 'error');

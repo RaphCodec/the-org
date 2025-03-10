@@ -1,8 +1,8 @@
 <script>
-  import { Drawer, Button, CloseButton, Label, Input, Search } from 'flowbite-svelte';
+  import { Drawer, Button, CloseButton, Label, Input, Search, List, Li } from 'flowbite-svelte';
   import { InfoCircleSolid } from 'flowbite-svelte-icons';
   import { sineIn } from 'svelte/easing';
-  import { currentlySelected, updateInfo, getCurrentChartData } from './org-chart-functions';
+  import { currentlySelected, updateInfo, currentSupervisor, people } from './org-chart-functions';
 
   export let hideUpdateDrawer = true;
   let transitionParams = {
@@ -11,11 +11,9 @@
     easing: sineIn
   };
 
-  let supervisor = 'test';
+  let search = '';
+  $: filteredPeople = people.filter(person => person.name.toLowerCase().includes(search.toLowerCase()));
 
-  // Example usage of getCurrentChartData
-  // let currentData = () => getCurrentChartData();
-  // console.log(currentData);
 </script>
   
 <Drawer placement="right" transitionType="fly" {transitionParams} bind:hidden={hideUpdateDrawer} id="sidebar4">
@@ -34,10 +32,17 @@
         <Label for="update-title" class="block mb-2">Title</Label>
         <Input id="update-title" name="update-title" placeholder={currentlySelected[0].data.position} />
       </div>
-      <!-- <div class="mb-6">
+      <div class="mb-6">
         <Label for="update-supervisor" class="block mb-2">Supervisor</Label>
-        <Input id="update-supervisor" name="update-supervisor" placeholder={supervisor} />
-      </div> -->
+        <Input id="update-supervisor" name="update-supervisor" placeholder={currentSupervisor} bind:value={search} />
+        <List class="mt-2 dark:text-white list-none">
+          {#if search.length > 0}
+            {#each filteredPeople as person}
+              <Li>{person.name}</Li>
+            {/each}
+          {/if}
+        </List>
+      </div>
       <div class="mb-6">
         <Label for="update-salary" class="block mb-2">Salary</Label>
         <Input id="update-salary" name="update-salary" type="number" placeholder={currentlySelected[0].data.salary?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })} />
