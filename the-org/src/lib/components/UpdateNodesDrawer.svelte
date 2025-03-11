@@ -63,7 +63,7 @@
         <div id="searchResults" class="scrollable-results mt-2 dark:text-white list-none" style="cursor:pointer; max-height: 200px; overflow-y: auto;">
           {#if search.length > 0}
             {#each filteredPeople as person}
-            <Li>{person.name}</Li>
+            <div on:click={() => selectSupervisor(person.name)} on:keydown={(e) => e.key === 'Enter' && selectSupervisor(person.name)}><Li>{person.name}</Li></div>
             {/each}
           {/if}
         </div>

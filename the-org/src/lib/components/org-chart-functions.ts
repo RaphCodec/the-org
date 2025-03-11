@@ -9,7 +9,12 @@ let new_node_counter = 0;
 let undoActions = [];
 let redoActions = [];
 
-let people = []; 
+interface Person {
+	name: string;
+	id: string;
+}
+
+let people: Person[] = []; 
 let currentSupervisor = 'No supervisor';
 
 export { currentlySelected, undoActions, redoActions, people, currentSupervisor };
@@ -212,6 +217,7 @@ export function updateInfo() {
 
 	let newName = document.getElementById('update-Name').value;
 	let newPosition = document.getElementById('update-title').value;
+	let newParent = document.getElementById('update-supervisor').value;
 	let newSalary = document.getElementById('update-salary').value;
 
 	let currentData = getCurrentChartData();
@@ -220,12 +226,10 @@ export function updateInfo() {
 	if (currentlySelected.length > 0) {
 		const nodeToUpdate = currentData.find((node) => node.id === currentlySelected[0].id);
 		if (nodeToUpdate) {
-			const oldName = nodeToUpdate.name;
-			const oldPosition = nodeToUpdate.position;
-			const oldSalary = nodeToUpdate.salary;
 
 			if (newName) nodeToUpdate.name = newName;
 			if (newPosition) nodeToUpdate.position = newPosition;
+			if (newParent) nodeToUpdate.parentId = people.find(person => person.name === newParent)?.id;
 			if (newSalary) nodeToUpdate.salary = Number(newSalary);
 
 		}
