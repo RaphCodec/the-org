@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	import {
 		Sidebar,
@@ -19,6 +19,8 @@
 		TableColumnSolid,
 		UsersSolid,
 		UserEditSolid,
+		FilePdfSolid,
+		DatabaseSolid
 	} from 'flowbite-svelte-icons';
 
 	import {
@@ -43,7 +45,8 @@
 		undoActions,
 		redoActions,
 		displayLineage,
-		exportNodeData
+		exportNodeData,
+		getSupervisors
 	} from './org-chart-functions';
 
 	import SelectionAlert from './FunctionAlerts.svelte';
@@ -74,7 +77,7 @@
 		'flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700';
 	let groupClass = 'pt-2 space-y-2';
 
-	$: mainSidebarUrl = $page.url.pathname;
+	$: mainSidebarUrl = page.url.pathname;
 	let activeMainSidebar: string;
 
 	afterNavigate((navigation) => {
@@ -92,7 +95,7 @@
 			children: {
 				'Fit Chart': { onclick: fitChart },
 				'Rotate Chart': { onclick: rotateChart },
-				'Compact Chart': { onclick: compactChart },
+				'Compact Layout': { onclick: compactChart },
 				'Zoom In': { onclick: zoomInChart },
 				'Zoom Out': { onclick: zoomOutChart },
 				'Expand All': { onclick: expandAll },
@@ -101,17 +104,18 @@
 				'Toggle Reports': { onclick: toggleReports },
 			}
 		},
-		{name: 'Edit Selected', icon: UserEditSolid, onclick: () => {
-			if (currentlySelected.length === 1) {
-				hideUpdateDrawer = false;
-			} else {
-				showAlertMessage('Please select only one node to edit.', 'error');
-			}
-		}},
 		{
-			name: 'Add/Remove Nodes',
+			name: 'Edit Nodes',
 			icon: UsersSolid,
 			children: {
+				'Edit Selected': { onclick: () => {
+					if (currentlySelected.length === 1) {
+						getSupervisors();
+						hideUpdateDrawer = false;
+					} else {
+						showAlertMessage('Please select only one node to edit.', 'error');
+					}
+				}},
 				'Add Node Above': { onclick: () => {
 					if (currentlySelected.length === 1) {
 						addToSelected('parent');
@@ -136,31 +140,34 @@
 						showAlertMessage('Nodes Removed.', 'warning');
 					}
 				}},
+				'Display Lineage': { onclick: () => {
+					if (currentlySelected.length === 1) {
+						displayLineage();
+						showAlertMessage(`Displaying Lineage for: ${currentlySelected[0].data.name}.`, 'success');
+					} else {
+						showAlertMessage('Please select only one node to display lineage.', 'error');
+					}
+				}},
 				'Undo': { onclick: () => {
 					if (undoActions.length === 0) {
-						showAlertMessage('Nothing to Undo.', 'warning');
+						showAlertMessage('Nothing to Undo.', 'error');
 					} else {
+						const lastAction = undoActions[undoActions.length - 1];
 						undo();
-						showAlertMessage('Last Action Undone.');
+						showAlertMessage(`Last Action (${lastAction.action}) Undone.`);
 					}
 				}},
 				'Redo': { onclick: () => {
 					if (redoActions.length === 0) {
-						showAlertMessage('Nothing to Redo.', 'warning');
+						showAlertMessage('Nothing to Redo.', 'error');
 					} else {
+						const lastAction = redoActions[redoActions.length - 1];
 						redo();
-						showAlertMessage('Last Action Redone.');
+						showAlertMessage(`Last Action (${lastAction.action}) Redone.`);
 					}
 				}}
 			}
 		},
-		{ name: 'Display Lineage', icon: EyeSlashSolid, onclick: () => {
-			if (currentlySelected.length === 1) {
-				displayLineage();
-			} else {
-				showAlertMessage('Please select only one node to display lineage.', 'error');
-			}
-		}},
 		{ name: 'Clear Highlights', icon: EyeSlashSolid, onclick: () => {
 			clearHighlights();
 			showAlertMessage('Chart Selections cleared.', 'warning');
@@ -173,10 +180,10 @@
 			exportPNG();
 			showAlertMessage('Chart exported as PNG');
 		}},
-		{ name: 'Export PDF', icon: ImageSolid, onclick: () => {
+		{ name: 'Export PDF', icon: FilePdfSolid, onclick: () => {
 			exportPDF();
 			showAlertMessage('Chart exported as PDF')}},
-		{ name: 'Export Data', icon: ImageSolid, onclick: () => {
+		{ name: 'Export Data', icon: DatabaseSolid, onclick: () => {
 			exportNodeData();
 			showAlertMessage('Chart exported as PNG');
 		}}
