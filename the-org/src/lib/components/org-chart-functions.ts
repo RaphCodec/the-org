@@ -6,10 +6,15 @@ let index = 0;
 let compact = 0;
 let new_node_counter = 0;
 
-let undoActions = [];
-let redoActions = [];
+interface Person {
+	name: string;
+	id: string;
+}
 
-export { currentlySelected, undoActions, redoActions };
+let people: Person[] = []; 
+let currentSupervisor = 'No supervisor';
+
+export { currentlySelected, people, currentSupervisor };
 
 export function setChartInstance(chartInstance) {
 	chart = chartInstance;
@@ -135,10 +140,7 @@ export function removeSelected() {
         return;
     }
 
-    const removedNodeTrees = [];
     for (let item of currentlySelected) {
-        const nodeTree = chart.getNodeChildren(item, []);
-        removedNodeTrees.push(nodeTree);
         chart.removeNode(item.id);
     }
     currentlySelected = [];
@@ -160,7 +162,7 @@ export function addToSelected(relation = 'child') {
         parentId: undefined as string | undefined
     };
 
-    let currentData = chart.data();
+    let currentData = getCurrentChartData();
 
     let oldParentId;
     if (relation === 'parent') {
@@ -189,9 +191,24 @@ export function addToSelected(relation = 'child') {
 
 }
 
+export function getSupervisors() {
+    const currentData = getCurrentChartData();
+    if (currentlySelected[0]?.data?.parentId) {
+        const parentNode = currentData.find((node) => node.id === currentlySelected[0].data.parentId);
+        currentSupervisor = parentNode ? parentNode.name : 'No supervisor';
+    } else {
+        currentSupervisor = 'No supervisor';
+    }
+    people = currentData.map(node => ({
+        name: node.name,
+        id: node.id
+    }));
+}
+
 export function updateInfo() {
 	let newName = document.getElementById('update-Name').value;
 	let newPosition = document.getElementById('update-title').value;
+	let newParent = document.getElementById('update-supervisor').value;
 	let newSalary = document.getElementById('update-salary').value;
 
 	let currentData = getCurrentChartData();
@@ -200,23 +217,12 @@ export function updateInfo() {
 	if (currentlySelected.length > 0) {
 		const nodeToUpdate = currentData.find((node) => node.id === currentlySelected[0].id);
 		if (nodeToUpdate) {
-			const oldName = nodeToUpdate.name;
-			const oldPosition = nodeToUpdate.position;
-			const oldSalary = nodeToUpdate.salary;
 
 			if (newName) nodeToUpdate.name = newName;
 			if (newPosition) nodeToUpdate.position = newPosition;
+			if (newParent) nodeToUpdate.parentId = people.find(person => person.name === newParent)?.id;
 			if (newSalary) nodeToUpdate.salary = Number(newSalary);
 
-			recordAction('updateInfo', {
-				id: nodeToUpdate.id,
-				oldName,
-				oldPosition,
-				oldSalary,
-				newName,
-				newPosition,
-				newSalary: Number(newSalary)
-			});
 		}
 	}
 
@@ -224,6 +230,8 @@ export function updateInfo() {
 	chart.updateNodesState();
 
 	clearHighlights();
+
+	currentlySelected = [];
 }
 
 export function toggleSalaries() {
@@ -249,67 +257,7 @@ export function getCurrentChartData() {
     console.error('Chart instance is not set');
     return [];
   }
-  return chart.data();
-}
-
-export function undo() {
-    const action = undoActions.pop();
-    if (action) {
-        switch (action.actionType) {
-            case 'removeSelected':
-                // Iterate over each node tree and sort nodes by depth to ensure parents are added before children
-                action.data.forEach(nodeTree => {
-                    const sortedNodes = nodeTree.sort((a, b) => (a.depth || 0) - (b.depth || 0));
-                    sortedNodes.forEach(node => {
-                        chart.addNode(node);
-                    });
-                });
-                currentlySelected = action.data.map(nodeTree => nodeTree[0]); // Select the root nodes of restored trees
-                break;
-            case 'addToSelected':
-                chart.removeNode(action.data.newPerson.id);
-                break;
-            case 'updateInfo':
-                const nodeToUpdate = chart.data().find(node => node.id === action.data.id);
-                if (nodeToUpdate) {
-                    nodeToUpdate.name = action.data.oldName;
-                    nodeToUpdate.position = action.data.oldPosition;
-                    nodeToUpdate.salary = action.data.oldSalary;
-                }
-                break;
-            default:
-                break;
-        }
-        redoActions.push(action);
-        chart.render();
-    }
-}
-
-export function redo() {
-	const action = redoActions.pop();
-	if (action) {
-		switch (action.actionType) {
-			case 'removeSelected':
-				action.data.forEach(node => chart.removeNode(node.id));
-				currentlySelected = [];
-				break;
-			case 'addToSelected':
-				chart.addNode(action.data.newPerson);
-				break;
-			case 'updateInfo':
-				const nodeToUpdate = chart.data().find(node => node.id === action.data.id);
-				if (nodeToUpdate) {
-					nodeToUpdate.name = action.data.newName;
-					nodeToUpdate.position = action.data.newPosition;
-					nodeToUpdate.salary = action.data.newSalary;
-				}
-				break;
-			default:
-				break;
-		}
-		undoActions.push(action);
-		chart.render();
-	}
+  return chart.getChartState().data;
 }
 
 
@@ -318,6 +266,7 @@ export function displayLineage() {
 		console.error('Chart instance is not set');
 		return;
 	}
+
 	const nodeId = currentlySelected[0].id;
     const attrs = chart.getChartState();
 

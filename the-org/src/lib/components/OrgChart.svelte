@@ -30,7 +30,7 @@
               <div style='width:${
 								d.width
 							}px;height:${d.height}px;padding-top:${imageDiffVert - 2}px;padding-left:1px;padding-right:1px'>
-                      <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: ${d.data._highlighted || d.data._upToTheRootHighlighted ? '5px solid #E27396"' : '1px solid #E4E2E9"'} >
+                      <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: ${d.data._highlighted || d.data._upToTheRootHighlighted ? '5px solid #0000FF"' : '1px solid #E4E2E9"'} >
                           <div style="display:flex;justify-content:flex-end;margin-top:5px;margin-right:8px">#${
 														d.data.id
 													}</div>
@@ -61,19 +61,6 @@
 				// Needed to disable default highlight behavior
 				d3.select(this).select('.node-rect').attr('stroke', 'none');
 			})
-			//  .linkUpdate(function (d, i, arr) {
-			//   d3.select(this)
-			//     .attr('stroke', (d) =>
-			//       d.data._upToTheRootHighlighted ? '#E27396' : '#000000'
-			//     )
-			//     .attr('stroke-width', (d) =>
-			//       d.data._upToTheRootHighlighted ? 5 : 3
-			//     );
-
-			//   if (d.data._upToTheRootHighlighted) {
-			//     d3.select(this).raise();
-			//   }
-			// })
 			.onNodeClick(function (d) {
 				d.data._highlighted = !d.data._highlighted;
 				chart.updateNodesState();

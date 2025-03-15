@@ -4,7 +4,6 @@
 	export let name: string = ''; 
 	export let avatar: string = ''; 
 	export let github: string = ''; 
-	export let linkedin: string = '';
 	export let title: string = '';
 	
 </script>
@@ -18,19 +17,4 @@
         <span class="block truncate text-xs font-medium">{title}</span>
 	</DropdownHeader>
 	<DropdownItem href={github}>GitHub</DropdownItem>
-	<DropdownItem href={linkedin}>LinkedIn</DropdownItem>
 </Dropdown>
-
-<!--
-@component
-[Go to docs](https://flowbite-svelte-admin-dashboard.vercel.app/)
-## Props
-@prop export let id: number = 0;
-@prop export let name: string = '';
-@prop export let avatar: string = '';
-@prop export let email: string = '';
-@prop export let biography: string = '';
-@prop export let position: string = '';
-@prop export let country: string = '';
-@prop export let status: string = '';
--->
