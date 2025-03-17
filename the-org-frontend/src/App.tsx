@@ -71,6 +71,12 @@ export default function FilesExample() {
     }
   };
 
+  const handleFilterChart = (e) => {
+    if (orgChartRef.current) {
+      orgChartRef.current.filterChart(e);
+    }
+  };
+
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -107,7 +113,7 @@ export default function FilesExample() {
         ]}
       >
         <Layout.Header>
-          <Header />
+          <Header onFilterChart={handleFilterChart} />
         </Layout.Header>
         <Layout.SideNav>
           <Navigation

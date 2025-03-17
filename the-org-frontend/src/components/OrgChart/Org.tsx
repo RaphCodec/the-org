@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 
 const Org = React.forwardRef((props, ref) => {
   const chartRef = React.useRef(null);
+  const currentlySelectedRef = React.useRef([]);
 
   React.useEffect(() => {
     const data = [
@@ -209,7 +210,6 @@ const Org = React.forwardRef((props, ref) => {
       }
     ];
 
-    let currentlySelected = [];
     let index = 0;
     let compact = 0;
 
@@ -253,22 +253,36 @@ const Org = React.forwardRef((props, ref) => {
         d.data._highlighted = !d.data._highlighted;
         chart.updateNodesState();
         if (d.data._highlighted === true) {
-          if (!currentlySelected.map((item) => item.id).includes(d.id)) {
-            currentlySelected.push(d);
+          if (!currentlySelectedRef.current.map((item) => item.id).includes(d.id)) {
+            currentlySelectedRef.current.push(d);
             chart.setHighlighted(d.id).render();
           }
         } else {
-          const index = currentlySelected.findIndex((item) => item.id === d.id);
+          const index = currentlySelectedRef.current.findIndex((item) => item.id === d.id);
           if (index > -1) {
-            currentlySelected.splice(index, 1);
+            currentlySelectedRef.current.splice(index, 1);
           }
         }
-        console.log(currentlySelected);
+        console.log(currentlySelectedRef.current);
       })
       .render();
 
     chart.render();
     chartRef.current = chart;
+
+    const filterChart = (e) => {
+      const value = e.target.value;
+      chartRef.current.clearHighlighting();
+      const data = chartRef.current.data();
+      data.forEach((d) => (d._expanded = false));
+      data.forEach((d) => {
+        if (value !== '' && d.name.toLowerCase().includes(value.toLowerCase())) {
+          d._highlighted = true;
+          d._expanded = true;
+        }
+      });
+      chartRef.current.data(data).render().fit();
+    };
 
     if (ref) {
       ref.current = {
@@ -338,7 +352,7 @@ const Org = React.forwardRef((props, ref) => {
         },
         clearHighlights: () => {
           chart.clearHighlighting();
-          currentlySelected = [];
+          currentlySelectedRef.current = [];
         },
         exportNodeData: () => {
           const data = chart.data();
@@ -360,7 +374,8 @@ const Org = React.forwardRef((props, ref) => {
           a.download = 'data.json';
           a.click();
           URL.revokeObjectURL(url);
-        }
+        },
+        filterChart,
       };
     }
   }, [ref]);

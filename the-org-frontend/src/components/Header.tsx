@@ -63,7 +63,7 @@ function ColorSchemeToggle() {
   );
 }
 
-export default function Header() {
+export default function Header({ onFilterChart }) {
   const [open, setOpen] = React.useState(false);
   return (
     <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between' }}>
@@ -145,6 +145,7 @@ export default function Header() {
               sm: 'flex',
             },
           }}
+          onChange={onFilterChart}
         />
         <IconButton
           size="sm"
