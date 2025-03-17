@@ -25,7 +25,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 
-export default function Navigation() {
+export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCompact }) {
   return (
     <List size="sm" sx={{ '--ListItem-radius': '8px', '--List-gap': '2px' }}>
       <ListItem nested>
@@ -37,7 +37,7 @@ export default function Navigation() {
           sx={{ '& .JoyListItemButton-root': { p: '8px' } }}
         >
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onFit}>
               <ListItemDecorator>
                 <FitScreenIcon fontSize="small" />
               </ListItemDecorator>
@@ -46,7 +46,7 @@ export default function Navigation() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onRotate}>
               <ListItemDecorator>
                 <CropRotateIcon fontSize="small" />
               </ListItemDecorator>
@@ -55,7 +55,7 @@ export default function Navigation() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onCompact}>
               <ListItemDecorator>
                 <AccountTreeRoundedIcon fontSize="small" />
               </ListItemDecorator>
@@ -64,7 +64,7 @@ export default function Navigation() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onZoomIn}>
               <ListItemDecorator>
                 <ZoomInIcon fontSize="small" />
               </ListItemDecorator>
@@ -73,7 +73,7 @@ export default function Navigation() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onZoomOut}>
               <ListItemDecorator>
                 <ZoomOutIcon fontSize="small" />
               </ListItemDecorator>
@@ -98,7 +98,7 @@ export default function Navigation() {
           }}
         >
 
-<ListItem>
+          <ListItem>
             <ListItemButton>
               <ListItemDecorator>
                 <EditIcon fontSize="small" />

@@ -9,13 +9,50 @@ import Org from './components/OrgChart/Org';
 
 export default function FilesExample() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const orgChartRef = React.useRef(null);
+
+  const handleZoomIn = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.zoomIn();
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.zoomOut();
+    }
+  };
+
+  const handleFit = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.fit();
+    }
+  };
+
+  const handleRotate = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.rotate();
+    }
+  };
+
+  const handleCompact = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.compact();
+    }
+  };
 
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
       {drawerOpen && (
         <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
-          <Navigation />
+          <Navigation
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            onFit={handleFit}
+            onRotate={handleRotate}
+            onCompact={handleCompact}
+          />
         </Layout.SideDrawer>
       )}
  
@@ -38,7 +75,13 @@ export default function FilesExample() {
           <Header />
         </Layout.Header>
         <Layout.SideNav>
-          <Navigation />
+          <Navigation
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            onFit={handleFit}
+            onRotate={handleRotate}
+            onCompact={handleCompact}
+          />
         </Layout.SideNav>
         <Layout.Main>
           <Box
@@ -47,7 +90,7 @@ export default function FilesExample() {
               height: '100vh',
             }}
           >
-            <Org />
+            <Org ref={orgChartRef} />
           </Box>
         </Layout.Main>
       </Layout.Root>
