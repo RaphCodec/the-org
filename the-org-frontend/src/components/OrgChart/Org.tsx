@@ -5,26 +5,263 @@ import * as d3 from 'd3';
 const Org = () => {
   React.useEffect(() => {
     const data = [
-      { id: 1, name: 'CEO', parentId: null },
-      { id: 2, name: 'CTO', parentId: 1 },
-      { id: 3, name: 'CFO', parentId: 1 },
-      { id: 4, name: 'Engineer', parentId: 2 },
-      { id: 5, name: 'Accountant', parentId: 3 },
+      {
+        "id": "1",
+        "name": "Bruce Wayne",
+        "position": "The Damn Best",
+        "salary": 1000000000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "2",
+        "parentId": "1",
+        "name": "Diana Prince",
+        "position": "Chief Badass In Charge",
+        "salary": 687000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "3",
+        "parentId": "2",
+        "name": "Harleen Quinzel",
+        "position": "Crazy Sanity Keeper",
+        "salary": 182000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "4",
+        "parentId": "1",
+        "name": "Wally West",
+        "position": "Quick Fixer",
+        "salary": 542000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "5",
+        "parentId": "1",
+        "name": "Jon Stewart",
+        "position": "Light In The Dark",
+        "salary": 558000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "6",
+        "parentId": "1",
+        "name": "Shayera Hol",
+        "position": "Firece Angel",
+        "salary": 563000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "7",
+        "parentId": "1",
+        "name": "Clark Kent",
+        "position": "Mister Invincible",
+        "salary": 695000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "8",
+        "parentId": "10",
+        "name": "Victor Stone",
+        "position": "Charismatic Machine",
+        "salary": 168000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "9",
+        "parentId": "10",
+        "name": "Damian Wayne",
+        "position": "Heir to the Throne",
+        "salary": 172000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "10",
+        "parentId": "1",
+        "name": "Dick Grayson",
+        "position": "The Original",
+        "salary": 575000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "11",
+        "parentId": "10",
+        "name": "Barbara Gordon",
+        "position": "The Answer",
+        "salary": 582000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "12",
+        "parentId": "1",
+        "name": "J'onn J'onzz",
+        "position": "Shape Shifter",
+        "salary": 568000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "13",
+        "parentId": "10",
+        "name": "Garfield Logan",
+        "position": "Personal Zoo Keeper",
+        "salary": 165000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "14",
+        "parentId": "10",
+        "name": "Rachel Roth",
+        "position": "Spell Binder",
+        "salary": 171000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "15",
+        "parentId": "10",
+        "name": "Koriand'r (Kory) Anders",
+        "position": "Fire Flyer",
+        "salary": 169000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "16",
+        "parentId": "12",
+        "name": "Megan Morse",
+        "position": "Junior Shape Shifter",
+        "salary": 158000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "17",
+        "parentId": "2",
+        "name": "Dinah Lance",
+        "position": "Kick Butt Singer",
+        "salary": 178000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "18",
+        "parentId": "7",
+        "name": "Conner Kent",
+        "position": "Genetic Strong Boy",
+        "salary": 162000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "19",
+        "parentId": "8",
+        "name": "Jaime Reyes",
+        "position": "Alein Tech Support",
+        "salary": 152000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "20",
+        "parentId": "1",
+        "name": "Arthur Curry",
+        "position": "The Great Fish Man",
+        "salary": 678000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "21",
+        "parentId": "2",
+        "name": "Oliver Queen",
+        "position": "The Hooded Bow",
+        "salary": 579000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "22",
+        "parentId": "5",
+        "name": "Hal Jordan",
+        "position": "The Original Emerald Knight",
+        "salary": 581000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "23",
+        "parentId": "7",
+        "name": "Kara Zor-El",
+        "position": "Pretty Powerful",
+        "salary": 685000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "24",
+        "parentId": "6",
+        "name": "Kent Nelson",
+        "position": "The Moody Socerer",
+        "salary": 573000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      },
+      {
+        "id": "25",
+        "parentId": "6",
+        "name": "Ray Palmer",
+        "position": "The Small Package",
+        "salary": 577000,
+        "image": "https://robohash.org/robot?bgset=bg2"
+      }
     ];
 
     const chart = new OrgChart()
       .container('.chart-container')
       .data(data)
-      .nodeWidth((d) => 200)
-      .nodeHeight((d) => 100)
-      .childrenMargin((d) => 40)
-      .compactMarginBetween((d) => 15)
-      .compactMarginPair((d) => 80)
-      .nodeContent((d) => `
-        <div style="padding: 10px; border-radius: 5px; background-color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
-          <div style="font-size: 16px; font-weight: bold;">${d.data.name}</div>
-        </div>
-      `);
+      .svgHeight(window.innerHeight - 10)
+			.nodeHeight((d) => 100 + 25)
+			.nodeWidth((d) => 220 + 2)
+			.childrenMargin((d) => 50)
+			.compactMarginBetween((d) => 35)
+			.compactMarginPair((d) => 30)
+			.neighbourMargin((a, b) => 20)
+			.siblingsMargin((d) => 100)
+			.initialZoom(0.7)
+			.nodeContent(function (d, i, arr, state) {
+				const color = '#FFFFFF';
+				const imageDiffVert = 25 + 2;
+				return `
+              <div style='width:${
+								d.width
+							}px;height:${d.height}px;padding-top:${imageDiffVert - 2}px;padding-left:1px;padding-right:1px'>
+                      <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: ${d.data._highlighted || d.data._upToTheRootHighlighted ? '5px solid #0000FF"' : '1px solid #E4E2E9"'} >
+                          <div style="display:flex;justify-content:flex-end;margin-top:5px;margin-right:8px">#${
+														d.data.id
+													}</div>
+                          <div style="background-color:${color};margin-top:${-imageDiffVert - 20}px;margin-left:${15}px;border-radius:100px;width:50px;height:50px;" ></div>
+                          <div style="margin-top:${
+														-imageDiffVert - 20
+													}px;">   <img src=" ${d.data.image}" style="margin-left:${20}px;border-radius:100px;width:40px;height:40px;" /></div>
+                          <div style="font-size:15px;color:#08011E;margin-left:20px;margin-top:10px">  ${
+														d.data.name
+													} </div>
+                          <div style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
+														d.data.position
+													} </div>
+                          <div class="node-salaries hidden" style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${new Intl.NumberFormat(
+														'en-US',
+														{ style: 'currency', currency: 'USD' }
+													).format(d.data.salary)} </div>
+						   <div style="display:flex;justify-content:space-between;padding-left:15px;padding-right:15px;">
+								<div style="position: absolute; bottom: 10px; left: 15px;" class="node-direct-reports">Directs: ${d.data._directSubordinates} </div>  
+								<div style="position: absolute; bottom: 10px; right: 15px;" class="node-total-reports">Total: ${d.data._totalSubordinates} </div>
+						    </div>
+
+                      </div>
+                  </div>
+                          `;
+			})
+			.nodeUpdate(function () {
+				// Needed to disable default highlight behavior
+				d3.select(this).select('.node-rect').attr('stroke', 'none');
+			})
+      .onNodeClick(function (d) {
+				d.data._highlighted = !d.data._highlighted;
+				chart.updateNodesState();
+				
+			})
+			.render();
 
     chart.render();
   }, []);
@@ -33,8 +270,11 @@ const Org = () => {
     <div
       className="chart-container"
       style={{
-        width: '100vw',
-        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
       }}
     ></div>
   );
