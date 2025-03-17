@@ -41,6 +41,36 @@ export default function FilesExample() {
     }
   };
 
+  const handleSVG = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.exportSvg();
+    }
+  };
+
+  const handlePNG = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.exportPNG();
+    }
+  };
+
+  const handlePDF = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.exportPDF();
+    }
+  };
+
+  const handleClearHighlights = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.clearHighlights();
+    }
+  };
+
+  const handleExportNodeData = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.exportNodeData();
+    }
+  };
+
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -52,6 +82,11 @@ export default function FilesExample() {
             onFit={handleFit}
             onRotate={handleRotate}
             onCompact={handleCompact}
+            onSVG={handleSVG}
+            onPNG={handlePNG}
+            onPDF={handlePDF}
+            onClearHighlights={handleClearHighlights}
+            onExportNodeData={handleExportNodeData}
           />
         </Layout.SideDrawer>
       )}
@@ -81,6 +116,11 @@ export default function FilesExample() {
             onFit={handleFit}
             onRotate={handleRotate}
             onCompact={handleCompact}
+            onSVG={handleSVG}
+            onPNG={handlePNG}
+            onPDF={handlePDF}
+            onClearHighlights={handleClearHighlights}
+            onExportNodeData={handleExportNodeData}
           />
         </Layout.SideNav>
         <Layout.Main>

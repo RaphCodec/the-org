@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { OrgChart } from 'd3-org-chart';
 import * as d3 from 'd3';
+import jsPDF from 'jspdf';
 
 const Org = React.forwardRef((props, ref) => {
   const chartRef = React.useRef(null);
@@ -208,7 +209,7 @@ const Org = React.forwardRef((props, ref) => {
       }
     ];
 
-    let currentlySelected:any = [];
+    let currentlySelected = [];
     let index = 0;
     let compact = 0;
 
@@ -250,19 +251,19 @@ const Org = React.forwardRef((props, ref) => {
       })
       .onNodeClick(function (d) {
         d.data._highlighted = !d.data._highlighted;
-				chart.updateNodesState();
-				if (d.data._highlighted === true) {
-					if (!currentlySelected.map((item) => item.id).includes(d.id)) {
-						currentlySelected.push(d);
-						chart.setHighlighted(d.id).render();
-					}
-				} else {
-					const index = currentlySelected.findIndex((item) => item.id === d.id);
-					if (index > -1) {
-						currentlySelected.splice(index, 1);
-					}
-				}
-				console.log(currentlySelected);
+        chart.updateNodesState();
+        if (d.data._highlighted === true) {
+          if (!currentlySelected.map((item) => item.id).includes(d.id)) {
+            currentlySelected.push(d);
+            chart.setHighlighted(d.id).render();
+          }
+        } else {
+          const index = currentlySelected.findIndex((item) => item.id === d.id);
+          if (index > -1) {
+            currentlySelected.splice(index, 1);
+          }
+        }
+        console.log(currentlySelected);
       })
       .render();
 
@@ -280,6 +281,86 @@ const Org = React.forwardRef((props, ref) => {
                             .fit(),
         zoomIn: () => chart.zoomIn(),
         zoomOut: () => chart.zoomOut(),
+        exportSvg: () => {
+          const reportElements = document.querySelectorAll('.nodeButtons');
+          reportElements.forEach((element) => {
+            element.style.display = 'none';
+          });
+          chart.fit();
+          setTimeout(() => {
+            chart.exportSvg();
+            reportElements.forEach((element) => {
+              element.style.display = 'block';
+            });
+          }, 2000);
+        },
+        exportPNG: () => {
+          const reportElements = document.querySelectorAll('.nodeButtons');
+          reportElements.forEach((element) => {
+            element.style.display = 'none';
+          });
+          chart.fit();
+          setTimeout(() => {
+            chart.exportImg({ full: true });
+            reportElements.forEach((element) => {
+              element.style.display = 'block';
+            });
+          }, 2000);
+        },
+        exportPDF: () => {
+          chart.exportImg({
+            save: false,
+            onLoad: (base64) => {
+              var pdf = new jsPDF('landscape', 'pt', 'a4');
+              var img = new Image();
+              img.src = base64;
+              img.onload = function () {
+                const margin = 18; // .25 inch margin in points
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = pageWidth - 2 * margin;
+                const imgHeight = (img.height / img.width) * imgWidth;
+                const x = (pageWidth - imgWidth) / 2;
+                const y = (pageHeight - imgHeight) / 2;
+
+                pdf.addImage(
+                  img,
+                  "JPEG",
+                  x,
+                  y,
+                  imgWidth,
+                  imgHeight
+                );
+                pdf.save("chart.pdf");
+              };
+            },
+          });
+        },
+        clearHighlights: () => {
+          chart.clearHighlighting();
+          currentlySelected = [];
+        },
+        exportNodeData: () => {
+          const data = chart.data();
+          const nodeData = data.map(node => {
+            return {
+              id: node.id,
+              parentId: node.parentId,
+              name: node.name,
+              position: node.position,
+              salary: node.salary,
+              image: node.image
+            };
+          });
+
+          const blob = new Blob([JSON.stringify(nodeData, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'data.json';
+          a.click();
+          URL.revokeObjectURL(url);
+        }
       };
     }
   }, [ref]);

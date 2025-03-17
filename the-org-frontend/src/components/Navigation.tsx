@@ -25,7 +25,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 
-export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCompact }) {
+export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCompact, onSVG, onPNG, onPDF, onClearHighlights, onExportNodeData }) {
   return (
     <List size="sm" sx={{ '--ListItem-radius': '8px', '--List-gap': '2px' }}>
       <ListItem nested>
@@ -80,7 +80,6 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
               <ListItemContent>Zoom Out</ListItemContent>
             </ListItemButton>
           </ListItem>
-
         </List>
       </ListItem>
 
@@ -97,7 +96,6 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
             '& .JoyListItemButton-root': { p: '8px' },
           }}
         >
-
           <ListItem>
             <ListItemButton>
               <ListItemDecorator>
@@ -135,7 +133,7 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onClearHighlights}>
               <ListItemDecorator>
                 <UnpublishedIcon fontSize="small" />
               </ListItemDecorator>
@@ -144,11 +142,11 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
           </ListItem>
 
           <ListSubheader sx={{ letterSpacing: '2px', fontWeight: '800' }}>
-          Exports
-        </ListSubheader>
+            Exports
+          </ListSubheader>
 
-        <ListItem>
-            <ListItemButton>
+          <ListItem>
+            <ListItemButton onClick={onPNG}>
               <ListItemDecorator>
                 <ImageIcon fontSize="small" />
               </ListItemDecorator>
@@ -156,8 +154,8 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
             </ListItemButton>
           </ListItem>
 
-        <ListItem>
-            <ListItemButton>
+          <ListItem>
+            <ListItemButton onClick={onSVG}>
               <ListItemDecorator>
                 <PhotoLibraryIcon fontSize="small" />
               </ListItemDecorator>
@@ -165,8 +163,8 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
             </ListItemButton>
           </ListItem>
 
-        <ListItem>
-            <ListItemButton>
+          <ListItem>
+            <ListItemButton onClick={onPDF}>
               <ListItemDecorator>
                 <PictureAsPdfIcon fontSize="small" />
               </ListItemDecorator>
@@ -174,15 +172,14 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
             </ListItemButton>
           </ListItem>
 
-        <ListItem>
-            <ListItemButton>
+          <ListItem>
+            <ListItemButton onClick={onExportNodeData}>
               <ListItemDecorator>
                 <DataObjectIcon fontSize="small" />
               </ListItemDecorator>
               <ListItemContent>Data</ListItemContent>
             </ListItemButton>
           </ListItem>
-
         </List>
       </ListItem>
     </List>
