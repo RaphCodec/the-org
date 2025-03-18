@@ -7,7 +7,7 @@ import Navigation from './components/Navigation';
 import Header from './components/Header';
 import Org from './components/OrgChart/Org';
 
-export default function FilesExample() {
+export default function App() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const orgChartRef = React.useRef(null);
 
