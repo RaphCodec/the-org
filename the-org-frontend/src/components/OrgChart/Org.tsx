@@ -93,6 +93,12 @@ const Org = React.forwardRef((props, ref) => {
                               .fit(),
           zoomIn: () => chart.zoomIn(),
           zoomOut: () => chart.zoomOut(),
+          removeSelected: () => {
+            const selectedItems = useSelectedStore.getState().items;
+            console.log('Removing selected items:', selectedItems);
+            selectedItems.forEach(id => chart.removeNode(id));
+            useSelectedStore.getState().clearItems();
+          },
           exportSvg: () => {
             const reportElements = document.querySelectorAll('.nodeButtons');
             reportElements.forEach((element) => {
@@ -150,7 +156,7 @@ const Org = React.forwardRef((props, ref) => {
           },
           clearHighlights: () => {
             chart.clearHighlighting();
-            items.forEach(id => removeItem(id));
+            useSelectedStore.getState().clearItems();
           },
           exportNodeData: () => {
             const data = chart.data();

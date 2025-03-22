@@ -77,6 +77,12 @@ export default function App() {
     }
   };
 
+  const handleRemoveSelected = () => {
+    if (orgChartRef.current) {
+      orgChartRef.current.removeSelected();
+    }
+  };
+
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -93,6 +99,7 @@ export default function App() {
             onPDF={handlePDF}
             onClearHighlights={handleClearHighlights}
             onExportNodeData={handleExportNodeData}
+            onRemoveSelected={handleRemoveSelected}
           />
         </Layout.SideDrawer>
       )}
@@ -127,6 +134,7 @@ export default function App() {
             onPDF={handlePDF}
             onClearHighlights={handleClearHighlights}
             onExportNodeData={handleExportNodeData}
+            onRemoveSelected={handleRemoveSelected}
           />
         </Layout.SideNav>
         <Layout.Main>

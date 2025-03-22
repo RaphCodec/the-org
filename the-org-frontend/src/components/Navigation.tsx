@@ -25,7 +25,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import DataObjectIcon from '@mui/icons-material/DataObject';
 
-export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCompact, onSVG, onPNG, onPDF, onClearHighlights, onExportNodeData }) {
+export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCompact, onSVG, onPNG, onPDF, onClearHighlights, onExportNodeData, onRemoveSelected }) {
   return (
     <List size="sm" sx={{ '--ListItem-radius': '8px', '--List-gap': '2px' }}>
       <ListItem nested>
@@ -115,7 +115,7 @@ export default function Navigation({ onZoomIn, onZoomOut, onFit, onRotate, onCom
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={onRemoveSelected}>
               <ListItemDecorator>
                 <PersonRemoveIcon fontSize="small" />
               </ListItemDecorator>

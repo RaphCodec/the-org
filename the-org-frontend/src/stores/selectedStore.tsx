@@ -4,6 +4,7 @@ interface SelectedStore {
     items: string[];
     addItem: (item: string) => void;
     removeItem: (item: string) => void;
+    clearItems: () => void;
 }
 
 const useSelectedStore = create<SelectedStore>((set) => ({
@@ -22,6 +23,9 @@ const useSelectedStore = create<SelectedStore>((set) => ({
         console.log('Current items:', newItems);
         return { items: newItems };
       });
+    },
+    clearItems: () => {
+      set({ items: [] });
     },
   }));
 
