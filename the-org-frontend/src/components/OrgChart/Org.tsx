@@ -2,10 +2,11 @@ import * as React from 'react';
 import { OrgChart } from 'd3-org-chart';
 import * as d3 from 'd3';
 import jsPDF from 'jspdf';
+import useSelectedStore from '../../stores/selectedStore';
 
 const Org = React.forwardRef((props, ref) => {
   const chartRef = React.useRef(null);
-  const currentlySelectedRef = React.useRef([]);
+  const { items, addItem, removeItem } = useSelectedStore();
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -55,17 +56,12 @@ const Org = React.forwardRef((props, ref) => {
           d.data._highlighted = !d.data._highlighted;
           chart.updateNodesState();
           if (d.data._highlighted === true) {
-            if (!currentlySelectedRef.current.map((item) => item.id).includes(d.id)) {
-              currentlySelectedRef.current.push(d);
-              chart.setHighlighted(d.id).render();
+            if (!items.includes(d.id)) {
+              addItem(d.id);
             }
           } else {
-            const index = currentlySelectedRef.current.findIndex((item) => item.id === d.id);
-            if (index > -1) {
-              currentlySelectedRef.current.splice(index, 1);
-            }
+            removeItem(d.id);
           }
-          console.log(currentlySelectedRef.current);
         })
         .render();
 
@@ -154,7 +150,7 @@ const Org = React.forwardRef((props, ref) => {
           },
           clearHighlights: () => {
             chart.clearHighlighting();
-            currentlySelectedRef.current = [];
+            items.forEach(id => removeItem(id));
           },
           exportNodeData: () => {
             const data = chart.data();
@@ -183,7 +179,14 @@ const Org = React.forwardRef((props, ref) => {
     };
 
     fetchData();
-  }, [ref]);
+  }, [ref, addItem, removeItem]);
+
+  React.useEffect(() => {
+    console.log(items);
+    if (chartRef.current) {
+      chartRef.current.setHighlighted(items).render();
+    }
+  }, [items]);
 
   return (
     <div
