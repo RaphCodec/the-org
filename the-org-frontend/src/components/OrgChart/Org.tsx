@@ -3,6 +3,8 @@ import { OrgChart } from 'd3-org-chart';
 import * as d3 from 'd3';
 import jsPDF from 'jspdf';
 import useSelectedStore from '../../stores/selectedStore';
+import { createRoot } from 'react-dom/client';
+import { ErrorAlert, WarningAlert, SuccessAlert } from '../Alerts';
 
 const Org = React.forwardRef((props, ref) => {
   const chartRef = React.useRef(null);
@@ -95,9 +97,37 @@ const Org = React.forwardRef((props, ref) => {
           zoomOut: () => chart.zoomOut(),
           removeSelected: () => {
             const selectedItems = useSelectedStore.getState().items;
+            const notification = document.createElement('div');
+            document.body.appendChild(notification);
+            const root = createRoot(notification);
+            if (selectedItems.length === 0) {
+              // Disable interactions
+              document.body.style.pointerEvents = 'none';
+              root.render(
+                <ErrorAlert
+                  message="Error: at least one node must be selected"
+                  onClose={() => {
+                    root.unmount();
+                    document.body.removeChild(notification);
+                    // Enable interactions
+                    document.body.style.pointerEvents = 'auto';
+                  }}
+                />
+              );
+              return;
+            }
             console.log('Removing selected items:', selectedItems);
             selectedItems.forEach(id => chart.removeNode(id));
             useSelectedStore.getState().clearItems();
+            root.render(
+              <WarningAlert
+                message={`Removed nodes`}
+                onClose={() => {
+                  root.unmount();
+                  document.body.removeChild(notification);
+                }}
+              />
+            );
           },
           exportSvg: () => {
             const reportElements = document.querySelectorAll('.nodeButtons');

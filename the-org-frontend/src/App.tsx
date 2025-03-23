@@ -1,15 +1,31 @@
 import * as React from 'react';
-import { CssVarsProvider } from '@mui/joy/styles';
+import { CssVarsProvider, extendTheme } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Layout from './components/Layout';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
 import Org from './components/OrgChart/Org';
+import EditNode from './components/EditNode'; // Import EditNode component
+
+const theme = extendTheme({
+  colorSchemes: {
+    dark: {
+      palette: {
+        background: {
+          body: '#21244A',
+          surface: '#21244A', 
+        },
+      },
+    },
+  },
+});
 
 export default function App() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const orgChartRef = React.useRef(null);
+  const [editNodeOpen, setEditNodeOpen] = React.useState(false); // State for EditNode modal
+  const [selectedNodeData, setSelectedNodeData] = React.useState(''); // State for selected node data
 
   const handleZoomIn = () => {
     if (orgChartRef.current) {
@@ -83,8 +99,13 @@ export default function App() {
     }
   };
 
+  const handleEditNode = (nodeData) => {
+    setSelectedNodeData(nodeData);
+    setEditNodeOpen(true);
+  };
+
   return (
-    <CssVarsProvider disableTransitionOnChange>
+    <CssVarsProvider theme={theme} disableTransitionOnChange>
       <CssBaseline />
       {drawerOpen && (
         <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
@@ -100,6 +121,7 @@ export default function App() {
             onClearHighlights={handleClearHighlights}
             onExportNodeData={handleExportNodeData}
             onRemoveSelected={handleRemoveSelected}
+            onEditNode={() => handleEditNode('Node Data')} // Pass handler to Navigation
           />
         </Layout.SideDrawer>
       )}
@@ -135,6 +157,7 @@ export default function App() {
             onClearHighlights={handleClearHighlights}
             onExportNodeData={handleExportNodeData}
             onRemoveSelected={handleRemoveSelected}
+            onEditNode={() => handleEditNode('Node Data')} // Pass handler to Navigation
           />
         </Layout.SideNav>
         <Layout.Main>
@@ -148,6 +171,12 @@ export default function App() {
           </Box>
         </Layout.Main>
       </Layout.Root>
+      <EditNode
+        open={editNodeOpen}
+        onClose={() => setEditNodeOpen(false)}
+        onSubmit={(event) => console.log('Form submitted', event)}
+        nodeData={selectedNodeData}
+      />
     </CssVarsProvider>
   );
 }
