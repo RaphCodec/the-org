@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="caramellatte">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!----===== Boxicons CSS ===== -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-org-chart@3.1.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.1.2/build/d3-flextree.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="/static/js/org.js"></script>
+    <script src="/static/js/darkmode.js"></script>
+    
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-sm fixed top-0 left-0 w-full z-10">
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">The Org</a>
+      </div>
+      <div class="flex gap-2 items-center">
+        <input
+          type="text"
+          placeholder="Search"
+          class="input input-bordered w-24 md:w-auto"
+        />
+        <a href="https://github.com/RaphCodec/the-org" class="btn btn-ghost btn-circle">
+          <i class="bx bxl-github text-2xl"></i>
+        </a>
+        <label class="swap swap-rotate">
+          <!-- Dark mode toggle -->
+          <input type="checkbox" id="theme-switch" />
+          <!-- Moon icon for dark mode -->
+          <i class="bx bx-moon swap-on text-2xl"></i>
+          <!-- Sun icon for light mode -->
+          <i class="bx bx-sun swap-off text-2xl"></i>
+        </label>
+        <div class="dropdown dropdown-end">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost btn-circle avatar"
+          >
+            <div class="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://robohash.org/robot?bgset=bg2"
+              />
+            </div>
+          </div>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <a class="justify-between" href="https://github.com/RaphCodec">
+                RaphCodec
+              </a>
+            </li>
+            <!-- <li><a>Settings</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar and Content -->
+    <div class="flex pt-16">
+      <div class="drawer lg:drawer-open">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div class="chart-container drawer-content flex flex-col items-center justify-center bg-base-200">
+          <!-- Page content here -->
+
+        </div>
+        <div class="drawer-side">
+          <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+          <ul class="menu text-base-content min-h-full w-80 p-4">
+            <!-- Sidebar content here -->
+            <label class="font-bold mb-2">Chart View</label>
+            <li><a>Fit</a></li>
+            <li><a>Rotate</a></li>
+            <li><a>Compact</a></li>
+            <li><a>Zoom In</a></li>
+            <li><a>Zoom Out</a></li>
+            <div class="divider"></div>
+            <label class="font-bold mb-2">Exports</label>
+            <li><a>PNG</a></li>
+            <li><a>SVG</a></li>
+            <li><a>PDF</a></li>
+            <li><a>Data</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
