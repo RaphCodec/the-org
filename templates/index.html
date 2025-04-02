@@ -30,7 +30,7 @@
 
     <script src="/static/js/org.js"></script>
     <script src="/static/js/darkmode.js"></script>
-    
+    <script src="/static/js/chart_actions.js"></script>
   </head>
 
   <body>
@@ -45,7 +45,10 @@
           placeholder="Search"
           class="input input-bordered w-24 md:w-auto"
         />
-        <a href="https://github.com/RaphCodec/the-org" class="btn btn-ghost btn-circle">
+        <a
+          href="https://github.com/RaphCodec/the-org"
+          class="btn btn-ghost btn-circle"
+        >
           <i class="bx bxl-github text-2xl"></i>
         </a>
         <label class="swap swap-rotate">
@@ -88,30 +91,34 @@
     <div class="flex pt-16">
       <div class="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-        <div class="chart-container drawer-content flex flex-col items-center justify-center bg-base-200">
+        <div
+          class="chart-container drawer-content flex flex-col items-center justify-center bg-base-200"
+        >
           <!-- Page content here -->
-
         </div>
         <div class="drawer-side">
-          <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+          <label
+            for="my-drawer-2"
+            aria-label="close sidebar"
+            class="drawer-overlay"
+          ></label>
           <ul class="menu text-base-content min-h-full w-80 p-4">
             <!-- Sidebar content here -->
             <label class="font-bold mb-2">Chart View</label>
-            <li><a>Fit</a></li>
-            <li><a>Rotate</a></li>
-            <li><a>Compact</a></li>
-            <li><a>Zoom In</a></li>
-            <li><a>Zoom Out</a></li>
+            <li id="fitBtn" onclick="fitChart()"><a>Fit</a></li>
+            <li id="rotateBtn" onclick="rotateChart()"><a>Rotate</a></li>
+            <li id="compactBtn" onclick="compactChart()"><a>Compact</a></li>
+            <li id="zoomInBtn" onclick="zoomInChart()"><a>Zoom In</a></li>
+            <li id="zoomOutBtn" onclick="zoomOutChart()"><a>Zoom Out</a></li>
             <div class="divider"></div>
             <label class="font-bold mb-2">Exports</label>
-            <li><a>PNG</a></li>
-            <li><a>SVG</a></li>
-            <li><a>PDF</a></li>
-            <li><a>Data</a></li>
+            <li id="pngBtn" onclick="exportPNG()"><a>PNG</a></li>
+            <li id="svgBtn" onclick="exportSVG()"><a>SVG</a></li>
+            <li id="pdfBtn" onclick="exportPDF()"><a>PDF</a></li>
+            <li id="dataBtn" onclick="exportNodeData()"><a>Data</a></li>
           </ul>
         </div>
       </div>
     </div>
-
   </body>
 </html>
