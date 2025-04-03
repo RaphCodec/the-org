@@ -15,50 +15,71 @@ fetch('/data')
   })
   .then(data => {
     chart = new d3.OrgChart()
-      .container('.chart-container') // Ensure the correct container selector
-      .data(data)
-      .nodeWidth((d) => 275)
-      .initialZoom(0.7)
-      .nodeHeight((d) => 200)
-      .childrenMargin((d) => 40)
-      .compactMarginBetween((d) => 25)
-      .compactMarginPair((d) => 80)
-      .neighbourMargin((a, b) => 25)
-      .buttonContent(({ node, state }) => {
-        return `<div class="nodeButtons" style="color:#000000;border-radius:5px;padding:3px;font-size:10px;margin:auto auto;background-color:#D3D3D3;border: 1px solid #000000;position:absolute;bottom:5px;left:50%;transform:translateX(-50%);"> <span style="font-size:9px">${
-          node.children
-            ? `<i class="bx bx-chevron-up icon"></i>`
-            : `<i class="bx bx-chevron-down icon"></i>`
-        }</span> ${node.data._directSubordinates}  </div>`;
-      })
-      .nodeContent(function (d, i, arr, state) {
+    .container('.chart-container')
+    .data(data)
+    .svgHeight(window.innerHeight - 10)
+    .nodeHeight((d) => 100 + 25)
+    .nodeWidth((d) => 220 + 2)
+    .childrenMargin((d) => 50)
+    .compactMarginBetween((d) => 35)
+    .compactMarginPair((d) => 30)
+    .neighbourMargin((a, b) => 20)
+    .siblingsMargin((d) => 100)
+    .initialZoom(0.7)
+    .nodeContent(function (d, i, arr, state) {
         const color = '#FFFFFF';
+        const imageDiffVert = 25 + 2;
         return `
-            <div style="font-family: 'Inter', sans-serif;background-color:${color}; position:absolute;margin-top:-1px; margin-left:-1px;width:${d.width}px;height:${d.height - 50}px;border-radius:10px;border: 1px solid #E4E2E9;position:relative;">
-                <div style="background-color:${color};position:absolute;margin-top:-20px;margin-left:${15}px;border-radius:100px;width:50px;height:50px;"></div>
-                <img src="${d.data.image}" style="position:absolute;margin-top:-15px;margin-left:${20}px;border-radius:100px;width:40px;height:40px;" />
-                
-                <div style="color:#08011E;position:absolute;right:20px;top:10px;font-size:10px;"><i class="fas fa-ellipsis-h"></i></div>
+      <div style='width:${
+                        d.width
+                    }px;height:${d.height}px;padding-top:${imageDiffVert - 2}px;padding-left:1px;padding-right:1px'>
+              <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: ${d.data._highlighted || d.data._upToTheRootHighlighted ? '5px solid #0000FF"' : '1px solid #E4E2E9"'} >
+                  <div style="display:flex;justify-content:flex-end;margin-top:5px;margin-right:8px">#${
+                                                d.data.id
+                                            }</div>
+                  <div style="background-color:${color};margin-top:${-imageDiffVert - 20}px;margin-left:${15}px;border-radius:100px;width:50px;height:50px;" ></div>
+                  <div style="margin-top:${
+                                                -imageDiffVert - 20
+                                            }px;">   <img src=" ${d.data.image}" style="margin-left:${20}px;border-radius:100px;width:40px;height:40px;" /></div>
+                  <div style="font-size:15px;color:#08011E;margin-left:20px;margin-top:10px">  ${
+                                                d.data.name
+                                            } </div>
+                  <div style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
+                                                d.data.position
+                                            } </div>
+                  <div class="node-salaries hidden" style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${new Intl.NumberFormat(
+                                                'en-US',
+                                                { style: 'currency', currency: 'USD' }
+                                            ).format(d.data.salary)} </div>
+                   <div style="display:flex;justify-content:space-between;padding-left:15px;padding-right:15px;">
+                        <div style="position: absolute; bottom: 10px; left: 15px;" class="node-direct-reports">Directs: ${d.data._directSubordinates} </div>  
+                        <div style="position: absolute; bottom: 10px; right: 15px;" class="node-total-reports">Total: ${d.data._totalSubordinates} </div>
+                    </div>
 
-                <div style="font-size:14px;color:#08011E;margin-left:20px;margin-top:30px">${d.data.name}</div>
-                <div style="color:#716E7B;margin-left:20px;margin-top:2px;font-size:12px;">${d.data.position}</div>
-                <div style="color:#716E7B;margin-left:20px;margin-top:2px;font-size:12px;">${d.data.salary}</div>
-                
-                <div style="position:absolute;bottom:25px;left:15px;font-size:14px;" class="node-direct-reports">Directs: ${d.data._directSubordinates}</div>
-                <div style="position:absolute;bottom:25px;right:15px;font-size:14px;" class="node-total-reports">Total: ${d.data._totalSubordinates}</div>
-            </div>
-        `;
-      })
-      
-      .onNodeClick( function(d) {
+              </div>
+          </div>
+                  `;
+    })
+    .nodeUpdate(function () {
+        // Needed to disable default highlight behavior
+        d3.select(this).select('.node-rect').attr('stroke', 'none');
+    })
+    .onNodeClick(function (d) {
         d.data._highlighted = !d.data._highlighted;
         chart.updateNodesState();
         if (d.data._highlighted === true) {
-          currentlySelected.push(d.id)
+            if (!currentlySelected.map((item) => item.id).includes(d.id)) {
+                currentlySelected.push(d.id);
+                chart.setHighlighted(d.id).render();
+            }
+        } else {
+            const index = currentlySelected.indexOf(d.id);
+            if (index > -1) {
+                currentlySelected.splice(index, 1);
+            }
         }
-        else {
-          currentlySelected.pop(d.id)
-        }
-      })
-      .render();
+        console.log(currentlySelected);
+    })
+
+    .render();
   })
