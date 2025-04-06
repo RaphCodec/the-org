@@ -35,6 +35,7 @@
     <script src="/static/js/nodes.js"></script>
     <script src="/static/js/dragDrop.js"></script>
   </head>
+  
 
   <body>
     <!-- Navbar -->
@@ -232,10 +233,10 @@
               </div>
               <ul class="collapse-content menu text-base-content min-h-full w-70 p-1">
                 <li id="startDragBtn" onclick="enableDrag()"><a>Start</a></li>
-                <li id="finishDragBtn" onclick="disableDrag()"><a>Finish</a></li>
-                <li id="undoBtn" onclick="undo()"><a>Undo</a></li>
-                <li id="redoBtn" onclick="redo()"><a>Redo</a></li>
-                <li id="cancelDragBtn" onclick="cancelDrag()"><a>Cancel</a></li>
+                <li id="finishDragBtn" onclick="disableDrag()" class="disabled" disabled><a>Finish</a></li>
+                <li id="undoBtn" onclick="undo()" class="disabled" disabled><a>Undo</a></li>
+                <li id="redoBtn" onclick="redo()" class="disabled" disabled><a>Redo</a></li>
+                <li id="cancelDragBtn" onclick="cancelDrag()" class="disabled" disabled><a>Cancel</a></li>
               </ul>
             </div>
             <div class="divider"></div>
@@ -255,5 +256,11 @@
         </div>
       </div>
     </div>
+    <style>
+      .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    </style>
   </body>
 </html>

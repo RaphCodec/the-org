@@ -148,6 +148,10 @@ function onDragStart(element, dragEvent, node) {
     const chartContainer = document.querySelector('.chart-container');
     const startDragButton = document.getElementById('startDragBtn');
     const dragActions = document.getElementById('dragActions');
+    const finishDragButton = document.getElementById('finishDragBtn');
+    const cancelDragButton = document.getElementById('cancelDragBtn');
+    const undoButton = document.getElementById('undoBtn');
+    const redoButton = document.getElementById('redoBtn');
 
     if (chartContainer) {
       chartContainer.classList.add('drag-enabled');
@@ -160,6 +164,26 @@ function onDragStart(element, dragEvent, node) {
     if (dragActions) {
       dragActions.classList.remove('hide');
     }
+
+    if (finishDragButton) {
+      finishDragButton.disabled = false;
+      finishDragButton.classList.remove('disabled');
+    }
+
+    if (cancelDragButton) {
+      cancelDragButton.disabled = false;
+      cancelDragButton.classList.remove('disabled');
+    }
+
+    if (undoButton) {
+      undoButton.disabled = true;
+      undoButton.classList.add('disabled');
+    }
+
+    if (redoButton) {
+      redoButton.disabled = true;
+      redoButton.classList.add('disabled');
+    }
   }
 
   function disableDrag() {
@@ -167,6 +191,10 @@ function onDragStart(element, dragEvent, node) {
     const chartContainer = document.querySelector('.chart-container');
     const startDragButton = document.getElementById('startDragBtn');
     const dragActions = document.getElementById('dragActions');
+    const finishDragButton = document.getElementById('finishDragBtn');
+    const cancelDragButton = document.getElementById('cancelDragBtn');
+    const undoButton = document.getElementById('undoBtn');
+    const redoButton = document.getElementById('redoBtn');
 
     if (chartContainer) {
       chartContainer.classList.remove('drag-enabled');
@@ -178,6 +206,26 @@ function onDragStart(element, dragEvent, node) {
 
     if (dragActions) {
       dragActions.classList.add('hide');
+    }
+
+    if (finishDragButton) {
+      finishDragButton.disabled = true;
+      finishDragButton.classList.add('disabled');
+    }
+
+    if (cancelDragButton) {
+      cancelDragButton.disabled = true;
+      cancelDragButton.classList.add('disabled');
+    }
+
+    if (undoButton) {
+      undoButton.disabled = true;
+      undoButton.classList.add('disabled');
+    }
+
+    if (redoButton) {
+      redoButton.disabled = true;
+      redoButton.classList.add('disabled');
     }
 
     undoActions = [];
@@ -236,9 +284,11 @@ function onDragStart(element, dragEvent, node) {
 
     if (undoButton) {
       undoButton.disabled = undoActions.length === 0;
+      undoButton.classList.toggle('disabled', undoActions.length === 0);
     }
 
     if (redoButton) {
       redoButton.disabled = redoActions.length === 0;
+      redoButton.classList.toggle('disabled', redoActions.length === 0);
     }
   }
