@@ -23,11 +23,6 @@ function zoomOutChart() {
 	chart.zoomOut();
 }
 
-function clearHighlights() {
-	chart.clearHighlighting();
-	currentlySelected = [];
-}
-
 function filterChart(e) {
 	const value = e.srcElement.value;
 	chart.clearHighlighting();
