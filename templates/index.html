@@ -46,6 +46,7 @@
           type="text"
           placeholder="Search"
           class="input input-bordered w-24 md:w-auto"
+          oninput="filterChart(event)"
         />
         <a
           href="https://github.com/RaphCodec/the-org"
@@ -201,22 +202,12 @@
               <div class="collapse-title font-bold mb-2">
                 Chart View <i class="bx bx-sitemap"></i>
               </div>
-              <ul class="collapse-content menu">
-                <li id="fitBtn" onclick="fitChart()">
-                  <a class="w-full">Fit</a>
-                </li>
-                <li id="rotateBtn" onclick="rotateChart()">
-                  <a class="w-full">Rotate</a>
-                </li>
-                <li id="compactBtn" onclick="compactChart()">
-                  <a class="w-full">Compact</a>
-                </li>
-                <li id="zoomInBtn" onclick="zoomInChart()">
-                  <a class="w-full">Zoom In</a>
-                </li>
-                <li id="zoomOutBtn" onclick="zoomOutChart()">
-                  <a class="w-full">Zoom Out</a>
-                </li>
+              <ul class="collapse-content menu text-base-content min-h-full w-70 p-4">
+                <li id="fitBtn" onclick="fitChart()"><a>Fit</a></li>
+                <li id="rotateBtn" onclick="rotateChart()"><a>Rotate</a></li>
+                <li id="compactBtn" onclick="compactChart()"><a>Compact</a></li>
+                <li id="zoomInBtn" onclick="zoomInChart()"><a>Zoom In</a></li>
+                <li id="zoomOutBtn" onclick="zoomOutChart()"><a>Zoom Out</a></li>
               </ul>
             </div>
             <div class="divider"></div>
@@ -225,19 +216,11 @@
               <div class="collapse-title font-bold mb-2">
                 Node Actions <i class="bx bx-user"></i>
               </div>
-              <ul class="collapse-content menu">
-                <li id="editBtn" onclick="showEdit()">
-                  <a class="w-full">Edit Selected</a>
-                </li>
-                <li id="addBtn" onclick="addNewNode()">
-                  <a class="w-full">Add Vacancy</a>
-                </li>
-                <li id="removeBtn" onclick="removeSelected()">
-                  <a class="w-full">Remove Selected</a>
-                </li>
-                <li id="deselectBtn" onclick="deselectNodes()">
-                  <a class="w-full">Deselect All</a>
-                </li>
+              <ul class="collapse-content menu text-base-content min-h-full w-70 p-4">
+                <li id="editBtn" onclick="showEdit()"><a>Edit Selected</a></li>
+                <li id="addBtn" onclick="addNewNode()"><a>Add Vacancy</a></li>
+                <li id="removeBtn" onclick="removeSelected()"><a>Remove Selected</a></li>
+                <li id="deselectBtn" onclick="deselectNodes()"><a>Deselect All</a></li>
               </ul>
             </div>
             <div class="divider"></div>
@@ -246,19 +229,11 @@
               <div class="collapse-title font-bold mb-2">
                 Exports <i class="bx bx-export"></i>
               </div>
-              <ul class="collapse-content menu">
-                <li id="pngBtn" onclick="exportPNG()">
-                  <a class="w-full">PNG</a>
-                </li>
-                <li id="svgBtn" onclick="exportSVG()">
-                  <a class="w-full">SVG</a>
-                </li>
-                <li id="pdfBtn" onclick="exportPDF()">
-                  <a class="w-full">PDF</a>
-                </li>
-                <li id="dataBtn" onclick="exportNodeData()">
-                  <a class="w-full">Data</a>
-                </li>
+              <ul class="collapse-content menu text-base-content min-h-full w-70 p-4">
+                <li id="pngBtn" onclick="exportPNG()"><a>PNG</a></li>
+                <li id="svgBtn" onclick="exportSVG()"><a>SVG</a></li>
+                <li id="pdfBtn" onclick="exportPDF()"><a>PDF</a></li>
+                <li id="dataBtn" onclick="exportNodeData()"><a>Data</a></li>
               </ul>
             </div>
           </ul>
