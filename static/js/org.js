@@ -63,9 +63,30 @@ fetch("/data")
           </div>
                   `;
       })
-      .nodeUpdate(function () {
+      .nodeUpdate(function (d) {
         // Needed to disable default highlight behavior
         d3.select(this).select(".node-rect").attr("stroke", "none");
+        // Needed for drag and drop to work
+        d3.select(this).classed('droppable', true);
+        d3.select(this).classed('draggable', d.id !== '1');
+      })
+      .nodeEnter(function (node) {
+        d3.select(this).call(
+          d3
+            .drag()
+            .filter(function (x, node) {
+              return dragEnabled && this.classList.contains('draggable');
+            })
+            .on('start', function (d, node) {
+              onDragStart(this, d, node);
+            })
+            .on('drag', function (dragEvent, node) {
+              onDrag(this, dragEvent);
+            })
+            .on('end', function (d) {
+              onDragEnd(this, d);
+            })
+        );
       })
       .onNodeClick(function (d) {
         d.data._highlighted = !d.data._highlighted;
