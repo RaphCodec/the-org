@@ -46,10 +46,17 @@ function warningAlert(message = "Warning! Please check your input.") {
 }
 
 function removeSelected() {
+    if (currentlySelected.length == 0) {
+        errorAlert("Error! Please select at least one Node to remove.");
+        return;
+    }
+    const confirmation = confirm("Are you sure you want to remove the selected nodes? This action cannot be undone.");
     for (let nodeid of currentlySelected) {
         chart.removeNode(nodeid);
     }
     currentlySelected = [];
+
+    successAlert("Node(s) removed from the chart.");
 }
 
 function showEdit() {

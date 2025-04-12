@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -90,171 +90,165 @@
       </div>
     </div>
 
-    <!-- Sidebar and Content -->
-    <div class="flex pt-16">
-      <div class="drawer lg:drawer-open">
-        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-        <!-- MAIN CONTENT -->
-        <div
-          class="drawer-content flex flex-col items-center justify-center bg-base-200 relative"
-        >
-          <div
-            id="errorAlert"
-            role="alert"
-            class="alert alert-error hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 shrink-0 stroke-current"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span>Error! Please select only one Node.</span>
-          </div>
-          <div
-            id="successAlert"
-            role="alert"
-            class="alert alert-success hidden fixed bottom-4 right-4"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 shrink-0 stroke-current"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            <span>Success! Operation completed successfully.</span>
-          </div>
-
-          <div
-            id="warningAlert"
-            role="alert"
-            class="alert alert-warning hidden fixed bottom-4 right-4"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 shrink-0 stroke-current"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 16h-1v-4h-1m1-4h.01M12 9v2m0 4h.01M12 17h.01M12 21h.01M12 3h.01M12 7h.01M12 11h.01M12 15h.01M12 19h.01"
-              />
-            </svg>
-            <span>Warning! Please check your input.</span>
-          </div>
-          <fieldset
-            id="updateForm"
-            class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden"
-          >
-            <legend class="fieldset-legend">Update Information</legend>
-            <button
-              class="absolute top-2 right-2"
-              style="background: none; border: none; cursor: pointer;"
-              onclick="document.getElementById('updateForm').classList.add('hidden')"
-              aria-label="Close"
-            >
-              <i class="bx bx-x text-lg"></i>
-            </button>
-            <label class="fieldset-label">Name</label>
-            <input id="nameInput" type="text" class="input" placeholder="Name" /> 
-
-            <label class="fieldset-label">Position</label>
-            <input id="positionInput" type="text" class="input" placeholder="Position" /> 
-
-            <label class="fieldset-label">Salary</label>
-            <input
-              id="salaryInput"
-              type="text"
-              class="input"
-              placeholder="Salary"
-              oninput="formatCurrency(this)"
-            />
-
-            <button id="updateBtn" class="btn btn-neutral mt-4" onclick="updateNode()">Update</button>
-          </fieldset>
-          <div class="chart-container"></div>
-        </div>
-        <div class="drawer-side">
-          <label
-            for="my-drawer-2"
-            aria-label="close sidebar"
-            class="drawer-overlay"
-          ></label>
-          <ul class="menu text-base-content min-h-full w-80 p-4">
-            <!-- Sidebar content here -->
-            <div tabindex="0" class="collapse collapse-arrow">
-              <input type="checkbox" />
-              <div class="collapse-title font-bold mb-2">
-                Chart View <i class="bx bx-sitemap"></i>
-              </div>
-              <ul class="collapse-content menu text-base-content min-h-full w-70 p-1">
-                <li id="fitBtn" onclick="fitChart()"><a>Fit</a></li>
-                <li id="rotateBtn" onclick="rotateChart()"><a>Rotate</a></li>
-                <li id="compactBtn" onclick="compactChart()"><a>Compact</a></li>
-                <li id="zoomInBtn" onclick="zoomInChart()"><a>Zoom In</a></li>
-                <li id="zoomOutBtn" onclick="zoomOutChart()"><a>Zoom Out</a></li>
-              </ul>
-            </div>
-            <div class="divider"></div>
-            <div tabindex="0" class="collapse collapse-arrow">
-              <input type="checkbox" />
-              <div class="collapse-title font-bold mb-2">
-                Actions <i class="bx bx-user"></i>
-              </div>
-              <ul class="collapse-content menu text-base-content min-h-full w-70 p-1">
-                <li id="editBtn" onclick="showEdit()"><a>Edit Selected</a></li>
-                <li id="addBtn" onclick="addNewNode()"><a>Add Vacancy</a></li>
-                <li id="removeBtn" onclick="removeSelected()"><a>Remove Selected</a></li>
-                <li id="deselectBtn" onclick="deselectNodes()"><a>Deselect All</a></li>
-              </ul>
-            </div>
-            <div class="divider"></div>
-            <div tabindex="0" class="collapse collapse-arrow">
-              <input type="checkbox" />
-              <div class="collapse-title font-bold mb-2">
-                Organize <i class="bx bx-move"></i>
-              </div>
-              <ul class="collapse-content menu text-base-content min-h-full w-70 p-1">
-                <li id="startDragBtn" onclick="enableDrag()"><a>Start</a></li>
-                <li id="finishDragBtn" onclick="disableDrag()" class="disabled" disabled><a>Finish</a></li>
-                <li id="undoBtn" onclick="undo()" class="disabled" disabled><a>Undo</a></li>
-                <li id="redoBtn" onclick="redo()" class="disabled" disabled><a>Redo</a></li>
-                <li id="cancelDragBtn" onclick="cancelDrag()" class="disabled" disabled><a>Cancel</a></li>
-              </ul>
-            </div>
-            <div class="divider"></div>
-            <div tabindex="0" class="collapse collapse-arrow">
-              <input type="checkbox" />
-              <div class="collapse-title font-bold mb-2">
-                Exports <i class="bx bx-export"></i>
-              </div>
-              <ul class="collapse-content menu text-base-content min-h-full w-70 p-1">
-                <li id="pngBtn" onclick="exportPNG()"><a>PNG</a></li>
-                <li id="svgBtn" onclick="exportSVG()"><a>SVG</a></li>
-                <li id="dataBtn" onclick="exportNodeData()"><a>Data</a></li>
-              </ul>
-            </div>
-          </ul>
-        </div>
-      </div>
+    <!-- Alerts -->
+    <div
+      id="errorAlert"
+      role="alert"
+      class="alert alert-error hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span>Error! Please select only one Node.</span>
     </div>
+    <div
+      id="successAlert"
+      role="alert"
+      class="alert alert-success hidden fixed bottom-4 right-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+      <span>Success! Operation completed successfully.</span>
+    </div>
+    <div
+      id="warningAlert"
+      role="alert"
+      class="alert alert-warning hidden fixed bottom-4 right-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M12 9v2m0 4h.01M12 17h.01M12 21h.01M12 3h.01M12 7h.01M12 11h.01M12 15h.01M12 19h.01"
+        />
+      </svg>
+      <span>Warning! Please check your input.</span>
+    </div>
+
+    <!-- Update Form -->
+    <fieldset
+      id="updateForm"
+      class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden"
+    >
+      <legend class="fieldset-legend">Update Information</legend>
+      <button
+        class="absolute top-2 right-2"
+        style="background: none; border: none; cursor: pointer;"
+        onclick="document.getElementById('updateForm').classList.add('hidden')"
+        aria-label="Close"
+      >
+        <i class="bx bx-x text-lg"></i>
+      </button>
+      <label class="fieldset-label">Name</label>
+      <input id="nameInput" type="text" class="input" placeholder="Name" /> 
+
+      <label class="fieldset-label">Position</label>
+      <input id="positionInput" type="text" class="input" placeholder="Position" /> 
+
+      <label class="fieldset-label">Salary</label>
+      <input
+        id="salaryInput"
+        type="text"
+        class="input"
+        placeholder="Salary"
+        oninput="formatCurrency(this)"
+      />
+
+      <button id="updateBtn" class="btn btn-neutral mt-4" onclick="updateNode()">Update</button>
+    </fieldset>
+
+    <!-- Floating Menu -->
+    <div
+      class="fixed top-20 left-4 bg-base-100 shadow-lg rounded-box z-20 w-56 border border-secondary max-h-[75%] overflow-y-auto"
+    >
+      <ul class="menu bg-base-200 rounded-box w-full">
+        <li>
+          <details open>
+            <summary>Chart View</summary>
+            <ul>
+              <li><a id="fitBtn" onclick="fitChart()">Fit</a></li>
+              <li><a id="rotateBtn" onclick="rotateChart()">Rotate</a></li>
+              <li><a id="compactBtn" onclick="compactChart()">Compact</a></li>
+              <li>
+                <details open>
+                  <summary>Zoom</summary>
+                  <ul>
+                    <li><a id="zoomInBtn" onclick="zoomInChart()">Zoom In</a></li>
+                    <li><a id="zoomOutBtn" onclick="zoomOutChart()">Zoom Out</a></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Actions</summary>
+            <ul>
+              <li><a id="editBtn" onclick="showEdit()">Edit Selected</a></li>
+              <li><a id="addBtn" onclick="addNewNode()">Add Vacancy</a></li>
+              <li><a id="removeBtn" onclick="removeSelected()">Remove Selected</a></li>
+              <li><a id="deselectBNn" onclick="deselectNodes()">Deselect All</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Organize</summary>
+            <ul>
+              <li><a id="startDragBtn" onclick="enableDrag()">Start</a></li>
+              <li><a id="finishDragBtn" onclick="disableDrag()">Finish</a></li>
+              <li><a id="undoBtn" onclick="undo()">Undo</a></li>
+              <li><a id="redoBtn" onclick="redo()">Redo</a></li>
+              <li><a id="cancelDragBtn" onclick="cancelDrag()">Cancel</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Exports</summary>
+            <ul>
+              <li><a id="pngBtn" onclick="exportPNG()">PNG</a></li>
+              <li><a id="svgBtn" onclick="exportSVG()">SVG</a></li>
+              <li><a id="dataBtn" onclick="exportNodeData()">Data</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="pt-16">
+      <div class="chart-container w-full h-screen bg-base-200"></div>
+    </div>
+
     <style>
       .disabled {
         pointer-events: none;

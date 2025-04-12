@@ -143,95 +143,110 @@ function onDragStart(element, dragEvent, node) {
     updateDragActions();
   }
 
-  function enableDrag() {
+function toggleSectionButtons(disable) {
+    const sections = ['Chart View', 'Actions', 'Exports'];
+    sections.forEach((section) => {
+        const detailsElement = Array.from(document.querySelectorAll('details')).find(
+            (details) => details.querySelector('summary')?.textContent.trim() === section
+        );
+
+        if (detailsElement) {
+            const buttons = detailsElement.querySelectorAll('ul a');
+            buttons.forEach((button) => {
+                button.disabled = disable;
+                button.classList.toggle('disabled', disable);
+            });
+        }
+    });
+}
+
+function enableDrag() {
     dragEnabled = true;
     const chartContainer = document.querySelector('.chart-container');
     const startDragButton = document.getElementById('startDragBtn');
-    const dragActions = document.getElementById('dragActions');
     const finishDragButton = document.getElementById('finishDragBtn');
     const cancelDragButton = document.getElementById('cancelDragBtn');
     const undoButton = document.getElementById('undoBtn');
     const redoButton = document.getElementById('redoBtn');
 
     if (chartContainer) {
-      chartContainer.classList.add('drag-enabled');
+        chartContainer.classList.add('drag-enabled');
     }
 
     if (startDragButton) {
-      startDragButton.classList.add('hide');
-    }
-
-    if (dragActions) {
-      dragActions.classList.remove('hide');
+        startDragButton.disabled = true;
+        startDragButton.classList.add('disabled');
     }
 
     if (finishDragButton) {
-      finishDragButton.disabled = false;
-      finishDragButton.classList.remove('disabled');
+        finishDragButton.disabled = false;
+        finishDragButton.classList.remove('disabled');
     }
 
     if (cancelDragButton) {
-      cancelDragButton.disabled = false;
-      cancelDragButton.classList.remove('disabled');
+        cancelDragButton.disabled = false;
+        cancelDragButton.classList.remove('disabled');
     }
 
     if (undoButton) {
-      undoButton.disabled = true;
-      undoButton.classList.add('disabled');
+        undoButton.disabled = true;
+        undoButton.classList.add('disabled');
     }
 
     if (redoButton) {
-      redoButton.disabled = true;
-      redoButton.classList.add('disabled');
+        redoButton.disabled = true;
+        redoButton.classList.add('disabled');
     }
-  }
 
-  function disableDrag() {
+    // Disable all buttons in the specified sections
+    toggleSectionButtons(true);
+}
+
+function disableDrag() {
     dragEnabled = false;
     const chartContainer = document.querySelector('.chart-container');
     const startDragButton = document.getElementById('startDragBtn');
-    const dragActions = document.getElementById('dragActions');
     const finishDragButton = document.getElementById('finishDragBtn');
     const cancelDragButton = document.getElementById('cancelDragBtn');
     const undoButton = document.getElementById('undoBtn');
     const redoButton = document.getElementById('redoBtn');
 
     if (chartContainer) {
-      chartContainer.classList.remove('drag-enabled');
+        chartContainer.classList.remove('drag-enabled');
     }
 
     if (startDragButton) {
-      startDragButton.classList.remove('hide');
-    }
-
-    if (dragActions) {
-      dragActions.classList.add('hide');
+        startDragButton.disabled = false;
+        startDragButton.classList.remove('disabled');
     }
 
     if (finishDragButton) {
-      finishDragButton.disabled = true;
-      finishDragButton.classList.add('disabled');
+        finishDragButton.disabled = true;
+        finishDragButton.classList.add('disabled');
     }
 
     if (cancelDragButton) {
-      cancelDragButton.disabled = true;
-      cancelDragButton.classList.add('disabled');
+        cancelDragButton.disabled = true;
+        cancelDragButton.classList.add('disabled');
     }
 
     if (undoButton) {
-      undoButton.disabled = true;
-      undoButton.classList.add('disabled');
+        undoButton.disabled = true;
+        undoButton.classList.add('disabled');
     }
 
     if (redoButton) {
-      redoButton.disabled = true;
-      redoButton.classList.add('disabled');
+        redoButton.disabled = true;
+        redoButton.classList.add('disabled');
     }
+
+    // Re-enable all buttons in the specified sections
+    toggleSectionButtons(false);
 
     undoActions = [];
     redoActions = [];
     updateDragActions();
-  }
+}
 
   function cancelDrag() {
     if (undoActions.length === 0) {
@@ -292,3 +307,35 @@ function onDragStart(element, dragEvent, node) {
       redoButton.classList.toggle('disabled', redoActions.length === 0);
     }
   }
+
+function initializeButtonStates() {
+    const finishDragButton = document.getElementById('finishDragBtn');
+    const cancelDragButton = document.getElementById('cancelDragBtn');
+    const undoButton = document.getElementById('undoBtn');
+    const redoButton = document.getElementById('redoBtn');
+
+    if (finishDragButton) {
+        finishDragButton.disabled = true;
+        finishDragButton.classList.add('disabled');
+    }
+
+    if (cancelDragButton) {
+        cancelDragButton.disabled = true;
+        cancelDragButton.classList.add('disabled');
+    }
+
+    if (undoButton) {
+        undoButton.disabled = true;
+        undoButton.classList.add('disabled');
+    }
+
+    if (redoButton) {
+        redoButton.disabled = true;
+        redoButton.classList.add('disabled');
+    }
+}
+
+// Ensure the DOM is loaded before initializing button states
+document.addEventListener("DOMContentLoaded", () => {
+    initializeButtonStates();
+});
