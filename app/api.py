@@ -15,6 +15,8 @@ with open("./data/dc.json", "r") as file:
         if 'salary' in item:
             item['salary'] = "${:,.2f}".format(float(item['salary']))
 
+    names = [item['name'] for item in data if 'name' in item]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['localhost'],
@@ -28,6 +30,10 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/data", tags=["data"])
 async def get_data():
     return JSONResponse(content=data)
+
+@app.get("/names", tags=["names"])
+async def get_names():
+    return JSONResponse(content=names)
 
 @app.get("/", tags=["home"])
 async def get_dashboard(request: Request):

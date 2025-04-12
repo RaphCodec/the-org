@@ -34,6 +34,7 @@
     <script src="/static/js/exports.js"></script>
     <script src="/static/js/nodes.js"></script>
     <script src="/static/js/dragDrop.js"></script>
+    <script src="/static/js/search.js"></script>
   </head>
   
 
@@ -44,12 +45,19 @@
         <a class="btn btn-ghost text-xl">The Org</a>
       </div>
       <div class="flex gap-2 items-center">
-        <input
-          type="text"
-          placeholder="Search"
-          class="input input-bordered w-24 md:w-auto"
-          oninput="filterChart(event)"
-        />
+        <div class="relative">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search"
+            class="input input-bordered w-24 md:w-auto"
+            oninput="searchNames()"
+          />
+          <div
+            id="results"
+            class="absolute bg-base-100 border border-base-300 rounded-box shadow-lg mt-1 w-full max-h-64 overflow-y-auto hidden"
+          ></div>
+        </div>
         <a
           href="https://github.com/RaphCodec/the-org"
           class="btn btn-ghost btn-circle"

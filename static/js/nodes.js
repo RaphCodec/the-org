@@ -1,8 +1,8 @@
 nodeCounter = 0;
 
 function deselectNodes() {
-	chart.clearHighlighting();
-	currentlySelected = [];
+    chart.clearHighlighting();
+    currentlySelected = [];
 }
 
 function errorAlert(message = "Error! Please select only one Node.") {
@@ -25,23 +25,23 @@ function errorAlert(message = "Error! Please select only one Node.") {
 
 function successAlert(message = "Success! Operation completed successfully.") {
     const successAlert = document.getElementById('successAlert');
-    successAlert.querySelector('span').textContent = message; // Set custom message
+    successAlert.querySelector('span').textContent = message;
     if (successAlert.classList.contains('hidden')) {
         successAlert.classList.remove('hidden');
         setTimeout(() => {
             successAlert.classList.add('hidden');
-        }, 2000); // Hide after 2 seconds
+        }, 2000);
     }
 }
 
 function warningAlert(message = "Warning! Please check your input.") {
     const warningAlert = document.getElementById('warningAlert');
-    warningAlert.querySelector('span').textContent = message; // Set custom message
+    warningAlert.querySelector('span').textContent = message;
     if (warningAlert.classList.contains('hidden')) {
         warningAlert.classList.remove('hidden');
         setTimeout(() => {
             warningAlert.classList.add('hidden');
-        }, 2000); // Hide after 2 seconds
+        }, 2000);
     }
 }
 
@@ -50,12 +50,23 @@ function removeSelected() {
         errorAlert("Error! Please select at least one Node to remove.");
         return;
     }
-    const confirmation = confirm("Are you sure you want to remove the selected nodes? This action cannot be undone.");
+
+    const data = chart.data();
+
     for (let nodeid of currentlySelected) {
         chart.removeNode(nodeid);
-    }
-    currentlySelected = [];
 
+        const nodeIndex = data.findIndex((n) => n.id === nodeid);
+        if (nodeIndex > -1) {
+            const nodeName = data[nodeIndex].name;
+            const nameIndex = names.indexOf(nodeName);
+            if (nameIndex > -1) {
+                names.splice(nameIndex, 1);
+            }
+        }
+    }
+
+    currentlySelected = [];
     successAlert("Node(s) removed from the chart.");
 }
 
@@ -71,12 +82,12 @@ function showEdit() {
 }
 
 function formatCurrency(input) {
-    let value = input.value.replace(/[^0-9.]/g, ''); // Remove non-numeric characters
+    let value = input.value.replace(/[^0-9.]/g, '');
     if (value) {
-        value = parseFloat(value).toFixed(2); // Ensure two decimal places
-        input.value = `$${Number(value).toLocaleString()}`; // Format as currency
+        value = parseFloat(value).toFixed(2);
+        input.value = `$${Number(value).toLocaleString()}`;
     } else {
-        input.value = ''; // Clear input if no valid number
+        input.value = '';
     }
 }
 
@@ -100,6 +111,8 @@ function updateNode() {
     let data = chart.data();
     const nodeToUpdate = data.find((node) => node.id === currentlySelected[0]);
     if (nodeToUpdate) {
+        const oldName = nodeToUpdate.name;
+
         if (name) nodeToUpdate.name = name;
         if (position) nodeToUpdate.position = position;
         if (salary) nodeToUpdate.salary = salary; 
@@ -107,9 +120,13 @@ function updateNode() {
         chart.data(data);
         chart.render();
 
+        const nameIndex = names.indexOf(oldName);
+        if (nameIndex > -1 && name) {
+            names[nameIndex] = name;
+        }
+
         deselectNodes();
 
-        // Reset form inputs to placeholders
         nameInput.value = '';
         positionInput.value = '';
         salaryInput.value = '';
@@ -129,12 +146,18 @@ function addNewNode() {
     const newNode = {
         id: `newNode${nodeCounter}`,
         parentId: currentlySelected[0],
-        name: `Vacany ${nodeCounter}`,
+        name: `Vacancy ${nodeCounter}`,
         position: 'Vacancy',
         image: 'https://robohash.org/robot?bgset=bg2',
-        salary: 0,
+        salary: '$0.00',
         _highlighted: false
     };
+
     chart.addNode(newNode).setCentered(newNode.id).render();
+
+    if (!names.includes(newNode.name)) {
+        names.push(newNode.name);
+    }
+
     successAlert("Success! New node added.");
 }

@@ -3,7 +3,6 @@ var compact = 0;
 var actNdCent = 0;
 var chart; //needed for chart to be displayed
 
-names = []; //stores names for search function
 var currentlySelected = []; //stores ID's of clicked nodes
 
 fetch("/data")
@@ -33,7 +32,7 @@ fetch("/data")
       <div style='width:${
         d.width
       }px;height:${d.height}px;padding-top:${imageDiffVert - 2}px;padding-left:1px;padding-right:1px'>
-              <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: ${d.data._highlighted || d.data._upToTheRootHighlighted ? '5px solid #0000FF"' : '1px solid #E4E2E9"'} >
+              <div style="font-family: 'Inter', sans-serif;background-color:${color};  margin-left:-1px;width:${d.width - 2}px;height:${d.height - imageDiffVert}px;border-radius:10px;border: ${d.data._highlighted || d.data._upToTheRootHighlighted ? '5px solid #FA3C3C"' : '1px solid #E4E2E9"'} >
                   <div style="display:flex;justify-content:flex-end;margin-top:5px;margin-right:8px">#${
                     d.data.id
                   }</div>
