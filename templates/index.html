@@ -193,15 +193,15 @@
           <details open>
             <summary>Chart View</summary>
             <ul>
-              <li><a onclick="fitChart()">Fit</a></li>
-              <li><a onclick="rotateChart()">Rotate</a></li>
-              <li><a onclick="compactChart()">Compact</a></li>
+              <li><a id="fitBtn" onclick="fitChart()">Fit</a></li>
+              <li><a id="rotateBtn" onclick="rotateChart()">Rotate</a></li>
+              <li><a id="compactBtn" onclick="compactChart()">Compact</a></li>
               <li>
                 <details open>
                   <summary>Zoom</summary>
                   <ul>
-                    <li><a onclick="zoomInChart()">Zoom In</a></li>
-                    <li><a onclick="zoomOutChart()">Zoom Out</a></li>
+                    <li><a id="zoomInBtn" onclick="zoomInChart()">Zoom In</a></li>
+                    <li><a id="zoomOutBtn" onclick="zoomOutChart()">Zoom Out</a></li>
                   </ul>
                 </details>
               </li>
@@ -212,10 +212,10 @@
           <details>
             <summary>Actions</summary>
             <ul>
-              <li><a onclick="showEdit()">Edit Selected</a></li>
-              <li><a onclick="addNewNode()">Add Vacancy</a></li>
-              <li><a onclick="removeSelected()">Remove Selected</a></li>
-              <li><a onclick="deselectNodes()">Deselect All</a></li>
+              <li><a id="editBtn" onclick="showEdit()">Edit Selected</a></li>
+              <li><a id="addBtn" onclick="addNewNode()">Add Vacancy</a></li>
+              <li><a id="removeBtn" onclick="removeSelected()">Remove Selected</a></li>
+              <li><a id="deselectBNn" onclick="deselectNodes()">Deselect All</a></li>
             </ul>
           </details>
         </li>
@@ -223,11 +223,11 @@
           <details>
             <summary>Organize</summary>
             <ul>
-              <li><a onclick="enableDrag()">Start</a></li>
-              <li><a onclick="disableDrag()">Finish</a></li>
-              <li><a onclick="undo()">Undo</a></li>
-              <li><a onclick="redo()">Redo</a></li>
-              <li><a onclick="cancelDrag()">Cancel</a></li>
+              <li><a id="startDragBtn" onclick="enableDrag()">Start</a></li>
+              <li><a id="finishDragBtn" onclick="disableDrag()">Finish</a></li>
+              <li><a id="undoBtn" onclick="undo()">Undo</a></li>
+              <li><a id="redoBtn" onclick="redo()">Redo</a></li>
+              <li><a id="cancelDragBtn" onclick="cancelDrag()">Cancel</a></li>
             </ul>
           </details>
         </li>
@@ -235,9 +235,9 @@
           <details>
             <summary>Exports</summary>
             <ul>
-              <li><a onclick="exportPNG()">PNG</a></li>
-              <li><a onclick="exportSVG()">SVG</a></li>
-              <li><a onclick="exportNodeData()">Data</a></li>
+              <li><a id="pngBtn" onclick="exportPNG()">PNG</a></li>
+              <li><a id="svgBtn" onclick="exportSVG()">SVG</a></li>
+              <li><a id="dataBtn" onclick="exportNodeData()">Data</a></li>
             </ul>
           </details>
         </li>
