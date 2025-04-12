@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Set theme based on system preference on page load
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme', systemPrefersDark ? 'dim' : 'light');
+  document.documentElement.setAttribute('data-theme', systemPrefersDark ? 'dark' : 'winter');
   themeSwitch.checked = systemPrefersDark;
 
   themeSwitch.addEventListener('change', () => {
     if (themeSwitch.checked) {
-      document.documentElement.setAttribute('data-theme', 'dim'); // Dark mode
+      document.documentElement.setAttribute('data-theme', 'dark'); // Dark mode
     } else {
-      document.documentElement.setAttribute('data-theme', 'light'); // Light mode
+      document.documentElement.setAttribute('data-theme', 'winter'); // Light mode
     }
   });
 });
