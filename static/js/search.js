@@ -17,6 +17,9 @@ fetch("/names")
 function highlightNode(name) {
     const nodeId = chart.data().find((n) => n.name === name).id;
     chart.setUpToTheRootHighlighted(nodeId).render();
+    if (!currentlySelected.includes(nodeId)) {
+        currentlySelected.push(nodeId);
+    }
 }
 
 function searchNames() {

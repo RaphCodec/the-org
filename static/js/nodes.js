@@ -66,7 +66,7 @@ function removeSelected() {
         }
     }
 
-    currentlySelected = [];
+    deselectNodes();
     successAlert("Node(s) removed from the chart.");
 }
 
