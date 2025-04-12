@@ -20,27 +20,33 @@ function highlightNode(name) {
 }
 
 function searchNames() {
-    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const searchInput = document.getElementById("searchInput");
     const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = "";
 
-    if (searchInput.length > 0) {
+    const searchValue = searchInput.value.toLowerCase();
+
+    if (searchValue.length > 0) {
         const filteredNames = names.filter((name) =>
-            name.toLowerCase().includes(searchInput)
+            name.toLowerCase().includes(searchValue)
         );
 
         if (filteredNames.length > 0) {
             resultsDiv.classList.remove("hidden");
-            filteredNames.forEach((name) => {
+            filteredNames.forEach((name, index) => {
                 const resultItem = document.createElement("div");
                 resultItem.textContent = name;
                 resultItem.className = "result-item p-2 hover:bg-base-200 cursor-pointer";
                 resultItem.onclick = () => {
                     highlightNode(name);
-                    document.getElementById("searchInput").value = "";
+                    searchInput.value = "";
                     resultsDiv.classList.add("hidden");
                 };
                 resultsDiv.appendChild(resultItem);
+
+                if (index === 0) {
+                    resultItem.setAttribute("data-first", "true");
+                }
             });
         } else {
             resultsDiv.classList.add("hidden");
@@ -48,4 +54,13 @@ function searchNames() {
     } else {
         resultsDiv.classList.add("hidden");
     }
+
+    searchInput.onkeydown = (event) => {
+        if (event.key === "Enter") {
+            const firstResult = resultsDiv.querySelector('[data-first="true"]');
+            if (firstResult) {
+                firstResult.click();
+            }
+        }
+    };
 }
