@@ -90,6 +90,100 @@
       </div>
     </div>
 
+    <!-- Alerts -->
+    <div
+      id="errorAlert"
+      role="alert"
+      class="alert alert-error hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span>Error! Please select only one Node.</span>
+    </div>
+    <div
+      id="successAlert"
+      role="alert"
+      class="alert alert-success hidden fixed bottom-4 right-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+      <span>Success! Operation completed successfully.</span>
+    </div>
+    <div
+      id="warningAlert"
+      role="alert"
+      class="alert alert-warning hidden fixed bottom-4 right-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M12 9v2m0 4h.01M12 17h.01M12 21h.01M12 3h.01M12 7h.01M12 11h.01M12 15h.01M12 19h.01"
+        />
+      </svg>
+      <span>Warning! Please check your input.</span>
+    </div>
+
+    <!-- Update Form -->
+    <fieldset
+      id="updateForm"
+      class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden"
+    >
+      <legend class="fieldset-legend">Update Information</legend>
+      <button
+        class="absolute top-2 right-2"
+        style="background: none; border: none; cursor: pointer;"
+        onclick="document.getElementById('updateForm').classList.add('hidden')"
+        aria-label="Close"
+      >
+        <i class="bx bx-x text-lg"></i>
+      </button>
+      <label class="fieldset-label">Name</label>
+      <input id="nameInput" type="text" class="input" placeholder="Name" /> 
+
+      <label class="fieldset-label">Position</label>
+      <input id="positionInput" type="text" class="input" placeholder="Position" /> 
+
+      <label class="fieldset-label">Salary</label>
+      <input
+        id="salaryInput"
+        type="text"
+        class="input"
+        placeholder="Salary"
+        oninput="formatCurrency(this)"
+      />
+
+      <button id="updateBtn" class="btn btn-neutral mt-4" onclick="updateNode()">Update</button>
+    </fieldset>
+
     <!-- Floating Menu -->
     <div
       class="fixed top-20 left-4 bg-base-100 shadow-lg rounded-box z-20 w-56 border border-secondary"
