@@ -34,8 +34,8 @@ fetch("/data")
               <div class="font-inter bg-white -ml-[1px] w-[${
                 d.width - 2
               }px] h-[${d.height - imageDiffVert}px] rounded-lg ${d.data._highlighted || d.data._upToTheRootHighlighted ? "border-[5px] border-[#FA3C3C]" : "border border-[#E4E2E9]"}">
-            <div class="text-[#08011E] flex justify-end mt-[5px] mr-[8px]">#${
-              d.data.id
+            <div class="text-[#08011E] flex justify-end mt-[5px] mr-[8px]">Level: ${
+              d.depth
             }</div>
             <div class="bg-white -mt-[${
               imageDiffVert + 20
