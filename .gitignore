@@ -2,3 +2,23 @@
 .vscode/
 node_modules/
 .venv
+
+__pycache__/
+
+# logs
+*.log
+
+# flat files
+*.csv
+*.json
+*.tsv
+*.txt
+*.xml
+*.parquet
+*.xlsx
+
+# database files
+*.db
+*.sqlite
+*.sqlite3
+.duckdb

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!----===== Boxicons CSS ===== -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-org-chart@3.1.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.1.2/build/d3-flextree.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="/static/js/org.js"></script>
+    <script src="/static/js/darkmode.js"></script>
+    <script src="/static/js/chart_view.js"></script>
+    <script src="/static/js/exports.js"></script>
+    <script src="/static/js/nodes.js"></script>
+    <script src="/static/js/dragDrop.js"></script>
+    <script src="/static/js/search.js"></script>
+  </head>
+  
+
+  <body>
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-sm fixed top-0 left-0 w-full z-10">
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">The Org</a>
+      </div>
+      <div class="flex gap-2 items-center">
+        <div class="relative">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search"
+            class="input input-bordered w-24 md:w-auto"
+            oninput="searchNames()"
+          />
+          <div
+            id="results"
+            class="absolute bg-base-100 border border-base-300 rounded-box shadow-lg mt-1 w-full max-h-64 overflow-y-auto hidden"
+          ></div>
+        </div>
+        <a
+          href="https://github.com/RaphCodec/the-org"
+          class="btn btn-ghost btn-circle"
+        >
+          <i class="bx bxl-github text-2xl"></i>
+        </a>
+        <label class="swap swap-rotate">
+          <!-- Dark mode toggle -->
+          <input type="checkbox" id="theme-switch" />
+          <i class="bx bx-moon swap-on text-2xl"></i>
+          <i class="bx bx-sun swap-off text-2xl"></i>
+        </label>
+        <div class="dropdown dropdown-end">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost btn-circle avatar"
+          >
+            <div class="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://robohash.org/robot?bgset=bg2"
+              />
+            </div>
+          </div>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <a class="justify-between" href="https://github.com/RaphCodec">
+                RaphCodec
+              </a>
+            </li>
+            <!-- <li><a>Settings</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div
+      id="errorAlert"
+      role="alert"
+      class="alert alert-error hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span>Error! Please select only one Node.</span>
+    </div>
+    <div
+      id="successAlert"
+      role="alert"
+      class="alert alert-success hidden fixed bottom-4 right-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+      <span>Success! Operation completed successfully.</span>
+    </div>
+    <div
+      id="warningAlert"
+      role="alert"
+      class="alert alert-warning hidden fixed bottom-4 right-4"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M12 9v2m0 4h.01M12 17h.01M12 21h.01M12 3h.01M12 7h.01M12 11h.01M12 15h.01M12 19h.01"
+        />
+      </svg>
+      <span>Warning! Please check your input.</span>
+    </div>
+
+    <!-- Update Form -->
+    <fieldset
+      id="updateForm"
+      class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden"
+    >
+      <legend class="fieldset-legend">Update Information</legend>
+      <button
+        class="absolute top-2 right-2"
+        style="background: none; border: none; cursor: pointer;"
+        onclick="document.getElementById('updateForm').classList.add('hidden')"
+        aria-label="Close"
+      >
+        <i class="bx bx-x text-lg"></i>
+      </button>
+      <label class="fieldset-label">Name</label>
+      <input id="nameInput" type="text" class="input" placeholder="Name" /> 
+
+      <label class="fieldset-label">Position</label>
+      <input id="positionInput" type="text" class="input" placeholder="Position" /> 
+
+      <label class="fieldset-label">Salary</label>
+      <input
+        id="salaryInput"
+        type="text"
+        class="input"
+        placeholder="Salary"
+        oninput="formatCurrency(this)"
+      />
+
+      <button id="updateBtn" class="btn btn-neutral mt-4" onclick="updateNode()">Update</button>
+    </fieldset>
+
+    <!-- Floating Menu -->
+    <div
+      class="fixed top-20 left-4 bg-base-100 shadow-lg rounded-box z-20 w-56 border border-secondary max-h-[75%] overflow-y-auto"
+    >
+      <ul class="menu bg-base-200 rounded-box w-full">
+        <li>
+          <details open>
+            <summary>Chart View</summary>
+            <ul>
+              <li><a id="fitBtn" onclick="fitChart()">Fit</a></li>
+              <li><a id="rotateBtn" onclick="rotateChart()">Rotate</a></li>
+              <li><a id="compactBtn" onclick="compactChart()">Compact</a></li>
+              <li>
+                <details open>
+                  <summary>Zoom</summary>
+                  <ul>
+                    <li><a id="zoomInBtn" onclick="zoomInChart()">Zoom In</a></li>
+                    <li><a id="zoomOutBtn" onclick="zoomOutChart()">Zoom Out</a></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Actions</summary>
+            <ul>
+              <li><a id="editBtn" onclick="showEdit()">Edit Selected</a></li>
+              <li><a id="addBtn" onclick="addNewNode()">Add Vacancy</a></li>
+              <li><a id="removeBtn" onclick="removeSelected()">Remove Selected</a></li>
+              <li><a id="deselectBNn" onclick="deselectNodes()">Deselect All</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Organize</summary>
+            <ul>
+              <li><a id="startDragBtn" onclick="enableDrag()">Start</a></li>
+              <li><a id="finishDragBtn" onclick="disableDrag()">Finish</a></li>
+              <li><a id="undoBtn" onclick="undo()">Undo</a></li>
+              <li><a id="redoBtn" onclick="redo()">Redo</a></li>
+              <li><a id="cancelDragBtn" onclick="cancelDrag()">Cancel</a></li>
+            </ul>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Exports</summary>
+            <ul>
+              <li><a id="pngBtn" onclick="exportPNG()">PNG</a></li>
+              <li><a id="svgBtn" onclick="exportSVG()">SVG</a></li>
+              <li><a id="dataBtn" onclick="exportNodeData()">Data</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="pt-16">
+      <div class="chart-container w-full h-screen bg-base-200"></div>
+    </div>
+
+    <style>
+      .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    </style>
+  </body>
+</html>
