@@ -1,5 +1,5 @@
 function fitChart() {
-    chart.fit();
+	chart.fit();
 }
 function rotateChart() {
 	chart
@@ -39,4 +39,62 @@ function toggleReports() {
 	totalReports.forEach((report) => {
 		report.classList.toggle('hidden');
 	});
+}
+
+function getLevels() {
+	const attrs = chart.getChartState();
+	const root = attrs.generateRoot(attrs.data);
+	const levels = new Set(root.descendants().map(node => node.depth));
+	return levels
+}
+
+function showLevels() {
+    const levels = getLevels();
+    const levelsList = document.getElementById('levelsList');
+
+    levelsList.innerHTML = `
+        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide text-center">Pick a level to expand</li>
+        <li class="p-4 flex justify-center">
+            <button class="btn btn-dash btn-secondary" onclick="hideLevels()">Close</button>
+        </li>
+    `;
+
+    levels.forEach(level => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-row flex flex-col items-center gap-2';
+
+        const link = document.createElement('span');
+        link.className = 'text-4xl font-thin opacity-30 tabular-nums hover:opacity-100 hover:text-primary transition cursor-pointer';
+        link.textContent = level.toString().padStart(2, '0');
+        link.onclick = () => expandLevel(level);
+
+        listItem.appendChild(link);
+        levelsList.appendChild(listItem);
+    });
+
+    if (levelsList.classList.contains('hidden')) {
+        levelsList.classList.remove('hidden');
+    }
+}
+
+function hideLevels() {
+    document.getElementById('levelsList')?.classList.add('hidden');
+}
+
+function expandLevel(level) {
+    const { generateRoot, data, allNodes, nodeId } = chart.getChartState();
+    const nodes = generateRoot(data).descendants()
+        .filter(node => node.depth === level)
+        .map(node => node.id);
+
+    nodes.forEach(id => {
+        const node = allNodes.find(({ data }) => nodeId(data) == id);
+        if (node) Object.assign(node.data, { _expanded: true, _highlighted: true });
+        currentlySelected.push(id);
+    });
+
+    chart.updateNodesState();
+    hideLevels();
+
+	successAlert("Showing level " + level + " nodes.");
 }
