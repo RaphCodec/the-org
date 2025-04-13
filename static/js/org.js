@@ -51,7 +51,7 @@ fetch("/data")
             <div class="text-[#716E7B] ml-[20px] mt-[3px] text-[10px]">${
               d.data.position
             }</div>
-            <div class="node-salaries text-[#716E7B] ml-[20px] mt-[3px] text-[10px]">${
+            <div class="node-salaries text-[#716E7B] ml-[20px] mt-[3px] text-[10px] hidden">${
               d.data.salary
             }</div>
             <div class="flex justify-between px-[15px]">
