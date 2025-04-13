@@ -4,20 +4,21 @@ node_modules/
 .venv
 
 __pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.db
-*.sqlite3
-*.egg-info/
-*.egg
-*.log
-*.coverage
-*.mypy_cache/
-*.pytest_cache/     
 
+# logs
+*.log
 
 # flat files
 *.csv
 *.json
+*.tsv
+*.txt
 *.xml
+*.parquet
+*.xlsx
+
+# database files
+*.db
+*.sqlite
+*.sqlite3
+.duckdb
