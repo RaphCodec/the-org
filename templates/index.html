@@ -70,31 +70,6 @@
           <i class="bx bx-moon swap-on text-2xl"></i>
           <i class="bx bx-sun swap-off text-2xl"></i>
         </label>
-        <div class="dropdown dropdown-end">
-          <div
-            tabindex="0"
-            role="button"
-            class="btn btn-ghost btn-circle avatar"
-          >
-            <div class="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://robohash.org/robot?bgset=bg2"
-              />
-            </div>
-          </div>
-          <ul
-            tabindex="0"
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a class="justify-between" href="https://github.com/RaphCodec">
-                RaphCodec
-              </a>
-            </li>
-            <!-- <li><a>Settings</a></li> -->
-          </ul>
-        </div>
       </div>
     </div>
 
@@ -213,6 +188,14 @@
                   </ul>
                 </details>
               </li>
+              <li>
+                <details open>
+                  <summary>Toggle Attributes</summary>
+                  <ul>
+                    <li><a id="toggleSalariesBtn" onclick="toggleSalaries()">Salaries</a></li>
+                    <li><a id="toggleReportsBtn" onclick="toggleReports()">Reports</a></li>
+                  </ul>
+                </details>
             </ul>
           </details>
         </li>
