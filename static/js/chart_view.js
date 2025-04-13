@@ -63,7 +63,7 @@ function showLevels() {
 		const link = document.createElement('span');
 		link.className = 'text-4xl font-thin opacity-30 tabular-nums hover:opacity-100 hover:text-primary transition cursor-pointer';
 		link.textContent = level.toString().padStart(2, '0');
-		link.onclick = () => selectLevel(level);
+		link.onclick = () => expandLevel(level);
 
 		listItem.appendChild(link);
 		levelsList.appendChild(listItem);
@@ -74,6 +74,20 @@ function showLevels() {
 	}
 }
 
-function selectLevel(level) {
-	console.log(`Level ${level} selected`);
+function expandLevel(level) {
+    const { generateRoot, data, allNodes, nodeId } = chart.getChartState();
+    const nodes = generateRoot(data).descendants()
+        .filter(node => node.depth === level)
+        .map(node => node.id);
+
+    nodes.forEach(id => {
+        const node = allNodes.find(({ data }) => nodeId(data) == id);
+        if (node) Object.assign(node.data, { _expanded: true, _highlighted: true });
+        currentlySelected.push(id);
+    });
+
+    chart.updateNodesState();
+    document.getElementById('levelsList')?.classList.add('hidden');
+
+	successAlert("Showing level " + level + " nodes.");
 }
