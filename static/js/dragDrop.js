@@ -153,8 +153,11 @@ function toggleSectionButtons(disable) {
         if (detailsElement) {
             const buttons = detailsElement.querySelectorAll('ul a');
             buttons.forEach((button) => {
-                button.disabled = disable;
-                button.classList.toggle('disabled', disable);
+                if (disable) {
+                    button.classList.add('menu-disabled');
+                } else {
+                    button.classList.remove('menu-disabled');
+                }
             });
         }
     });
@@ -174,28 +177,23 @@ function enableDrag() {
     }
 
     if (startDragButton) {
-        startDragButton.disabled = true;
-        startDragButton.classList.add('disabled');
+        startDragButton.classList.add('menu-disabled');
     }
 
     if (finishDragButton) {
-        finishDragButton.disabled = false;
-        finishDragButton.classList.remove('disabled');
+        finishDragButton.classList.remove('menu-disabled');
     }
 
     if (cancelDragButton) {
-        cancelDragButton.disabled = false;
-        cancelDragButton.classList.remove('disabled');
+        cancelDragButton.classList.remove('menu-disabled');
     }
 
     if (undoButton) {
-        undoButton.disabled = true;
-        undoButton.classList.add('disabled');
+        undoButton.classList.add('menu-disabled');
     }
 
     if (redoButton) {
-        redoButton.disabled = true;
-        redoButton.classList.add('disabled');
+        redoButton.classList.add('menu-disabled');
     }
 
     // Disable all buttons in the specified sections
@@ -216,28 +214,23 @@ function disableDrag() {
     }
 
     if (startDragButton) {
-        startDragButton.disabled = false;
-        startDragButton.classList.remove('disabled');
+        startDragButton.classList.remove('menu-disabled');
     }
 
     if (finishDragButton) {
-        finishDragButton.disabled = true;
-        finishDragButton.classList.add('disabled');
+        finishDragButton.classList.add('menu-disabled');
     }
 
     if (cancelDragButton) {
-        cancelDragButton.disabled = true;
-        cancelDragButton.classList.add('disabled');
+        cancelDragButton.classList.add('menu-disabled');
     }
 
     if (undoButton) {
-        undoButton.disabled = true;
-        undoButton.classList.add('disabled');
+        undoButton.classList.add('menu-disabled');
     }
 
     if (redoButton) {
-        redoButton.disabled = true;
-        redoButton.classList.add('disabled');
+        redoButton.classList.add('menu-disabled');
     }
 
     // Re-enable all buttons in the specified sections
@@ -298,15 +291,21 @@ function disableDrag() {
     const redoButton = document.getElementById('redoBtn');
 
     if (undoButton) {
-      undoButton.disabled = undoActions.length === 0;
-      undoButton.classList.toggle('disabled', undoActions.length === 0);
+        if (undoActions.length === 0) {
+            undoButton.classList.add('menu-disabled');
+        } else {
+            undoButton.classList.remove('menu-disabled');
+        }
     }
 
     if (redoButton) {
-      redoButton.disabled = redoActions.length === 0;
-      redoButton.classList.toggle('disabled', redoActions.length === 0);
+        if (redoActions.length === 0) {
+            redoButton.classList.add('menu-disabled');
+        } else {
+            redoButton.classList.remove('menu-disabled');
+        }
     }
-  }
+}
 
 function initializeButtonStates() {
     const finishDragButton = document.getElementById('finishDragBtn');
@@ -315,23 +314,19 @@ function initializeButtonStates() {
     const redoButton = document.getElementById('redoBtn');
 
     if (finishDragButton) {
-        finishDragButton.disabled = true;
-        finishDragButton.classList.add('disabled');
+        finishDragButton.classList.add('menu-disabled');
     }
 
     if (cancelDragButton) {
-        cancelDragButton.disabled = true;
-        cancelDragButton.classList.add('disabled');
+        cancelDragButton.classList.add('menu-disabled');
     }
 
     if (undoButton) {
-        undoButton.disabled = true;
-        undoButton.classList.add('disabled');
+        undoButton.classList.add('menu-disabled');
     }
 
     if (redoButton) {
-        redoButton.disabled = true;
-        redoButton.classList.add('disabled');
+        redoButton.classList.add('menu-disabled');
     }
 }
 

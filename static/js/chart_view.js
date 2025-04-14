@@ -53,10 +53,9 @@ function showLevels() {
     const levelsList = document.getElementById('levelsList');
 
     levelsList.innerHTML = `
-        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide text-center">Pick a level to expand</li>
-        <li class="p-4 flex justify-center">
-            <button class="btn btn-dash btn-secondary" onclick="hideLevels()">Close</button>
-        </li>
+        <li class="p-4 pb-2 text-xs tracking-wide text-center">Pick a level to expand
+		<button class="btn btn-ghost btn-secondary btn-circle btn-sm bg-transparent text-secondary" onclick="hideLevels()"> <i class="bx bx-x"></i></button>
+		</li>
     `;
 
     levels.forEach(level => {
