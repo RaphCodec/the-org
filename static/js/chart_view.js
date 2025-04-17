@@ -80,20 +80,28 @@ function hideLevels() {
     document.getElementById('levelsList')?.classList.add('hidden');
 }
 
-function expandLevel(level) {
+function expandLevel(level, select = true) {
     const { generateRoot, data, allNodes, nodeId } = chart.getChartState();
     const nodes = generateRoot(data).descendants()
         .filter(node => node.depth === level)
         .map(node => node.id);
 
-    nodes.forEach(id => {
-        const node = allNodes.find(({ data }) => nodeId(data) == id);
-        if (node) Object.assign(node.data, { _expanded: true, _highlighted: true });
-        currentlySelected.push(id);
-    });
+    if (select) {
+        nodes.forEach(id => {
+            const node = allNodes.find(({ data }) => nodeId(data) == id);
+            if (node) Object.assign(node.data, { _expanded: true, _highlighted: true });
+            currentlySelected.push(id);
+        });
 
-    chart.updateNodesState();
-    hideLevels();
+        chart.updateNodesState();
+        hideLevels();
+        successAlert("Showing level " + level + " nodes.");
+    } else {
+        nodes.forEach(id => {
+            const node = allNodes.find(({ data }) => nodeId(data) == id);
+            if (node) Object.assign(node.data, { _expanded: true });
+        });
+        chart.updateNodesState();
+    }
 
-	successAlert("Showing level " + level + " nodes.");
 }

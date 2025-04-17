@@ -8,9 +8,6 @@ function getSubHierarchy() {
 
     nodeChildren = chart.getNodeChildren(node, []);
 
-    console.log(nodeChildren);
-    console.log(node);
-
     const filteredNodeChildren = nodeChildren.map((child) => {
         return {
             id: child.id,
@@ -27,6 +24,7 @@ function getSubHierarchy() {
 
     chart.data(filteredNodeChildren).render();
 
+    successAlert("Showing sub-hierarchy for " + node.data.name + ".");
 }
 
 function getLineage() {
@@ -36,6 +34,8 @@ function getLineage() {
     }
 
     const nodeId = currentlySelected[0].id;
+
+    const levelBelow = currentlySelected[0].depth + 1;
 
     const attrs = chart.getChartState();
     const root = attrs.generateRoot(attrs.data);
@@ -74,5 +74,11 @@ function getLineage() {
     );
 
     chart.data(lineage).render();
+
+    expandLevel(levelBelow, false);
+
+    deselectNodes();
+
+    successAlert("Showing lineage for " + node.data.name + ".");
     return;
 }
