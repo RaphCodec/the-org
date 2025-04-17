@@ -1,14 +1,17 @@
-from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import APIRouter, Request
+
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse
-from fastapi.staticfiles import StaticFiles
+
 import json
 
-app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
+router = APIRouter(
+    tags=["api"],
+    responses={404: {"description": "Not found"}},
+)
 
-with open("./data/dc.json", "r") as file:
+
+with open("app\data\dc.json", "r") as file:
     data = json.load(file)
     # Format salary values as US currency
     for item in data:
@@ -17,25 +20,20 @@ with open("./data/dc.json", "r") as file:
 
     names = [item['name'] for item in data if 'name' in item]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=['localhost'],
-    allow_credentials=True,
-    allow_methods=["GET"],
-)
-
-templates = Jinja2Templates(directory="templates")
 
 
-@app.get("/data", tags=["data"])
+templates = Jinja2Templates(directory="app/templates")
+
+
+@router.get("/data", tags=["data"])
 async def get_data():
     return JSONResponse(content=data)
 
-@app.get("/names", tags=["names"])
+@router.get("/names", tags=["names"])
 async def get_names():
     return JSONResponse(content=names)
 
-@app.get("/", tags=["home"])
+@router.get("/", tags=["home"])
 async def get_dashboard(request: Request):
     try:
         return templates.TemplateResponse("index.html", {"request": request})
