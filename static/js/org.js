@@ -95,12 +95,12 @@ fetch("/data")
         d.data._highlighted = !d.data._highlighted;
         chart.updateNodesState();
         if (d.data._highlighted === true) {
-          if (!currentlySelected.map((item) => item.id).includes(d.id)) {
-            currentlySelected.push(d.id);
+          if (!currentlySelected.map((item) => item).includes(d)) {
+            currentlySelected.push(d);
             chart.setHighlighted(d.id).render();
           }
         } else {
-          const index = currentlySelected.indexOf(d.id);
+          const index = currentlySelected.indexOf(d);
           if (index > -1) {
             currentlySelected.splice(index, 1);
           }

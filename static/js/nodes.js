@@ -53,10 +53,10 @@ function removeSelected() {
 
     const data = chart.data();
 
-    for (let nodeid of currentlySelected) {
-        chart.removeNode(nodeid);
+    for (let node of currentlySelected) {
+        chart.removeNode(node.id);
 
-        const nodeIndex = data.findIndex((n) => n.id === nodeid);
+        const nodeIndex = data.findIndex((n) => n.id === node.id);
         if (nodeIndex > -1) {
             const nodeName = data[nodeIndex].name;
             const nameIndex = names.indexOf(nodeName);
@@ -109,7 +109,7 @@ function updateNode() {
     formUpdate.classList.add('hidden');
 
     let data = chart.data();
-    const nodeToUpdate = data.find((node) => node.id === currentlySelected[0]);
+    const nodeToUpdate = data.find((node) => node.id === currentlySelected[0].id);
     if (nodeToUpdate) {
         const oldName = nodeToUpdate.name;
 
@@ -145,7 +145,7 @@ function addNewNode() {
     nodeCounter++;
     const newNode = {
         id: `newNode${nodeCounter}`,
-        parentId: currentlySelected[0],
+        parentId: currentlySelected[0].id,
         name: `Vacancy ${nodeCounter}`,
         position: 'Vacancy',
         image: 'https://robohash.org/robot?bgset=bg2',
