@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="sunset">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -35,12 +35,13 @@
     <script src="/static/js/nodes.js"></script>
     <script src="/static/js/dragDrop.js"></script>
     <script src="/static/js/search.js"></script>
+    <script src="/static/js/lineage.js"></script>
   </head>
   
 
   <body>
     <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-sm fixed top-0 left-0 w-full z-10">
+    <div class="navbar bg-base-300 shadow-sm fixed top-0 left-0 w-full z-10">
       <div class="flex-1">
         <a class="btn btn-ghost text-xl">The Org</a>
       </div>
@@ -167,14 +168,14 @@
     <!-- levels list -->
     <ul
       id="levelsList"
-      class="list bg-base-100 border-4 border-accent rounded-box shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden max-h-72 overflow-y-auto"
+      class="list bg-base-200 border-4 border-accent rounded-box shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden max-h-72 overflow-y-auto"
     >
     
     </ul>
 
     <!-- Floating Menu -->
     <div
-      class="fixed top-20 left-4 bg-base-100 shadow-lg rounded-box z-20 w-56 border border-accent max-h-[75%] overflow-y-auto"
+      class="fixed top-20 left-4 bg-base-300 shadow-lg rounded-box z-20 w-56 border border-accent max-h-[75%] overflow-y-auto"
     >
       <ul class="menu bg-base-200 rounded-box w-full">
         <li>
@@ -213,7 +214,9 @@
               <li><a id="editBtn" onclick="showEdit()">Edit Selected</a></li>
               <li><a id="addBtn" onclick="addNewNode()">Add Vacancy</a></li>
               <li><a id="removeBtn" onclick="removeSelected()">Remove Selected</a></li>
-              <li><a id="deselectBNn" onclick="deselectNodes()">Deselect All</a></li>
+              <li><a id="deselectBtn" onclick="deselectNodes()">Deselect All</a></li>
+              <li><a id="subHierarchyBtn" onclick="getSubHierarchy()">Show Sub Hierarchy</a></li>
+              <li><a id="lineageBtn" onclick="getLineage()">Show Lineage</a></li>
             </ul>
           </details>
         </li>
@@ -243,8 +246,11 @@
     </div>
 
     <!-- Main Content -->
+    <!-- <div class="pt-16 flex justify-start items-center h-screen">
+      <div class="subchart-container w-5/8 h-7/8 bg-base-200 ml-78"></div>
+    </div> -->
     <div class="pt-16">
-      <div class="chart-container w-full h-screen bg-base-200"></div>
+      <div class="chart-container w-full h-screen bg-base-100"></div>
     </div>
 
     <style>
