@@ -1,9 +1,9 @@
 from sqlmodel import Field, SQLModel
 
-class heros(SQLModel, table=True):
+class heroes(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)
-    ParentId: int
-    Name: str
-    Position: str
-    Salary: float
-    Image: str
+    parentId: int
+    name: str
+    position: str
+    salary: float
+    image: str
