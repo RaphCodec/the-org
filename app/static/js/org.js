@@ -13,6 +13,7 @@ fetch("/data")
     return response.json();
   })
   .then((data) => {
+    console.log(data);
     chart = new d3.OrgChart()
       .container(".chart-container")
       .data(data)
