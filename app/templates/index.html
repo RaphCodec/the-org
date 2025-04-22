@@ -182,15 +182,15 @@
           <details open>
             <summary>Chart View</summary>
             <ul>
-              <li><a id="fitBtn" onclick="fitChart()">Fit</a></li>
-              <li><a id="rotateBtn" onclick="rotateChart()">Rotate</a></li>
+              <li id="fitBtn"><a onclick="fitChart()">Fit</a></li>
+              <li id="rotateBtn"><a onclick="rotateChart()">Rotate</a></li>
               <li><a id="compactBtn" onclick="compactChart()">Compact</a></li>
               <li>
                 <details open>
                   <summary>Zoom</summary>
                   <ul>
-                    <li><a id="zoomInBtn" onclick="zoomInChart()">Zoom In</a></li>
-                    <li><a id="zoomOutBtn" onclick="zoomOutChart()">Zoom Out</a></li>
+                    <li id="zoomInBtn"><a onclick="zoomInChart()">Zoom In</a></li>
+                    <li id="zoomOutBtn"><a onclick="zoomOutChart()">Zoom Out</a></li>
                   </ul>
                 </details>
               </li>
@@ -198,12 +198,12 @@
                 <details open>
                   <summary>Toggle Attributes</summary>
                   <ul>
-                    <li><a id="toggleSalariesBtn" onclick="toggleSalaries()">Salaries</a></li>
-                    <li><a id="toggleReportsBtn" onclick="toggleReports()">Reports</a></li>
+                    <li id="toggleSalariesBtn"><a onclick="toggleSalaries()">Salaries</a></li>
+                    <li id="toggleReportsBtn"><a onclick="toggleReports()">Reports</a></li>
                   </ul>
                 </details>
               </li>
-              <li><a id="levelsBtn" onclick="showLevels()">Levels</a></li>
+              <li id="levelsBtn"><a onclick="showLevels()">Levels</a></li>
             </ul>
           </details>
         </li>
@@ -211,12 +211,12 @@
           <details>
             <summary>Actions</summary>
             <ul>
-              <li><a id="editBtn" onclick="showEdit()">Edit Selected</a></li>
-              <li><a id="addBtn" onclick="addNewNode()">Add Vacancy</a></li>
-              <li><a id="removeBtn" onclick="removeSelected()">Remove Selected</a></li>
-              <li><a id="deselectBtn" onclick="deselectNodes()">Deselect All</a></li>
-              <li><a id="subHierarchyBtn" onclick="getSubHierarchy()">Show Sub Hierarchy</a></li>
-              <li><a id="lineageBtn" onclick="getLineage()">Show Lineage</a></li>
+              <li id="editBtn"><a onclick="showEdit()">Edit Selected</a></li>
+              <li id="addBtn"><a onclick="addNewNode()">Add Vacancy</a></li>
+              <li id="removeBtn"><a onclick="removeSelected()">Remove Selected</a></li>
+              <li id="deselectBtn"><a onclick="deselectNodes()">Deselect All</a></li>
+              <li id="subHierarchyBtn"><a onclick="getSubHierarchy()">Show Sub Hierarchy</a></li>
+              <li id="lineageBtn"><a onclick="getLineage()">Show Lineage</a></li>
             </ul>
           </details>
         </li>
@@ -224,11 +224,11 @@
           <details>
             <summary>Organize</summary>
             <ul>
-              <li><a id="startDragBtn" onclick="enableDrag()">Start</a></li>
-              <li><a id="finishDragBtn" onclick="disableDrag()">Finish</a></li>
-              <li><a id="undoBtn" onclick="undo()">Undo</a></li>
-              <li><a id="redoBtn" onclick="redo()">Redo</a></li>
-              <li><a id="cancelDragBtn" onclick="cancelDrag()">Cancel</a></li>
+              <li id="startDragBtn"><a onclick="enableDrag()">Start</a></li>
+              <li id="finishDragBtn"><a onclick="disableDrag()">Finish</a></li>
+              <li id="undoBtn"><a onclick="undo()">Undo</a></li>
+              <li id="redoBtn"><a onclick="redo()">Redo</a></li>
+              <li id="cancelDragBtn"><a onclick="cancelDrag()">Cancel</a></li>
             </ul>
           </details>
         </li>
@@ -236,9 +236,9 @@
           <details>
             <summary>Exports</summary>
             <ul>
-              <li><a id="pngBtn" onclick="exportPNG()">PNG</a></li>
-              <li><a id="svgBtn" onclick="exportSVG()">SVG</a></li>
-              <li><a id="dataBtn" onclick="exportNodeData()">Data</a></li>
+              <li id="pngBtn"><a onclick="exportPNG()">PNG</a></li>
+              <li id="svgBtn"><a onclick="exportSVG()">SVG</a></li>
+              <li id="dataBtn"><a onclick="exportNodeData()">Data</a></li>
             </ul>
           </details>
         </li>
@@ -253,11 +253,5 @@
       <div class="chart-container w-full h-screen bg-base-100"></div>
     </div>
 
-    <style>
-      .disabled {
-        pointer-events: none;
-        opacity: 0.5;
-      }
-    </style>
   </body>
 </html>
