@@ -8,7 +8,7 @@ let isDragStarting = false;
 let undoActions = [];
 let redoActions = [];
 
-function onDragStart(element, dragEvent, node) {
+ function onDragStart(element, dragEvent, node) {
     dragNode = node;
     const width = dragEvent.subject.width;
     const half = width / 2;
@@ -143,103 +143,22 @@ function onDragStart(element, dragEvent, node) {
     updateDragActions();
   }
 
-function toggleSectionButtons(disable) {
-    const sections = ['Chart View', 'Actions', 'Exports'];
-    sections.forEach((section) => {
-        const detailsElement = Array.from(document.querySelectorAll('details')).find(
-            (details) => details.querySelector('summary')?.textContent.trim() === section
-        );
-
-        if (detailsElement) {
-            const buttons = detailsElement.querySelectorAll('ul a');
-            buttons.forEach((button) => {
-                if (disable) {
-                    button.classList.add('menu-disabled');
-                } else {
-                    button.classList.remove('menu-disabled');
-                }
-            });
-        }
-    });
-}
-
-function enableDrag() {
+  function enableDrag() {
     dragEnabled = true;
-    const chartContainer = document.querySelector('.chart-container');
-    const startDragButton = document.getElementById('startDragBtn');
-    const finishDragButton = document.getElementById('finishDragBtn');
-    const cancelDragButton = document.getElementById('cancelDragBtn');
-    const undoButton = document.getElementById('undoBtn');
-    const redoButton = document.getElementById('redoBtn');
+    document.querySelector('.chart-container').classList.add('drag-enabled');
+    document.getElementById('enableDragButton').classList.add('hide');
+    document.getElementById('dragActions').classList.remove('hide');
+  }
 
-    if (chartContainer) {
-        chartContainer.classList.add('drag-enabled');
-    }
-
-    if (startDragButton) {
-        startDragButton.classList.add('menu-disabled');
-    }
-
-    if (finishDragButton) {
-        finishDragButton.classList.remove('menu-disabled');
-    }
-
-    if (cancelDragButton) {
-        cancelDragButton.classList.remove('menu-disabled');
-    }
-
-    if (undoButton) {
-        undoButton.classList.add('menu-disabled');
-    }
-
-    if (redoButton) {
-        redoButton.classList.add('menu-disabled');
-    }
-
-    // Disable all buttons in the specified sections
-    toggleSectionButtons(true);
-}
-
-function disableDrag() {
+  function disableDrag() {
     dragEnabled = false;
-    const chartContainer = document.querySelector('.chart-container');
-    const startDragButton = document.getElementById('startDragBtn');
-    const finishDragButton = document.getElementById('finishDragBtn');
-    const cancelDragButton = document.getElementById('cancelDragBtn');
-    const undoButton = document.getElementById('undoBtn');
-    const redoButton = document.getElementById('redoBtn');
-
-    if (chartContainer) {
-        chartContainer.classList.remove('drag-enabled');
-    }
-
-    if (startDragButton) {
-        startDragButton.classList.remove('menu-disabled');
-    }
-
-    if (finishDragButton) {
-        finishDragButton.classList.add('menu-disabled');
-    }
-
-    if (cancelDragButton) {
-        cancelDragButton.classList.add('menu-disabled');
-    }
-
-    if (undoButton) {
-        undoButton.classList.add('menu-disabled');
-    }
-
-    if (redoButton) {
-        redoButton.classList.add('menu-disabled');
-    }
-
-    // Re-enable all buttons in the specified sections
-    toggleSectionButtons(false);
-
+    document.querySelector('.chart-container').classList.remove('drag-enabled');
+    document.getElementById('enableDragButton').classList.remove('hide');
+    document.getElementById('dragActions').classList.add('hide');
     undoActions = [];
     redoActions = [];
     updateDragActions();
-}
+  }
 
   function cancelDrag() {
     if (undoActions.length === 0) {
@@ -287,50 +206,17 @@ function disableDrag() {
   }
 
   function updateDragActions() {
-    const undoButton = document.getElementById('undoBtn');
-    const redoButton = document.getElementById('redoBtn');
-
-    if (undoButton) {
-        if (undoActions.length === 0) {
-            undoButton.classList.add('menu-disabled');
-        } else {
-            undoButton.classList.remove('menu-disabled');
-        }
+    if (undoActions.length > 0) {
+      const undoButton = document.getElementById('undoButton');
+      undoButton.disabled = false;
+    } else {
+      undoButton.disabled = true;
     }
 
-    if (redoButton) {
-        if (redoActions.length === 0) {
-            redoButton.classList.add('menu-disabled');
-        } else {
-            redoButton.classList.remove('menu-disabled');
-        }
+    if (redoActions.length > 0) {
+      const redoButton = document.getElementById('redoButton');
+      redoButton.disabled = false;
+    } else {
+      redoButton.disabled = true;
     }
-}
-
-function initializeButtonStates() {
-    const finishDragButton = document.getElementById('finishDragBtn');
-    const cancelDragButton = document.getElementById('cancelDragBtn');
-    const undoButton = document.getElementById('undoBtn');
-    const redoButton = document.getElementById('redoBtn');
-
-    if (finishDragButton) {
-        finishDragButton.classList.add('menu-disabled');
-    }
-
-    if (cancelDragButton) {
-        cancelDragButton.classList.add('menu-disabled');
-    }
-
-    if (undoButton) {
-        undoButton.classList.add('menu-disabled');
-    }
-
-    if (redoButton) {
-        redoButton.classList.add('menu-disabled');
-    }
-}
-
-// Ensure the DOM is loaded before initializing button states
-document.addEventListener("DOMContentLoaded", () => {
-    initializeButtonStates();
-});
+  }

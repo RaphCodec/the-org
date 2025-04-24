@@ -110,7 +110,7 @@ function updateNode() {
     formUpdate.classList.add('hidden');
 
     let data = chart.data();
-    const nodeToUpdate = data.find((node) => node.id === Number(currentlySelected[0].id));
+    const nodeToUpdate = data.find((node) => node.id === currentlySelected[0].id);
     if (nodeToUpdate) {
         const oldName = nodeToUpdate.name;
 
