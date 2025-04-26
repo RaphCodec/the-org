@@ -1,8 +1,8 @@
 from sqlmodel import Field, SQLModel
 
 class heroes(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True)
-    parentId: int
+    id: str = Field(default=None, primary_key=True)
+    parentId: str
     name: str
     position: str
     salary: float

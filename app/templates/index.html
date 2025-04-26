@@ -179,18 +179,18 @@
     >
       <ul class="menu bg-base-200 rounded-box w-full">
         <li>
-          <details open>
+          <details id="ChartViewSection" open>
             <summary>Chart View</summary>
             <ul>
-              <li><a id="fitBtn" onclick="fitChart()">Fit</a></li>
-              <li><a id="rotateBtn" onclick="rotateChart()">Rotate</a></li>
-              <li><a id="compactBtn" onclick="compactChart()">Compact</a></li>
+              <li id="fitBtn" class="cv_sectionBtn"><a onclick="fitChart()">Fit</a></li>
+              <li id="rotateBtn" class="cv_sectionBtn"><a onclick="rotateChart()">Rotate</a></li>
+              <li id="compactBtn" class="cv_sectionBtn"><a onclick="compactChart()">Compact</a></li>
               <li>
                 <details open>
                   <summary>Zoom</summary>
                   <ul>
-                    <li><a id="zoomInBtn" onclick="zoomInChart()">Zoom In</a></li>
-                    <li><a id="zoomOutBtn" onclick="zoomOutChart()">Zoom Out</a></li>
+                    <li id="zoomInBtn" class="cv_sectionBtn"><a onclick="zoomInChart()">Zoom In</a></li>
+                    <li id="zoomOutBtn" class="cv_sectionBtn"><a onclick="zoomOutChart()">Zoom Out</a></li>
                   </ul>
                 </details>
               </li>
@@ -198,47 +198,47 @@
                 <details open>
                   <summary>Toggle Attributes</summary>
                   <ul>
-                    <li><a id="toggleSalariesBtn" onclick="toggleSalaries()">Salaries</a></li>
-                    <li><a id="toggleReportsBtn" onclick="toggleReports()">Reports</a></li>
+                    <li id="toggleSalariesBtn" class="cv_sectionBtn"><a onclick="toggleSalaries()">Salaries</a></li>
+                    <li id="toggleReportsBtn" class="cv_sectionBtn"><a onclick="toggleReports()">Reports</a></li>
                   </ul>
                 </details>
               </li>
-              <li><a id="levelsBtn" onclick="showLevels()">Levels</a></li>
+              <li id="levelsBtn" class="cv_sectionBtn"><a onclick="showLevels()">Levels</a></li>
             </ul>
           </details>
         </li>
         <li>
-          <details>
+          <details id="ActionsSection">
             <summary>Actions</summary>
             <ul>
-              <li><a id="editBtn" onclick="showEdit()">Edit Selected</a></li>
-              <li><a id="addBtn" onclick="addNewNode()">Add Vacancy</a></li>
-              <li><a id="removeBtn" onclick="removeSelected()">Remove Selected</a></li>
-              <li><a id="deselectBtn" onclick="deselectNodes()">Deselect All</a></li>
-              <li><a id="subHierarchyBtn" onclick="getSubHierarchy()">Show Sub Hierarchy</a></li>
-              <li><a id="lineageBtn" onclick="getLineage()">Show Lineage</a></li>
+              <li id="editBtn" class="action_sectionBtn"><a onclick="showEdit()">Edit Selected</a></li>
+              <li id="addBtn" class="action_sectionBtn"><a onclick="addNewNode()">Add Vacancy</a></li>
+              <li id="removeBtn" class="action_sectionBtn"><a onclick="removeSelected()">Remove Selected</a></li>
+              <li id="deselectBtn" class="action_sectionBtn"><a onclick="deselectNodes()">Deselect All</a></li>
+              <li id="subHierarchyBtn" class="action_sectionBtn"><a onclick="getSubHierarchy()">Show Sub Hierarchy</a></li>
+              <li id="lineageBtn" class="action_sectionBtn"><a onclick="getLineage()">Show Lineage</a></li>
             </ul>
           </details>
         </li>
         <li>
-          <details>
+          <details id="DragDropSection">
             <summary>Organize</summary>
             <ul>
-              <li><a id="startDragBtn" onclick="enableDrag()">Start</a></li>
-              <li><a id="finishDragBtn" onclick="disableDrag()">Finish</a></li>
-              <li><a id="undoBtn" onclick="undo()">Undo</a></li>
-              <li><a id="redoBtn" onclick="redo()">Redo</a></li>
-              <li><a id="cancelDragBtn" onclick="cancelDrag()">Cancel</a></li>
+              <li id="startDragBtn"><a onclick="enableDrag()">Start</a></li>
+              <li id="finishDragBtn" class="dragActions menu-disabled"><a onclick="disableDrag()">Finish</a></li>
+              <li id="undoBtn" class="dragActions menu-disabled"><a onclick="undo()">Undo</a></li>
+              <li id="redoBtn" class="dragActions menu-disabled"><a onclick="redo()">Redo</a></li>
+              <li id="cancelDragBtn" class="dragActions menu-disabled"><a onclick="cancelDrag()">Cancel</a></li>
             </ul>
           </details>
         </li>
         <li>
-          <details>
+          <details id="ExportSection">
             <summary>Exports</summary>
             <ul>
-              <li><a id="pngBtn" onclick="exportPNG()">PNG</a></li>
-              <li><a id="svgBtn" onclick="exportSVG()">SVG</a></li>
-              <li><a id="dataBtn" onclick="exportNodeData()">Data</a></li>
+              <li id="pngBtn" class="export_sectionBtn"><a onclick="exportPNG()">PNG</a></li>
+              <li id="svgBtn" class="export_sectionBtn"><a onclick="exportSVG()">SVG</a></li>
+              <li id="dataBtn" class="export_sectionBtn"><a onclick="exportNodeData()">Data</a></li>
             </ul>
           </details>
         </li>
@@ -253,11 +253,5 @@
       <div class="chart-container w-full h-screen bg-base-100"></div>
     </div>
 
-    <style>
-      .disabled {
-        pointer-events: none;
-        opacity: 0.5;
-      }
-    </style>
   </body>
 </html>

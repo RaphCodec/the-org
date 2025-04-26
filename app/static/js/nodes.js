@@ -97,6 +97,7 @@ function updateNode() {
         return;
     }
 
+
     const formUpdate = document.getElementById('updateForm');
     const nameInput = document.getElementById('nameInput');
     const positionInput = document.getElementById('positionInput');
