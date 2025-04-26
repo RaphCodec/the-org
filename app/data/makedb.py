@@ -215,11 +215,11 @@ cursor = conn.cursor()
 # Create table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS heroes (
-    id INTEGER PRIMARY KEY,
-    parentId INTEGER,
+    id TEXT PRIMARY KEY,
+    parentId TEXT,
     name TEXT NOT NULL,
     position TEXT NOT NULL,
-    salary INTEGER NOT NULL,
+    salary REAL NOT NULL,
     image TEXT NOT NULL
 )
 """)
@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS heroes (
 # Insert data into the table
 for entry in data:
     cursor.execute("""
-    INSERT INTO heroes (id, parentId, name, position, salary, image)
+    INSERT OR REPLACE INTO heroes (id, parentId, name, position, salary, image)
     VALUES (?, ?, ?, ?, ?, ?)
     """, (
         entry["id"],
