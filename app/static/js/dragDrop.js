@@ -146,18 +146,20 @@ let redoActions = [];
   function enableDrag() {
     dragEnabled = true;
     document.querySelector('.chart-container').classList.add('drag-enabled');
-    document.getElementById('enableDragButton').classList.add('hide');
-    document.getElementById('dragActions').classList.remove('hide');
+    document.getElementById('startDragBtn').classList.add('menu-disabled');
+    document.querySelectorAll('.dragActions').forEach(el => el.classList.remove('menu-disabled'));
+    toggleSections();
   }
 
   function disableDrag() {
     dragEnabled = false;
     document.querySelector('.chart-container').classList.remove('drag-enabled');
-    document.getElementById('enableDragButton').classList.remove('hide');
-    document.getElementById('dragActions').classList.add('hide');
+    document.getElementById('startDragBtn').classList.remove('menu-disabled');
+    document.querySelectorAll('.dragActions').forEach(el => el.classList.add('menu-disabled'));
     undoActions = [];
     redoActions = [];
     updateDragActions();
+    toggleSections();
   }
 
   function cancelDrag() {
@@ -174,7 +176,7 @@ let redoActions = [];
 
     disableDrag();
     chart.render();
-  }
+  }  
 
   function undo() {
     const action = undoActions.pop();
@@ -188,6 +190,8 @@ let redoActions = [];
       redoActions.push(action);
       chart.render();
       updateDragActions();
+    } else {
+      warningAlert("No actions to undo.");
     }
   }
 
@@ -202,21 +206,29 @@ let redoActions = [];
       undoActions.push(action);
       chart.render();
       updateDragActions();
+    } else {
+      warningAlert("No actions to redo.");
     }
   }
 
   function updateDragActions() {
     if (undoActions.length > 0) {
-      const undoButton = document.getElementById('undoButton');
-      undoButton.disabled = false;
+      const undoBtn = document.getElementById('undoBtn');
+      undoBtn.disabled = false;
     } else {
-      undoButton.disabled = true;
+      undoBtn.disabled = true;
     }
 
     if (redoActions.length > 0) {
-      const redoButton = document.getElementById('redoButton');
-      redoButton.disabled = false;
+      const redoBtn = document.getElementById('redoBtn');
+      redoBtn.disabled = false;
     } else {
-      redoButton.disabled = true;
+      redoBtn.disabled = true;
     }
+  }
+
+  function toggleSections() {
+    document.querySelectorAll('.cv_sectionBtn').forEach(el => el.classList.toggle('menu-disabled'));
+    document.querySelectorAll('.action_sectionBtn').forEach(el => el.classList.toggle('menu-disabled'));
+    document.querySelectorAll('.export_sectionBtn').forEach(el => el.classList.toggle('menu-disabled'));
   }
