@@ -97,7 +97,6 @@ function updateNode() {
         return;
     }
 
-
     const formUpdate = document.getElementById('updateForm');
     const nameInput = document.getElementById('nameInput');
     const positionInput = document.getElementById('positionInput');
@@ -105,7 +104,13 @@ function updateNode() {
 
     const name = nameInput.value;
     const position = positionInput.value;
-    const salary = salaryInput.value; 
+    const salaryString = salaryInput.value.replace(/[$,]/g, '');
+    const salary = salaryString ? parseFloat(salaryString) : null;
+
+    if (salaryString && isNaN(salary)) {
+        errorAlert("Error! Invalid salary format.");
+        return;
+    }
 
     formUpdate.classList.add('hidden');
 
@@ -116,7 +121,9 @@ function updateNode() {
 
         if (name) nodeToUpdate.name = name;
         if (position) nodeToUpdate.position = position;
-        if (salary) nodeToUpdate.salary = salary; 
+        if (salary !== null && !isNaN(salary)) {
+             nodeToUpdate.salary = salary;
+        }
 
         chart.data(data);
         chart.render();
