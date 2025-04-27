@@ -90,7 +90,7 @@ In order to run the DEV environment two terminals are needed to run FastAPI and 
    uv run app/data/makedb.py
    ```
 
-3. Create the SQLite database:
+3. Run the DEV FastAPI App:
    ```bash
    uv run fastapi dev
    ```
@@ -107,6 +107,38 @@ In order to run the DEV environment two terminals are needed to run FastAPI and 
 
 6. Open your browser and navigate to `http://localhost:8000`
 
+### Production Deployment
+
+Included in this repository is a Dockerfile to run the application in a production environment.
+
+1. Create the SQLite database:
+   ```bash
+   uv run app/data/makedb.py
+   ```
+      Typically, databases are stored in their own container separate from the application. This is an exception since this database is one table with about 25 rows of sample data that is only used for example purposes. To connect to production data, alter the database and models files in the FastAPI Python scripts. Be aware that any changes to the models will need to be reflected in the HTML and JavaScript for the application to work. Notably, the org.js and nodes.js files will have to be updated.
+   
+
+2. Ensure that the `.venv` and `node_modules` folders are deleted (if they exist) before building the Dockerfile:
+   Mac/Linux:
+   ```bash
+   rm -rf .venv node_modules
+   ```
+   Windows Powershell:
+   ```powershell
+   Remove-Item -Recurse -Force .venv, node_modules
+   ```
+
+3. Build the Docker image:
+   ```bash
+   docker build -t the-org:v0.1.0 .
+   ```
+
+4. Run the production container:
+   ```bash
+   docker run -p 8000:8000 the-org:v0.1.0
+   ```
+
+5. Open your browser and navigate to `http://localhost:8000`
 
 ## Usage
 
@@ -121,5 +153,5 @@ In order to run the DEV environment two terminals are needed to run FastAPI and 
 - **Backend**: FastAPI, SQLModel, SQLite
 - **Frontend**: JavaScript, D3.js, d3-org-chart
 - **Styling**: TailwindCSS, DaisyUI
-- **Development**: VSCode, Restore Terminals
-
+- **Development**: VSCode, Restore Terminals, UV
+- **Production**: Docker, UV
