@@ -55,7 +55,7 @@ fetch("/data")
             <div style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
               d.data.position
             } </div>
-            <div class="node-salaries" style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
+            <div class="node-salaries hidden" style="color:#716E7B;margin-left:20px;margin-top:3px;font-size:10px;"> ${
               new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(d.data.salary)
             } </div>
              <div style="display:flex;justify-content:space-between;padding-left:15px;padding-right:15px;">
