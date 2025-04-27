@@ -1,3 +1,5 @@
+let salaryHidden = true; 
+
 function fitChart() {
 	chart.fit();
 }
@@ -24,7 +26,7 @@ function zoomOutChart() {
 }
 
 function toggleSalaries() {
-    let salaryHidden = !document.querySelector('.node-salaries')?.classList.contains('hidden');
+    salaryHidden = !salaryHidden;
     chart.nodeContent(function (d, i, arr, state) {
         const color = "#FFFFFF";
         const imageDiffVert = 25 + 2;
@@ -56,8 +58,6 @@ function toggleSalaries() {
             <div style="color:#08011E; position: absolute; bottom: 10px; right: 15px;" class="node-total-reports">Total: ${
               d.data._totalSubordinates
             } </div>
-              </div>
-
               </div>
           </div>
             `;
