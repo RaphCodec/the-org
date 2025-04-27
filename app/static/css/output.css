@@ -935,6 +935,21 @@
       opacity: 100%;
     }
   }
+  .avatar {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    & > div {
+      display: block;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
   .checkbox {
     border: var(--border) solid var(--input-color, var(--color-base-content));
     @supports (color: color-mix(in lab, red, red)) {

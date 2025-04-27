@@ -1,12 +1,11 @@
 [project]
 name = "the-org"
 version = "0.1.0"
-description = "Add your description here"
+description = "The Org is a FastAPI application to display the organizational structure of a company."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.115.12",
-    "pyodbc>=5.2.0",
     "sqlmodel>=0.0.24",
 ]
 
