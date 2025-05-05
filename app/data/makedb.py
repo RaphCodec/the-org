@@ -5,6 +5,10 @@ import os
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sqlite_db_path = os.path.join(project_root, "database.db")
 
+if os.path.exists(sqlite_db_path):
+    os.remove(sqlite_db_path)
+    print(f"Removed existing database at {sqlite_db_path}")
+
 # Embedded JSON data as a dictionary
 data = [
     {

@@ -6,19 +6,14 @@
           "name": "fastapi",
           "commands": ["uv run app/data/makedb.py ", "uv run fastapi dev"],
         },
-      ]
-    },
-    {
-      "splitTerminals": [
         {
           "name": "tailwind",
           "commands": [
             "npm install", 
             "npx @tailwindcss/cli -i app/static/css/input.css -o app/static/css/output.css --watch"
           ],
-        },
+        }
       ]
     }
   ]
-
 }
