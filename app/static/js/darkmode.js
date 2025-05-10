@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeSwitch.checked = false;
     } else {
-      document.documentElement.setAttribute('data-theme', 'lofi');
+      document.documentElement.setAttribute('data-theme', 'light');
       themeSwitch.checked = true;
     }
   };
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   themeSwitch.addEventListener('change', () => {
     if (themeSwitch.checked) {
-      document.documentElement.setAttribute('data-theme', 'lofi');
+      document.documentElement.setAttribute('data-theme', 'light');
     } else {
       document.documentElement.setAttribute('data-theme', 'dark');
     }
