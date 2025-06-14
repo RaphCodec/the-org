@@ -36,6 +36,7 @@
     <script src="/static/js/dragDrop.js"></script>
     <script src="/static/js/search.js"></script>
     <script src="/static/js/lineage.js"></script>
+    <script src="/static/js/help.js"></script>
   </head>
   
 
@@ -74,6 +75,33 @@
         </label>
       </div>
     </div>
+
+    <!-- Help Button -->
+    <div class="fixed bottom-0 right-0 p-4">
+      <button class="btn btn-info" onclick="showHelpForm()">Contact Us</button>
+    </div>
+
+    <!-- Help Form -->
+     <fieldset id="helpForm" class="fieldset w-xs bg-base-200 border-4 border-accent p-4 rounded-box fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden">
+      <legend class="fieldset-legend">Contact us</legend>
+
+      <label class="label">Email</label>
+      <input class="input validator" type="email" required placeholder="mail@site.com" />
+      <div class="validator-hint">Enter valid email address</div>
+
+      <label class="label">Subject</label>
+      <input type="text" class="input validator" required placeholder="Subject" 
+       minlength="3" maxlength="300" title="Subject Length" />
+      <p class="validator-hint">
+        Subject must be 3 to 300 characters
+      </p>
+
+      <label class="label">Message</label>
+      <textarea class="textarea" placeholder="Message"></textarea>
+
+      <button class="btn btn-neutral mt-4" onclick="hideHelpForm()">Send</button>
+    </fieldset>
+    
 
     <!-- Alerts -->
     <div
