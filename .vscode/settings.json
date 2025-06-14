@@ -4,7 +4,7 @@
       "splitTerminals": [
         {
           "name": "fastapi",
-          "commands": ["uv run app/data/makedb.py ", "uv run fastapi dev"],
+          "commands": ["uv run fastapi dev"],
         },
         {
           "name": "tailwind",
