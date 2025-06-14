@@ -85,38 +85,28 @@ In order to run the DEV environment two terminals are needed to run FastAPI and 
    cd the-org
    ```
 
-2. Create the SQLite database:
-   ```bash
-   uv run app/data/makedb.py
-   ```
-
-3. Run the DEV FastAPI App:
+2. Run the DEV FastAPI App:
    ```bash
    uv run fastapi dev
    ```
 
-4. Install Node.js dependencies in a seperate terminal:
+3. Install Node.js dependencies in a seperate terminal:
    ```bash
    npm install
    ```
 
-5. Create and populate the database:
+4. Create and populate the database:
    ```bash
    npx @tailwindcss/cli -i app/static/css/input.css -o app/static/css/output.css --watch
    ```
 
-6. Open your browser and navigate to `http://localhost:8000`
+5. Open your browser and navigate to `http://localhost:8000`
 
 ### Production Deployment
 
 Included in this repository is a Dockerfile to run the application in a production environment.
 
-1. Create the SQLite database:
-   ```bash
-   uv run app/data/makedb.py
-   ```
-      Typically, databases are stored in their own container separate from the application. This is an exception since this database is one table with about 25 rows of sample data that is only used for example purposes. To connect to production data, alter the database and models files in the FastAPI Python scripts. Be aware that any changes to the models will need to be reflected in the HTML and JavaScript for the application to work. Notably, the org.js and nodes.js files will have to be updated.
-   
+1. (Optional) If you need to connect to production data, alter the database and models files in the FastAPI Python scripts. Be aware that any changes to the models will need to be reflected in the HTML and JavaScript for the application to work. Notably, the org.js and nodes.js files will have to be updated.
 
 2. Ensure that the `.venv` and `node_modules` folders are deleted (if they exist) before building the Dockerfile:
    Mac/Linux:
