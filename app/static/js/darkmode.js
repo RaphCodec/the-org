@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const applyTheme = (isDarkMode) => {
     if (isDarkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-theme', 'night');
       themeSwitch.checked = false;
     } else {
-      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-theme', 'lofi');
       themeSwitch.checked = true;
     }
   };
@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   themeSwitch.addEventListener('change', () => {
     if (themeSwitch.checked) {
-      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-theme', 'lofi');
     } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-theme', 'night');
     }
   });
 });
