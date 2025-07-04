@@ -231,10 +231,10 @@
     >
       <legend class="fieldset-legend">Update Information</legend>
       <button 
-        class="btn btn-ghost btn-secondary btn-circle btn-sm absolute top-2 right-2 p-2 bg-transparent text-secondary cursor-pointer" 
-        onclick="document.getElementById('updateForm').classList.add('hidden')">
-        <i class="bx bx-x text-lg"></i>
-      </button>
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        onclick="document.getElementById('updateForm').classList.add('hidden')"
+        type="button"
+      >✕</button>
       <label class="fieldset-label mt-4">Name</label>
       <input id="nameInput" type="text" class="input" placeholder="Name" /> 
 
@@ -254,12 +254,20 @@
     </fieldset>
 
     <!-- levels list -->
-    <ul
+    <div
       id="levelsList"
-      class="list bg-base-200 border-4 border-accent rounded-box shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden max-h-72 overflow-y-auto"
+      class="list bg-base-200 border-4 border-accent rounded-box shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden max-h-72 overflow-y-auto min-w-[200px]"
+      style="z-index:1001;"
     >
-    
-    </ul>
+      <button 
+        class="btn btn-ghost btn-secondary btn-circle btn-sm absolute top-2 right-2 p-2 bg-transparent text-secondary cursor-pointer"
+        onclick="document.getElementById('levelsList').classList.add('hidden')"
+        type="button"
+      >
+        <i class="bx bx-x text-lg"></i>
+      </button>
+      <ul id="levelsListContent" class="pt-8 pb-2 px-2"></ul>
+    </div>
 
     <!-- Floating Menu -->
     <div
