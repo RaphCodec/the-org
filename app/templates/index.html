@@ -77,31 +77,90 @@
     </div>
 
     <!-- Help Button -->
-    <div class="fixed bottom-0 right-0 p-4">
-      <button class="btn btn-info" onclick="showHelpForm()">Contact Us</button>
+    <div class="fixed bottom-0 right-0 p-4 z-50">
+      <button class="btn btn-info btn-circle text-xl" onclick="help_modal.showModal()">
+        <i class="bx bx-question-mark"></i>
+      </button>
     </div>
 
-    <!-- Help Form -->
-     <fieldset id="helpForm" class="fieldset w-xs bg-base-200 border-4 border-accent p-4 rounded-box fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden">
-      <legend class="fieldset-legend">Contact us</legend>
+    <!-- Help Guide Modal -->
+    <dialog id="help_modal" class="modal">
+      <div class="modal-box max-w-lg max-h-[80vh] overflow-y-auto">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold mb-2">App Guide</h3>
+        <p class="mb-4 text-sm text-base-content/70">Learn what each menu section and button does.</p>
+        <div class="space-y-2">
 
-      <label class="label">Email</label>
-      <input class="input validator" type="email" required placeholder="mail@site.com" />
-      <div class="validator-hint">Enter valid email address</div>
+          <!-- General Section -->
+          <details class="collapse collapse-arrow bg-base-200">
+            <summary class="collapse-title font-semibold">General</summary>
+            <div class="collapse-content text-sm">
+              <ul class="list-disc ml-5 space-y-1">
+                <li><b>Search Bar</b>: Type a name or position to quickly find nodes in the organization chart. Results appear as you type.</li>
+                <li><b>Dark Mode Toggle</b>: Click the sun/moon icon in the navbar to switch between light and dark themes for the app.</li>
+              </ul>
+            </div>
+          </details>
 
-      <label class="label">Subject</label>
-      <input type="text" class="input validator" required placeholder="Subject" 
-       minlength="3" maxlength="300" title="Subject Length" />
-      <p class="validator-hint">
-        Subject must be 3 to 300 characters
-      </p>
+          <!-- Chart View Section -->
+          <details class="collapse collapse-arrow bg-base-200">
+            <summary class="collapse-title font-semibold">Chart View</summary>
+            <div class="collapse-content text-sm">
+              <ul class="list-disc ml-5 space-y-1">
+                <li><b>Fit</b>: Adjusts the chart to fit the screen.</li>
+                <li><b>Rotate</b>: Rotates the chart orientation.</li>
+                <li><b>Compact</b>: Toggles compact view for the chart.</li>
+                <li><b>Zoom In/Out</b>: Zooms the chart in or out.</li>
+                <li><b>Salaries</b>: Shows or hides salary information.</li>
+                <li><b>Levels</b>: Displays a list of hierarchy levels.</li>
+              </ul>
+            </div>
+          </details>
 
-      <label class="label">Message</label>
-      <textarea class="textarea" placeholder="Message"></textarea>
+          <!-- Actions Section -->
+          <details class="collapse collapse-arrow bg-base-200">
+            <summary class="collapse-title font-semibold">Actions</summary>
+            <div class="collapse-content text-sm">
+              <ul class="list-disc ml-5 space-y-1">
+                <li><b>Edit Selected</b>: Edit the currently selected node.</li>
+                <li><b>Add Vacancy</b>: Add a new position under the selected node.</li>
+                <li><b>Remove Selected</b>: Delete the selected node.</li>
+                <li><b>Deselect All</b>: Unselect all nodes.</li>
+                <li><b>Show Sub Hierarchy</b>: View only the selected node and its subordinates.</li>
+                <li><b>Show Lineage</b>: View the chain of command above the selected node.</li>
+              </ul>
+            </div>
+          </details>
 
-      <button class="btn btn-neutral mt-4" onclick="hideHelpForm()">Send</button>
-    </fieldset>
-    
+          <!-- Organize Section -->
+          <details class="collapse collapse-arrow bg-base-200">
+            <summary class="collapse-title font-semibold">Organize</summary>
+            <div class="collapse-content text-sm">
+              <ul class="list-disc ml-5 space-y-1">
+                <li><b>Start</b>: Enable drag-and-drop mode to rearrange nodes.</li>
+                <li><b>Finish</b>: Save changes and exit drag mode.</li>
+                <li><b>Undo</b>: Undo the last drag action.</li>
+                <li><b>Redo</b>: Redo the last undone action.</li>
+                <li><b>Cancel</b>: Cancel all drag changes.</li>
+              </ul>
+            </div>
+          </details>
+
+          <!-- Export Section -->
+          <details class="collapse collapse-arrow bg-base-200">
+            <summary class="collapse-title font-semibold">Export</summary>
+            <div class="collapse-content text-sm">
+              <ul class="list-disc ml-5 space-y-1">
+                <li><b>PNG</b>: Export the current chart as a PNG image.</li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </dialog>
 
     <!-- Alerts -->
     <div
