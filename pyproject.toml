@@ -1,6 +1,6 @@
 [project]
 name = "the-org"
-version = "0.1.0"
+version = "0.2.0"
 description = "The Org is a FastAPI application to display the organizational structure of a company."
 readme = "README.md"
 requires-python = ">=3.13"
