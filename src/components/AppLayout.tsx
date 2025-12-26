@@ -2,9 +2,9 @@ import ThemeToggle from "./ThemeToggle"
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open h-screen">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
+      <div className="drawer-content flex flex-col h-screen">
         {/* Navbar */}
         <nav className="navbar w-full bg-base-300">
           {/* LEFT */}
@@ -67,7 +67,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
 
         {/* Page content here */}
-        <div className="p-4">{children}</div>
+        <div className="p-4 flex-1 overflow-y-auto">{children}</div>
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible">
