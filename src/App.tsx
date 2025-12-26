@@ -1,11 +1,9 @@
-import { useState } from 'react'
+import AppLayout from "./layout/AppLayout"
 
-function App() {
-
+export default function App() {
   return (
-    // test daisyui
-    <button className="btn">Medium</button>
+    <AppLayout>
+      <h1 className="text-2xl font-bold">Page Content</h1>
+    </AppLayout>
   )
 }
-
-export default App
