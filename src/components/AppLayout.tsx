@@ -1,3 +1,5 @@
+import ThemeToggle from "./ThemeToggle"
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="drawer lg:drawer-open">
@@ -27,7 +29,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* RIGHT */}
+          
           <div className="navbar-end gap-2">
+            <ThemeToggle/>
+            
             <input
               type="text"
               placeholder="Search"
