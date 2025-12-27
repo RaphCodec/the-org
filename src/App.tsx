@@ -11,13 +11,16 @@ import {
   addEdge,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import dagre from '@dagrejs/dagre';
+import peopleData from "./data/people.json"
+import TextUpdaterNode from "./components/TextNode";
+import EmployeeNode from "./components/EmpNode";
 
 
-const initialNodes = [
-  { id: "n1", position: { x: 0, y: 0 }, data: { label: "Node 1" } },
-  { id: "n2", position: { x: 0, y: 100 }, data: { label: "Node 2" } },
-];
+const nodeTypes = { textUpdater: TextUpdaterNode, employee: EmployeeNode };
+const initialNodes = peopleData;
 const initialEdges = [{ id: "n1-n2", source: "n1", target: "n2" }];
+
 
 export default function App() {
   const [theme] = useTheme();
@@ -44,6 +47,7 @@ export default function App() {
       <div className="w-full h-full">
         <ReactFlow
           nodes={nodes}
+          nodeTypes={nodeTypes}
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
