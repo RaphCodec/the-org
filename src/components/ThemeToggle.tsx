@@ -1,7 +1,7 @@
-import useTheme from "./useTheme"
+import useTheme from "./useTheme";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useTheme()
+  const [theme, setTheme] = useTheme();
 
   return (
     <label className="toggle text-base-content">
@@ -12,8 +12,18 @@ export default function ThemeToggle() {
       />
 
       {/* Sun icon */}
-      <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor">
+      <svg
+        aria-label="sun"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <g
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          strokeWidth="2"
+          fill="none"
+          stroke="currentColor"
+        >
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2"></path>
           <path d="M12 20v2"></path>
@@ -27,11 +37,21 @@ export default function ThemeToggle() {
       </svg>
 
       {/* Moon icon */}
-      <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor">
+      <svg
+        aria-label="moon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <g
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          strokeWidth="2"
+          fill="none"
+          stroke="currentColor"
+        >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </g>
       </svg>
     </label>
-  )
+  );
 }
