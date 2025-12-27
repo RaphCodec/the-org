@@ -1,7 +1,58 @@
 [tool.commitizen]
-name = "cz_conventional_commits"
+name = "cz_customize"
 tag_format = "$version"
 version_scheme = "semver2"
 version_provider = "npm"
 update_changelog_on_bump = true
 major_version_zero = true
+
+[tool.commitizen.customize]
+message_template = """
+{% if type %}{{type}}{% if is_breaking %}!{% endif %}{% if scope %}({{ scope | replace(' ', '-') | lower }}){% endif %}: {% endif %}{{subject}}{% if body %}
+\n\n{{body}}{% endif %}{% if footer %}
+\n\n{{footer}}{% endif %}
+"""
+example = "feat(parser): add ability to parse arrays"
+
+[[tool.commitizen.customize.questions]]
+type = "list"
+name = "type"
+message = "Select the type of change you are committing"
+choices = [
+	{value = "feat", name = "feat: A new feature"},
+	{value = "fix", name = "fix: A bug fix"},
+	{value = "docs", name = "docs: Documentation only changes"},
+	{value = "style", name = "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"},
+	{value = "refactor", name = "refactor: A code change that neither fixes a bug nor adds a feature"},
+	{value = "perf", name = "perf: A code change that improves performance"},
+	{value = "test", name = "test: Adding missing tests or correcting existing tests"},
+	{value = "build", name = "build: Changes that affect the build system or external dependencies"},
+	{value = "ci", name = "ci: Changes to CI configuration files and scripts"},
+	{value = "chore", name = "chore: Routine tasks or maintenance updates"},
+	{value = "revert", name = "revert: Revert to a commit"}
+]
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "scope"
+message = "Scope (optional):"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "subject"
+message = "Short description (max 72 chars):"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "body"
+message = "Longer description (optional):"
+
+[[tool.commitizen.customize.questions]]
+type = "confirm"
+name = "is_breaking"
+message = "Are there any breaking changes?"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "footer"
+message = "Footer (e.g., Issues, breaking change notes) (optional):"
