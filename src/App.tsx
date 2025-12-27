@@ -11,16 +11,16 @@ import {
   addEdge,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import dagre from '@dagrejs/dagre';
-import peopleData from "./data/people.json"
-import TextUpdaterNode from "./components/TextNode";
+import dagre from "@dagrejs/dagre";
+import peopleData from "./data/people.json";
 import EmployeeNode from "./components/EmpNode";
 
-
-const nodeTypes = { textUpdater: TextUpdaterNode, employee: EmployeeNode };
+const nodeTypes = { employeeNode: EmployeeNode };
 const initialNodes = peopleData;
-const initialEdges = [{ id: "n1-n2", source: "n1", target: "n2" }];
-
+const initialEdges = [
+  { id: "n1-n2", source: "n1", target: "n2" },
+  { id: "n2-n3", source: "n2", target: "n3" },
+];
 
 export default function App() {
   const [theme] = useTheme();

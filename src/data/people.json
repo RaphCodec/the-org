@@ -1,15 +1,38 @@
 [
-  { "id": "n1", "position": { "x": 0, "y": 0 }, "data": { "label": "Node 1" } },
+  {
+    "id": "n1",
+    "position": { "x": 0, "y": 0 },
+    "data": {
+      "name": "Sherlock Holmes",
+      "title": "Geniues Detective",
+      "departmentCode": "",
+      "department": "Self Employed",
+      "salary": 70000
+    },
+    "type": "employeeNode"
+  },
   {
     "id": "n2",
     "position": { "x": 0, "y": 100 },
-    "data": { "label": "Node 2" },
-    "type": "textUpdater"
+    "data": {
+      "name": "Ethan Hunt",
+      "title": "Agent 007",
+      "departmentCode": "IMF",
+      "department": "Impossible Mission Force",
+      "salary": 70000
+    },
+    "type": "employeeNode"
   },
   {
     "id": "n3",
-    "position": { "x": 0, "y": 100 },
-    "data": { "label": "Node 3" },
-    "type": "employee"
+    "position": { "x": 0, "y": 200 },
+    "data": {
+      "name": "James Bond",
+      "title": "Agent 007",
+      "departmentCode": "MI6",
+      "department": "Britsh Secret Service",
+      "salary": 70000
+    },
+    "type": "employeeNode"
   }
 ]
