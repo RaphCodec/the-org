@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { NodeProps, Node as XYNode } from "@xyflow/react";
 import { Handle, Position } from "@xyflow/react";
+import LimitConnectionHandle from "./LimitConnectionHandle";
 
 export type EmployeeNode = XYNode<
   {
@@ -30,7 +31,11 @@ export default function EmployeeNode({
 
   return (
     <div className="fill border-2 p-2 rounded h-28 w-64 bg-base-100">
-      <Handle type="target" position={targetPosition ?? Position.Top} />
+      <LimitConnectionHandle
+        type="target"
+        position={targetPosition ?? Position.Top}
+        connectionCount={1}
+      />
       <Handle type="source" position={sourcePosition ?? Position.Bottom} />
       <div>
         <p className="text text-base font-bold font-mono">{name}</p>
