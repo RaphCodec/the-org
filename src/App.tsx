@@ -24,11 +24,16 @@ const initialNodes = peopleData;
 const initialEdges = [
   { id: "n1-n2", source: "n1", target: "n2", type: "smoothstep" },
   { id: "n1-n3", source: "n1", target: "n3", type: "smoothstep" },
+  { id: "n3-n4", source: "n3", target: "n4", type: "smoothstep" },
+  { id: "n3-n5", source: "n3", target: "n5", type: "smoothstep" },
+  { id: "n2-n6", source: "n2", target: "n6", type: "smoothstep" },
+  { id: "n2-n7", source: "n2", target: "n7", type: "smoothstep" },
+  { id: "n2-n8", source: "n2", target: "n8", type: "smoothstep" },
 ];
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
-const nodeWidth = 500;
-const nodeHeight = 360;
+const nodeWidth = 300;
+const nodeHeight = 180;
 
 const getLayoutedElements = (nodes, edges, direction = "TB") => {
   dagreGraph.setGraph({ rankdir: direction });

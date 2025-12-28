@@ -39,11 +39,60 @@
     "id": "n4",
     "position": { "x": 0, "y": 0 },
     "data": {
-      "name": "James Bond",
-      "title": "Agent 007",
+      "name": "MoneyPenny",
+      "title": "Secretary to James Bond",
       "departmentCode": "MI6",
       "department": "Britsh Secret Service",
       "salary": 70000
+    },
+    "type": "employeeNode"
+  },
+  {
+    "id": "n5",
+    "position": { "x": 0, "y": 0 },
+    "data": {
+      "name": "Q",
+      "title": "Quartermaster",
+      "departmentCode": "MI6",
+      "department": "Britsh Secret Service",
+      "salary": 70000
+    },
+    "type": "employeeNode"
+  }
+  ,
+  {
+    "id": "n6",
+    "position": { "x": 0, "y": 0 },
+    "data": {
+      "name": "Luther Stickell",
+      "title": "Hacker / IMF Agent",
+      "departmentCode": "IMF",
+      "department": "Impossible Mission Force",
+      "salary": 65000
+    },
+    "type": "employeeNode"
+  },
+  {
+    "id": "n7",
+    "position": { "x": 0, "y": 0 },
+    "data": {
+      "name": "Benji Dunn",
+      "title": "Tech Specialist",
+      "departmentCode": "IMF",
+      "department": "Impossible Mission Force",
+      "salary": 60000
+    },
+    "type": "employeeNode"
+  },
+  {
+    "id": "n8",
+    "position": { "x": 0, "y": 0 },
+    "data": {
+      "name": "Ilsa Faust",
+      "title": "Field Agent",
+      "departmentCode": "MI6/IMF",
+      "department": "Field Operations",
+      "salary": 72000
     },
     "type": "employeeNode"
   }
