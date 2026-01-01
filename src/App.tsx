@@ -18,6 +18,7 @@ import "@xyflow/react/dist/style.css";
 import dagre from "@dagrejs/dagre";
 import peopleData from "./data/people.json";
 import EmployeeNode from "./components/EmpNode";
+import ZoomSlider from "./components/ZoomSlider";
 
 const nodeTypes = { employeeNode: EmployeeNode };
 const initialNodes = peopleData;
@@ -128,6 +129,11 @@ export default function App() {
     },
     [nodes, edges, setNodes, setEdges]
   );
+
+  // const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
+  //   "horizontal",
+  // );
+
   return (
     <AppLayout>
       <div className="w-full h-full">
@@ -141,7 +147,7 @@ export default function App() {
           fitView
           colorMode={theme}
         >
-          <Controls />
+          {/* <Controls /> */}
           <Panel position="top-right">
             <button className="btn" onClick={() => onLayout("BT")}>
               Up
@@ -155,6 +161,9 @@ export default function App() {
             <button className="btn" onClick={() => onLayout("LR")}>
               Right
             </button>
+          </Panel>
+          <Panel position="bottom-left">
+            <ZoomSlider orientation= "horizontal" />
           </Panel>
           <MiniMap />
           {/* <Background variant="dots" gap={12} size={1} /> */}
