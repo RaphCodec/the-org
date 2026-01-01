@@ -58,8 +58,7 @@
       "salary": 70000
     },
     "type": "employeeNode"
-  }
-  ,
+  },
   {
     "id": "n6",
     "position": { "x": 0, "y": 0 },
