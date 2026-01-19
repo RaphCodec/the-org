@@ -1,14 +1,16 @@
-import { Handle, useNodeConnections } from '@xyflow/react';
+import { Handle, useNodeConnections } from "@xyflow/react";
 
 const LimitConnectionHandle = (props) => {
+  const { connectionCount, ...rest } = props;
+
   const connections = useNodeConnections({
-    handleType: props.type,
+    handleType: rest.type,
   });
 
   return (
     <Handle
-      {...props}
-      isConnectable={connections.length < props.connectionCount}
+      {...rest}
+      isConnectable={connections.length < (connectionCount ?? Infinity)}
     />
   );
 };

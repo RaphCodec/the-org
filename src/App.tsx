@@ -1,4 +1,3 @@
-import AppLayout from "./components/AppLayout";
 import { useState, useCallback } from "react";
 import useTheme from "./components/useTheme";
 import {
@@ -18,6 +17,10 @@ import "@xyflow/react/dist/style.css";
 import dagre from "@dagrejs/dagre";
 import peopleData from "./data/people.json";
 import EmployeeNode from "./components/EmpNode";
+import FloatingMenu from "./components/FloatingMenu";
+import Navbar from "./components/Navbar";
+import ZoomSlider from "./components/ZoomSlider";
+import { NodeSearch } from "./components/NodeSearch";
 
 const nodeTypes = { employeeNode: EmployeeNode };
 const initialNodes = peopleData;
@@ -128,10 +131,14 @@ export default function App() {
     },
     [nodes, edges, setNodes, setEdges]
   );
+
+  // const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
+  //   "horizontal",
+  // );
+
   return (
-    <AppLayout>
-      <div className="w-full h-full">
-        <ReactFlow
+    <div className="w-screen h-screen">
+      <ReactFlow
           nodes={nodes}
           nodeTypes={nodeTypes}
           edges={edges}
@@ -141,25 +148,30 @@ export default function App() {
           fitView
           colorMode={theme}
         >
-          <Controls />
-          <Panel position="top-right">
-            <button className="btn" onClick={() => onLayout("BT")}>
-              Up
-            </button>
-            <button className="btn" onClick={() => onLayout("TB")}>
-              Down
-            </button>
-            <button className="btn" onClick={() => onLayout("RL")}>
-              Left
-            </button>
-            <button className="btn" onClick={() => onLayout("LR")}>
-              Right
-            </button>
+          <Panel position="top-center">
+            <Navbar />
+          </Panel>
+          
+          <Panel
+            className="flex gap-1 rounded-md bg-base-100 text-base-content p-1"
+            position="top-right"
+          >
+            <NodeSearch />
+          </Panel>
+
+          {/* <Controls /> */}
+          <Panel position="top-left">
+            <div className="mt-12">
+              <FloatingMenu onLayout={onLayout} />
+            </div>
+          </Panel>
+
+          <Panel position="bottom-left">
+            <ZoomSlider orientation= "horizontal" />
           </Panel>
           <MiniMap />
           {/* <Background variant="dots" gap={12} size={1} /> */}
         </ReactFlow>
       </div>
-    </AppLayout>
   );
 }
