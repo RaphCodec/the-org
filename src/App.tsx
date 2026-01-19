@@ -18,6 +18,7 @@ import "@xyflow/react/dist/style.css";
 import dagre from "@dagrejs/dagre";
 import peopleData from "./data/people.json";
 import EmployeeNode from "./components/EmpNode";
+import FloatingMenu from "./components/FloatingMenu";
 import ZoomSlider from "./components/ZoomSlider";
 import { NodeSearch } from "./components/NodeSearch";
 
@@ -156,18 +157,7 @@ export default function App() {
           </Panel>
           {/* <Controls /> */}
           <Panel position="top-left">
-            <button className="btn" onClick={() => onLayout("BT")}>
-              Up
-            </button>
-            <button className="btn" onClick={() => onLayout("TB")}>
-              Down
-            </button>
-            <button className="btn" onClick={() => onLayout("RL")}>
-              Left
-            </button>
-            <button className="btn" onClick={() => onLayout("LR")}>
-              Right
-            </button>
+            <FloatingMenu onLayout={onLayout} />
           </Panel>
           <Panel position="bottom-left">
             <ZoomSlider orientation= "horizontal" />
