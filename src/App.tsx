@@ -151,16 +151,21 @@ export default function App() {
           <Panel position="top-center">
             <Navbar />
           </Panel>
+          
           <Panel
             className="flex gap-1 rounded-md bg-base-100 text-base-content p-1"
             position="top-right"
           >
             <NodeSearch />
           </Panel>
+
           {/* <Controls /> */}
           <Panel position="top-left">
-            <FloatingMenu onLayout={onLayout} />
+            <div className="mt-12">
+              <FloatingMenu onLayout={onLayout} />
+            </div>
           </Panel>
+
           <Panel position="bottom-left">
             <ZoomSlider orientation= "horizontal" />
           </Panel>
