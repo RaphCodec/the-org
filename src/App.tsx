@@ -19,6 +19,7 @@ import dagre from "@dagrejs/dagre";
 import peopleData from "./data/people.json";
 import EmployeeNode from "./components/EmpNode";
 import ZoomSlider from "./components/ZoomSlider";
+import { NodeSearch } from "./components/NodeSearch";
 
 const nodeTypes = { employeeNode: EmployeeNode };
 const initialNodes = peopleData;
@@ -147,8 +148,14 @@ export default function App() {
           fitView
           colorMode={theme}
         >
+          <Panel
+            className="flex gap-1 rounded-md bg-base-100 text-base-content p-1"
+            position="top-right"
+          >
+            <NodeSearch />
+          </Panel>
           {/* <Controls /> */}
-          <Panel position="top-right">
+          <Panel position="top-left">
             <button className="btn" onClick={() => onLayout("BT")}>
               Up
             </button>
