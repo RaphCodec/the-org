@@ -1,4 +1,3 @@
-import AppLayout from "./components/AppLayout";
 import { useState, useCallback } from "react";
 import useTheme from "./components/useTheme";
 import {
@@ -19,6 +18,7 @@ import dagre from "@dagrejs/dagre";
 import peopleData from "./data/people.json";
 import EmployeeNode from "./components/EmpNode";
 import FloatingMenu from "./components/FloatingMenu";
+import Navbar from "./components/Navbar";
 import ZoomSlider from "./components/ZoomSlider";
 import { NodeSearch } from "./components/NodeSearch";
 
@@ -137,9 +137,8 @@ export default function App() {
   // );
 
   return (
-    <AppLayout>
-      <div className="w-full h-full">
-        <ReactFlow
+    <div className="w-screen h-screen">
+      <ReactFlow
           nodes={nodes}
           nodeTypes={nodeTypes}
           edges={edges}
@@ -149,6 +148,9 @@ export default function App() {
           fitView
           colorMode={theme}
         >
+          <Panel position="top-center">
+            <Navbar />
+          </Panel>
           <Panel
             className="flex gap-1 rounded-md bg-base-100 text-base-content p-1"
             position="top-right"
@@ -166,6 +168,5 @@ export default function App() {
           {/* <Background variant="dots" gap={12} size={1} /> */}
         </ReactFlow>
       </div>
-    </AppLayout>
   );
 }
