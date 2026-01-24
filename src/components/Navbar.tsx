@@ -3,7 +3,7 @@ import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   return (
-    <ul className="menu bg-base-200 lg:menu-horizontal rounded-box items-center">
+    <ul className="menu bg-base-300 border border-accent lg:menu-horizontal rounded-box items-center">
       <li>
         <a className="flex items-center gap-2">
           <svg

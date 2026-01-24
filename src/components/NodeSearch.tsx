@@ -163,7 +163,7 @@ export function NodeSearch({
 }: NodeSearchProps) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-lg border shadow-md md:min-w-[450px] p-2">
+    <div className="rounded-lg shadow-sm md:min-w-[450px] p-2">
       <NodeSearchInternal
         className={className}
         onSearch={onSearch}
